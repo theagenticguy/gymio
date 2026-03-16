@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Computed
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Computed, JSON
 from sqlalchemy.dialects.postgresql import TIMESTAMP, DATE
 from sqlalchemy.orm import relationship
 from .database import Base
@@ -118,3 +118,84 @@ class WorkoutType(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True)
     description = Column(String)
+
+
+class ExerciseCatalog(Base):
+    __tablename__ = "exercise_catalog"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True)
+    muscle_group = Column(String, index=True)
+    equipment = Column(String)
+    pattern = Column(String)
+
+
+class WorkoutLog(Base):
+    __tablename__ = "workout_log"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user = Column(String, index=True)
+    exercise = Column(String, index=True)
+    weight = Column(Integer)
+    reps = Column(Integer)
+    set_number = Column(Integer)
+    rpe = Column(Integer, nullable=True)
+    velocity = Column(String, nullable=True)
+    notes = Column(String, nullable=True)
+    timestamp = Column(TIMESTAMP(timezone=True))
+    session_date = Column(DATE, index=True)
+
+
+class GeneratedWorkout(Base):
+    """Caches AI-generated content: workout suggestions, 9-round plans, analyses."""
+    __tablename__ = "generated_workouts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user = Column(String, index=True)
+    workout_type = Column(String, index=True)  # "suggest", "nine_round", "analyze"
+    goal = Column(String, nullable=True)  # "hypertrophy", "strength", null for nine_round/analyze
+    payload = Column(JSON)  # Full structured response
+    context_log_id = Column(Integer, nullable=True)  # WorkoutLog.id at generation time (cache key)
+    ai_generated = Column(Boolean, default=True)
+    created_at = Column(TIMESTAMP(timezone=True))
+
+
+class RoundReaction(Base):
+    """Persists thumbs up/down on 9-round exercises for AI context."""
+    __tablename__ = "round_reactions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user = Column(String, index=True)
+    round_data = Column(JSON)  # The round object
+    reaction = Column(String)  # "liked" or "disliked"
+    created_at = Column(TIMESTAMP(timezone=True))
+
+
+class PersonalRecord(Base):
+    """Tracks all-time personal records per exercise per user."""
+    __tablename__ = "personal_records"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user = Column(String, index=True)
+    exercise = Column(String, index=True)
+    weight = Column(Integer)
+    reps = Column(Integer)
+    estimated_1rm = Column(Integer)
+    previous_1rm = Column(Integer, nullable=True)
+    session_date = Column(DATE)
+    created_at = Column(TIMESTAMP(timezone=True))
+
+
+class Program(Base):
+    """AI-generated multi-week training program."""
+    __tablename__ = "programs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user = Column(String, index=True)
+    goal = Column(String)
+    days_per_week = Column(Integer)
+    weeks = Column(Integer)
+    payload = Column(JSON)
+    active = Column(Boolean, default=True)
+    notes = Column(String, nullable=True)
+    created_at = Column(TIMESTAMP(timezone=True))

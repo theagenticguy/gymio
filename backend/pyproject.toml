@@ -1,26 +1,32 @@
-[tool.poetry]
-name = "backend"
-version = "0.1.0"
-description = ""
-authors = ["Laith Al-Saadoon <alsaadoonlaith@gmail.com>"]
+[project]
+name = "gymio-backend"
+version = "2.0.0"
+description = "GYMIO smart home gym backend"
+authors = [{name = "Laith Al-Saadoon", email = "alsaadoonlaith@gmail.com"}]
 readme = "README.md"
-packages = [{include = "backend"}]
+requires-python = ">=3.12"
+dependencies = [
+    "apscheduler>=3.10.4",
+    "fastapi[all]>=0.115",
+    "sqlalchemy>=2.0.35",
+    "bleak>=0.22",
+    "soco>=0.30",
+    "boto3>=1.35",
+    "python-dotenv>=1.2.2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-APScheduler = "^3.10.4"
-gpiozero = "^2.0.1"
-rpi-gpio = "^0.7.1"
-fastapi = {extras = ["all"], version = "^0.95.1"}
-psycopg = "^3.2.3"
-bleak = "^0.20.2"
-sqlalchemy = "^2.0.35"
-websocket = "^0.2.1"
-asyncio = "^3.4.3"
+[dependency-groups]
+dev = [
+    "ruff>=0.8",
+]
+pi = [
+    "gpiozero>=2.0.1",
+    "rpi-gpio>=0.7.1",
+]
 
-[tool.poetry.group.dev.dependencies]
-ruff = "0.6.8"
+[tool.hatch.build.targets.wheel]
+packages = ["server", "trainer", "lights", "button", "database", "my_types", "ble_system", "sonos", "ai"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"

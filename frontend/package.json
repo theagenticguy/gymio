@@ -1,49 +1,40 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "gymio",
+  "version": "2.0.0",
   "private": true,
+  "type": "module",
   "dependencies": {
-    "@cloudscape-design/components": "^3.0.787",
-    "@cloudscape-design/global-styles": "^1.0.32",
-    "@cloudscape-design/theming-runtime": "^1.0.63",
-    "@testing-library/jest-dom": "^6.5.0",
-    "@testing-library/react": "^16.0.1",
-    "@testing-library/user-event": "^14.5.2",
-    "axios": "^1.7.7",
-    "easy-peasy": "^6.0.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.27.0",
-    "web-vitals": "^4.2.3"
+    "@radix-ui/react-dialog": "^1.1.4",
+    "@radix-ui/react-dropdown-menu": "^2.1.4",
+    "@radix-ui/react-select": "^2.1.4",
+    "@radix-ui/react-slider": "^1.2.2",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-tooltip": "^1.1.6",
+    "@tanstack/react-query": "^5.62.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "motion": "^11.15.0",
+    "react": "^19.0.0",
+    "react-countdown-circle-timer": "^3.2.1",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.0",
+    "recharts": "^2.15.0",
+    "tailwind-merge": "^2.6.0",
+    "zustand": "^5.0.2"
   },
   "scripts": {
-    "start": "vite",
-    "start-host": "vite --host",
+    "dev": "vite",
+    "dev:host": "vite --host",
     "build": "vite build",
-    "serve": "vite preview"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.2",
-    "eslint": "^9.12.0",
-    "prettier": "^3.3.3",
-    "vite": "^5.4.9"
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.0.0",
+    "vite-plugin-pwa": "^0.21.1"
   }
 }

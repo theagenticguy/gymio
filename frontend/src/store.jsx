@@ -1,55 +1,92 @@
-import { createStore, action, thunk, persist } from "easy-peasy";
-import TimerApiClient from "./apiClient/timerClient";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-export const store = createStore({
-	user: persist(
-		{
-			label: "",
-			value: "",
-		},
-		{ storage: "localStorage" }
-	),
-	setUser: action((state, payload) => {
-		state.user = payload;
-	}),
-	workout: {
-		rounds: 3,
-		train: 180,
-		rest: 60,
-	},
-	setWorkout: action((state, payload) => {
-		state.workout = payload;
-	}),
-	uiDisplayObject: {
-		rounds: {
-			label: "",
-			value: "",
-		},
-		roundLength: {
-			label: "",
-			value: "",
-		},
-		restLength: {
-			label: "",
-			value: "",
-		},
-	},
-	setUIDisplayObject: action((state, payload) => {
-		state.uiDisplayObject = payload;
-	}),
-	workoutType: "cardio",
-	setWorkoutType: action((state, payload) => {
-		state.workoutType = payload;
-	}),
-	startWorkout: thunk(async (actions, payload) => {
-		const timerClient = new TimerApiClient();
-		const response = await timerClient.startWorkout(payload);
-		console.log(response);
-		actions.setWorkout(payload);
-	}),
-	stopWorkout: thunk(async (actions, payload) => {
-		const timerClient = new TimerApiClient();
-		const response = await timerClient.stopWorkout(payload);
-		console.log(response);
-	}),
-});
+const API_URL = import.meta.env.VITE_API_URL || (
+  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:5000"
+    : "https://gymio.me:5000"
+);
+
+export const useStore = create(
+  persist(
+    (set, get) => ({
+      // User
+      user: { label: "", value: "" },
+      setUser: (user) => set({ user }),
+
+      // Active tab (persists across refreshes)
+      activeTab: "timer",
+      setActiveTab: (activeTab) => set({ activeTab }),
+
+      // Workout config
+      workout: { rounds: 3, train: 180, rest: 60 },
+      setWorkout: (workout) => set({ workout }),
+
+      // Workout type
+      workoutType: "cardio",
+      setWorkoutType: (workoutType) => set({ workoutType }),
+
+      // 9-Round workout (persists so it survives tab changes)
+      nineRound: null,
+      setNineRound: (nineRound) => set({ nineRound }),
+      nineRoundConfig: { roundDuration: 180, restDuration: 30 },
+      setNineRoundConfig: (config) => set({ nineRoundConfig: config }),
+      nineRoundActiveCard: 0,
+      setNineRoundActiveCard: (idx) => set({ nineRoundActiveCard: idx }),
+
+      // Timer state (from WebSocket)
+      timer: { remaining: 0, phase: "idle", round: 0, totalRounds: 0 },
+      setTimer: (timer) => set({ timer }),
+
+      // Lights state (from WebSocket)
+      lights: { color: "off", mode: "solid" },
+      setLights: (lights) => set({ lights }),
+
+      // Now playing (from WebSocket)
+      nowPlaying: { title: "", artist: "", album: "", albumArt: "", duration: "", position: "" },
+      setNowPlaying: (nowPlaying) => set({ nowPlaying }),
+
+      // HR (from WebSocket — expanded with zone + HRV)
+      hr: { bpm: 0, zone: 0, zoneName: "", zoneColor: "#6b7280", zonePct: 0 },
+      setHr: (hr) => set({ hr }),
+
+      // HRV (from WebSocket)
+      hrv: { rmssd: null, sdnn: null, recoveryScore: null },
+      setHrv: (hrv) => set({ hrv }),
+
+      // HR connection status
+      hrStatus: { connected: false, address: null },
+      setHrStatus: (status) => set({ hrStatus: status }),
+
+      // HR history (last 5 minutes = 300 points at 1Hz)
+      hrHistory: [],
+      addHrPoint: (point) =>
+        set((state) => ({
+          hrHistory: [...state.hrHistory.slice(-299), point],
+        })),
+
+      // Recent PRs (live from WebSocket, ephemeral — for celebration animations)
+      recentPrs: [],
+      addPr: (pr) =>
+        set((state) => ({
+          recentPrs: [...state.recentPrs.slice(-9), pr],
+        })),
+      clearPrs: () => set({ recentPrs: [] }),
+
+      // API URL
+      apiUrl: API_URL,
+    }),
+    {
+      name: "gymio-storage",
+      partialize: (state) => ({
+        user: state.user,
+        activeTab: state.activeTab,
+        workout: state.workout,
+        workoutType: state.workoutType,
+        nineRound: state.nineRound,
+        nineRoundConfig: state.nineRoundConfig,
+        nineRoundActiveCard: state.nineRoundActiveCard,
+      }),
+    }
+  )
+);

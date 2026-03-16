@@ -3,16 +3,10 @@ from collections.abc import Callable
 
 
 class Timer(BaseModel):
-    """Docstring for Timer.
     seconds: int
     is_blink: bool
-    color_on: Callable[[None], None]
-    color_off: Callable[[None], None]
+    color_on: Callable
+    color_off: Callable
     current_round: int
-    """
-
-    seconds: int
-    is_blink: bool
-    color_on: Callable[[None], None]
-    color_off: Callable[[None], None]
-    current_round: int
+    phase: str = "train"
+    color_name: str = "green"

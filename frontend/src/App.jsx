@@ -1,14 +1,21 @@
-import { BrowserRouter } from "react-router-dom";
-import Main from "./main/main";
-import { TopNav } from "./components";
+import { LayoutSwitcher } from "./layouts/LayoutSwitcher";
+import { useWebSocket } from "./hooks/useWebSocket";
+import { useDemoMode } from "./hooks/useDemoMode";
+
+function WebSocketConnector() {
+  useWebSocket();
+  return null;
+}
 
 function App() {
-	return (
-		<BrowserRouter>
-			<TopNav />
-			<Main />
-		</BrowserRouter>
-	);
+  const isDemo = useDemoMode();
+
+  return (
+    <div className="dark">
+      {!isDemo && <WebSocketConnector />}
+      <LayoutSwitcher />
+    </div>
+  );
 }
 
 export default App;

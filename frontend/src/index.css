@@ -1,13 +1,223 @@
-body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-		"Helvetica Neue", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --radius: 0.5rem;
+
+    /* Ambient phase colors (set dynamically by JS) */
+    --ambient-r: 34;
+    --ambient-g: 197;
+    --ambient-b: 94;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    overflow: hidden;
+  }
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
+/* ── Monospace display numbers ────────────────────────────────── */
+.display-number {
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* ── Ambient background glow ─────────────────────────────────── */
+.ambient-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 80% 50% at 40% 20%,
+      rgba(var(--ambient-r), var(--ambient-g), var(--ambient-b), 0.08) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 70% 80%,
+      rgba(var(--ambient-r), var(--ambient-g), var(--ambient-b), 0.04) 0%,
+      transparent 60%
+    );
+  transition: background 1.5s ease;
+}
+
+/* ── Glass morphism panels ───────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Neon text glow ──────────────────────────────────────────── */
+.neon-green {
+  text-shadow:
+    0 0 10px rgba(34, 197, 94, 0.6),
+    0 0 30px rgba(34, 197, 94, 0.3),
+    0 0 60px rgba(34, 197, 94, 0.1);
+}
+
+.neon-yellow {
+  text-shadow:
+    0 0 10px rgba(234, 179, 8, 0.6),
+    0 0 30px rgba(234, 179, 8, 0.3),
+    0 0 60px rgba(234, 179, 8, 0.1);
+}
+
+.neon-red {
+  text-shadow:
+    0 0 10px rgba(239, 68, 68, 0.6),
+    0 0 30px rgba(239, 68, 68, 0.3),
+    0 0 60px rgba(239, 68, 68, 0.1);
+}
+
+/* ── Box glow effects ────────────────────────────────────────── */
+.glow-green {
+  box-shadow:
+    0 0 20px rgba(34, 197, 94, 0.3),
+    0 0 60px rgba(34, 197, 94, 0.1);
+}
+
+.glow-yellow {
+  box-shadow:
+    0 0 20px rgba(234, 179, 8, 0.3),
+    0 0 60px rgba(234, 179, 8, 0.1);
+}
+
+.glow-red {
+  box-shadow:
+    0 0 20px rgba(239, 68, 68, 0.3),
+    0 0 60px rgba(239, 68, 68, 0.1);
+}
+
+/* ── Heartbeat animation ─────────────────────────────────────── */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.2); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.12); }
+  56% { transform: scale(1); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1s ease-in-out infinite;
+}
+
+/* Dynamic BPM-based heartbeat speed (set via JS style) */
+.heartbeat-dynamic {
+  animation: heartbeat var(--beat-duration, 1s) ease-in-out infinite;
+}
+
+/* ── Pulse ring (radiating from timer) ───────────────────────── */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ── Gradient border animation ───────────────────────────────── */
+@keyframes border-rotate {
+  0% { --border-angle: 0deg; }
+  100% { --border-angle: 360deg; }
+}
+
+/* ── Zone bar gradient ───────────────────────────────────────── */
+.zone-gradient {
+  background: linear-gradient(
+    90deg,
+    #6b7280 0%,
+    #3b82f6 16%,
+    #22c55e 33%,
+    #eab308 50%,
+    #f97316 66%,
+    #ef4444 83%,
+    #dc2626 100%
+  );
+}
+
+/* ── Smooth tab indicator ────────────────────────────────────── */
+.tab-indicator {
+  position: relative;
+}
+
+.tab-indicator::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tab-indicator[data-active="true"]::after {
+  opacity: 1;
+}
+
+/* ── Scrollbar styling ───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Noise texture overlay (subtle) ──────────────────────────── */
+.noise-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.015;
+  z-index: 999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
 }
