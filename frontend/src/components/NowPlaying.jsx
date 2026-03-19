@@ -32,7 +32,7 @@ export function NowPlaying() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full p-5 gap-5">
-        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground/70">
+        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-secondary">
           Now Playing
         </span>
 
@@ -53,7 +53,7 @@ export function NowPlaying() {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <Music className="h-12 w-12 text-muted-foreground/20" />
+                  <Music className="h-12 w-12 text-text-tertiary" />
                 </div>
               )}
             </div>
@@ -61,7 +61,7 @@ export function NowPlaying() {
             {/* Track info */}
             <div className="text-center w-full space-y-0.5">
               <p className="font-bold text-sm truncate">{title}</p>
-              <p className="text-xs text-muted-foreground/60 truncate">{artist}</p>
+              <p className="text-xs text-text-secondary truncate">{artist}</p>
             </div>
 
             {/* Playback controls */}
@@ -94,7 +94,7 @@ export function NowPlaying() {
 
             {/* Volume slider */}
             <div className="flex items-center gap-3 w-full mt-auto">
-              <Volume2 className="h-3.5 w-3.5 text-muted-foreground/60 shrink-0" />
+              <Volume2 className="h-3.5 w-3.5 text-text-secondary shrink-0" />
               <Slider
                 value={[volume]}
                 max={100}
@@ -109,8 +109,8 @@ export function NowPlaying() {
           </motion.div>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center gap-3">
-            <Music className="h-8 w-8 text-muted-foreground/15" />
-            <p className="text-xs text-muted-foreground/70">No music playing</p>
+            <Music className="h-8 w-8 text-text-tertiary" />
+            <p className="text-xs text-text-secondary">No music playing</p>
           </div>
         )}
       </div>

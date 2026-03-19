@@ -97,14 +97,14 @@ function GenerateForm({ userName }) {
           <CalendarPlus className="h-6 w-6 text-purple-400" />
         </div>
         <h2 className="text-xl font-bold">No Active Program</h2>
-        <p className="text-[13px] text-muted-foreground/60 text-center max-w-sm leading-relaxed">
+        <p className="text-[13px] text-text-secondary text-center max-w-sm leading-relaxed">
           Generate an AI-powered training program tailored to your goals and training history
         </p>
       </div>
 
       {/* Goal Selector */}
       <div className="space-y-2">
-        <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground/70">Goal</label>
+        <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-secondary">Goal</label>
         <div className="flex flex-wrap gap-2">
           {GOAL_OPTIONS.map((opt) => (
             <Button
@@ -124,7 +124,7 @@ function GenerateForm({ userName }) {
       {/* Days per week + Weeks */}
       <div className="flex gap-6">
         <div className="space-y-2">
-          <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground/70">
+          <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-secondary">
             Days / Week
           </label>
           <div className="flex items-center gap-2">
@@ -152,7 +152,7 @@ function GenerateForm({ userName }) {
           </div>
         </div>
         <div className="space-y-2">
-          <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground/70">Weeks</label>
+          <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-secondary">Weeks</label>
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
@@ -181,7 +181,7 @@ function GenerateForm({ userName }) {
 
       {/* Notes */}
       <div className="space-y-2">
-        <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground/70">
+        <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-secondary">
           Notes (optional)
         </label>
         <textarea
@@ -189,7 +189,7 @@ function GenerateForm({ userName }) {
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Any injuries, constraints, preferences..."
           rows={3}
-          className="w-full rounded-xl bg-white/[0.03] border border-white/[0.06] px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-purple-500/30 resize-none"
+          className="w-full rounded-xl bg-white/[0.03] border border-white/[0.06] px-4 py-3 text-sm text-foreground placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-purple-500/30 resize-none"
         />
       </div>
 
@@ -235,7 +235,7 @@ function ComplianceBar({ programId }) {
       className="glass rounded-xl p-4 space-y-2"
     >
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground/70">
+        <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-secondary">
           Compliance
         </span>
         <span className="text-sm font-bold" style={{ color }}>
@@ -286,7 +286,7 @@ function WeekTimeline({ weeks, deloadWeek, selectedWeek, onSelectWeek, complianc
             {isCurrent && (
               <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.6)]" />
             )}
-            <span className={isSelected ? "text-foreground" : "text-muted-foreground/60"}>
+            <span className={isSelected ? "text-foreground" : "text-text-secondary"}>
               {isCompleted && <Check className="h-3 w-3 inline mr-1 text-green-400" />}
               Week {wk}
             </span>
@@ -331,10 +331,10 @@ function ExerciseRow({ exercise, weekIndex, index }) {
 
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-sm truncate">{exercise.exercise}</p>
-          <p className="text-[11px] text-muted-foreground/70 mt-0.5">
+          <p className="text-[11px] text-text-secondary mt-0.5">
             {exercise.muscle_group}
             {exercise.equipment && (
-              <span className="text-muted-foreground/70"> · {exercise.equipment}</span>
+              <span className="text-text-secondary"> · {exercise.equipment}</span>
             )}
           </p>
         </div>
@@ -343,10 +343,10 @@ function ExerciseRow({ exercise, weekIndex, index }) {
           <div className="text-right">
             <span className="text-sm font-bold">
               {exercise.sets}
-              <span className="text-muted-foreground/60 mx-0.5">&times;</span>
+              <span className="text-text-secondary mx-0.5">&times;</span>
               {exercise.reps}
             </span>
-            <p className="text-[11px] text-muted-foreground/70">
+            <p className="text-[11px] text-text-secondary">
               {currentWeight > 0 ? `${currentWeight} lbs` : "BW"}
             </p>
           </div>
@@ -359,7 +359,7 @@ function ExerciseRow({ exercise, weekIndex, index }) {
             </div>
           )}
           <ChevronDown
-            className={`h-4 w-4 text-muted-foreground/70 transition-transform duration-200 ${
+            className={`h-4 w-4 text-text-secondary transition-transform duration-200 ${
               expanded ? "rotate-180" : ""
             }`}
           />
@@ -377,7 +377,7 @@ function ExerciseRow({ exercise, weekIndex, index }) {
           >
             <div className="px-4 pb-4 pt-0 space-y-3 border-t border-white/[0.04]">
               <div className="flex flex-wrap gap-2 pt-3">
-                <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-white/[0.03] text-muted-foreground/70">
+                <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-white/[0.03] text-text-secondary">
                   <Clock className="h-3 w-3" /> {exercise.rest_seconds}s rest
                 </span>
                 {exercise.progression && (
@@ -387,7 +387,7 @@ function ExerciseRow({ exercise, weekIndex, index }) {
                 )}
               </div>
               {exercise.notes && (
-                <p className="text-[13px] leading-relaxed text-muted-foreground/70 pl-1 border-l-2 border-white/[0.06] ml-0.5">
+                <p className="text-[13px] leading-relaxed text-text-secondary pl-1 border-l-2 border-white/[0.06] ml-0.5">
                   {exercise.notes}
                 </p>
               )}
@@ -412,16 +412,16 @@ function DayCard({ day, weekIndex, cardIndex }) {
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
           <h3 className="font-bold text-base">{day.day_of_week}</h3>
-          <p className="text-[13px] text-muted-foreground/60 mt-0.5 truncate">{day.focus}</p>
+          <p className="text-[13px] text-text-secondary mt-0.5 truncate">{day.focus}</p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
           {day.volume_sets && (
-            <span className="flex items-center gap-1 text-[11px] text-muted-foreground/70">
+            <span className="flex items-center gap-1 text-[11px] text-text-secondary">
               <Dumbbell className="h-3 w-3" /> {day.volume_sets} sets
             </span>
           )}
           {day.estimated_duration_min && (
-            <span className="flex items-center gap-1 text-[11px] text-muted-foreground/70">
+            <span className="flex items-center gap-1 text-[11px] text-text-secondary">
               <Clock className="h-3 w-3" /> {day.estimated_duration_min}m
             </span>
           )}
@@ -466,8 +466,8 @@ function RestDayCard({ dayName, cardIndex }) {
       className="glass rounded-2xl p-5 opacity-40"
     >
       <div className="flex items-center gap-3">
-        <span className="text-sm font-semibold text-muted-foreground/70">{dayName}</span>
-        <span className="text-[11px] text-muted-foreground/70">Rest</span>
+        <span className="text-sm font-semibold text-text-secondary">{dayName}</span>
+        <span className="text-[11px] text-text-secondary">Rest</span>
       </div>
     </motion.div>
   );
@@ -484,14 +484,14 @@ function ProgressionRules({ rules }) {
       transition={{ delay: 0.3 }}
       className="glass rounded-xl p-4 space-y-2.5"
     >
-      <h4 className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground/70">
+      <h4 className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-secondary">
         Progression Rules
       </h4>
       <div className="space-y-2">
         {rules.map((rule, i) => (
           <div key={i} className="text-[13px] leading-relaxed">
             <span className="font-semibold text-foreground/80">{rule.category}: </span>
-            <span className="text-muted-foreground/70">{rule.rule}</span>
+            <span className="text-text-secondary">{rule.rule}</span>
           </div>
         ))}
       </div>
@@ -510,7 +510,7 @@ function VolumeTargets({ targets }) {
       transition={{ delay: 0.35 }}
       className="glass rounded-xl p-4 space-y-2.5"
     >
-      <h4 className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground/70">
+      <h4 className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-secondary">
         Weekly Volume Targets
       </h4>
       <div className="flex flex-wrap gap-x-4 gap-y-2">
@@ -519,8 +519,8 @@ function VolumeTargets({ targets }) {
           return (
             <div key={muscle} className="flex items-center gap-1.5 text-[12px]">
               <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: color }} />
-              <span className="text-muted-foreground/70">{muscle}</span>
-              <span className="font-bold text-muted-foreground/80">{sets}</span>
+              <span className="text-text-secondary">{muscle}</span>
+              <span className="font-bold text-text-secondary">{sets}</span>
             </div>
           );
         })}
@@ -568,7 +568,7 @@ function ActiveProgramView({ data }) {
             <h2 className="text-xl font-bold leading-tight">{program.title}</h2>
             <div className="flex flex-wrap items-center gap-2">
               {program.split_type && (
-                <span className="text-[10px] px-2.5 py-1 rounded-md bg-white/[0.04] font-bold uppercase tracking-wider text-muted-foreground/70">
+                <span className="text-[10px] px-2.5 py-1 rounded-md bg-white/[0.04] font-bold uppercase tracking-wider text-text-secondary">
                   {program.split_type}
                 </span>
               )}
@@ -585,13 +585,13 @@ function ActiveProgramView({ data }) {
             aria-label="End program"
             onClick={handleDeactivate}
             disabled={deactivate.isPending}
-            className="text-muted-foreground/60 hover:text-red-400 shrink-0"
+            className="text-text-secondary hover:text-red-400 shrink-0"
           >
             <Trash2 className="h-4 w-4" />
           </Button>
         </div>
         {program.rationale && (
-          <p className="text-[13px] text-muted-foreground/60 leading-relaxed">
+          <p className="text-[13px] text-text-secondary leading-relaxed">
             {program.rationale}
           </p>
         )}
@@ -649,7 +649,7 @@ function ActiveProgramView({ data }) {
           className="glass rounded-xl p-4 text-[13px] leading-relaxed"
         >
           <span className="text-yellow-400/80 font-semibold">Deload (Week {program.deload_week}): </span>
-          <span className="text-muted-foreground/70">{program.deload_strategy}</span>
+          <span className="text-text-secondary">{program.deload_strategy}</span>
         </motion.div>
       )}
     </div>
@@ -666,7 +666,7 @@ export function ProgramView() {
     return (
       <div className="flex flex-col items-center gap-3 py-16">
         <Loader2 className="h-8 w-8 animate-spin text-purple-400" />
-        <p className="text-sm text-muted-foreground/70">Loading program...</p>
+        <p className="text-sm text-text-secondary">Loading program...</p>
       </div>
     );
   }

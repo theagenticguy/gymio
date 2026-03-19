@@ -11,10 +11,10 @@ function Stat({ icon: Icon, label, value, unit, color }) {
         <Icon className="h-4 w-4" style={{ color }} />
       </div>
       <div>
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground/70">{label}</p>
+        <p className="text-[10px] uppercase tracking-widest text-text-secondary">{label}</p>
         <p className="display-number text-lg font-bold text-foreground/80">
           {value}
-          {unit && <span className="text-xs text-muted-foreground/70 ml-1">{unit}</span>}
+          {unit && <span className="text-xs text-text-secondary ml-1">{unit}</span>}
         </p>
       </div>
     </div>

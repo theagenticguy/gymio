@@ -25,7 +25,7 @@ export function Controls({ onSetup }) {
             variant="ghost"
             size="lg"
             onClick={onSetup}
-            className="text-muted-foreground/60 hover:text-foreground"
+            className="text-text-secondary hover:text-foreground"
           >
             <Settings className="h-5 w-5 mr-2" />
             Setup

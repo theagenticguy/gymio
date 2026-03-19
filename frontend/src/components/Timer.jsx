@@ -107,7 +107,7 @@ export function Timer() {
 
                   {/* Round */}
                   {active && (
-                    <span className="display-number text-sm text-muted-foreground/70 mt-1.5">
+                    <span className="display-number text-sm text-text-secondary mt-1.5">
                       Round {round} / {totalRounds}
                     </span>
                   )}

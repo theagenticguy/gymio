@@ -16,7 +16,7 @@ const NineRound = lazy(() => import("../components/NineRound").then(m => ({ defa
 const ProgramView = lazy(() => import("../components/ProgramView").then(m => ({ default: m.ProgramView })));
 const SessionRecap = lazy(() => import("../components/SessionRecap").then(m => ({ default: m.SessionRecap })));
 function LazyFallback() {
-  return <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground/50" /></div>;
+  return <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-text-tertiary" /></div>;
 }
 
 const TABS = [
@@ -123,7 +123,7 @@ export function PhoneLayout() {
               key={id}
               onClick={() => setActiveTab(id)}
               className={`flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-medium transition-colors ${
-                active ? "text-foreground" : "text-muted-foreground/70"
+                active ? "text-foreground" : "text-text-secondary"
               }`}
             >
               <Icon className="h-5 w-5" />

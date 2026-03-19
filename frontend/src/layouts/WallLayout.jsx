@@ -17,7 +17,7 @@ const ProgramView = lazy(() => import("../components/ProgramView").then(m => ({ 
 const SessionRecap = lazy(() => import("../components/SessionRecap").then(m => ({ default: m.SessionRecap })));
 
 function LazyFallback() {
-  return <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground/50" /></div>;
+  return <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-text-tertiary" /></div>;
 }
 
 const TABS = [
@@ -74,7 +74,7 @@ export function WallLayout() {
                     className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                       active
                         ? "text-foreground"
-                        : "text-muted-foreground/70 hover:text-muted-foreground"
+                        : "text-text-secondary hover:text-muted-foreground"
                     }`}
                   >
                     <Icon className="h-3.5 w-3.5" />

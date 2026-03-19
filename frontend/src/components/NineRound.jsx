@@ -47,7 +47,7 @@ function formatNotes(text, stationColor) {
     .filter(Boolean);
 
   if (lines.length <= 1) {
-    return <p className="text-sm text-muted-foreground/80 leading-relaxed">{text}</p>;
+    return <p className="text-sm text-text-secondary leading-relaxed">{text}</p>;
   }
 
   return (
@@ -61,7 +61,7 @@ function formatNotes(text, stationColor) {
               className="mt-[7px] h-1.5 w-1.5 rounded-full shrink-0"
               style={{ backgroundColor: isCombo ? stationColor : "rgba(255,255,255,0.15)" }}
             />
-            <span className={isCombo ? "text-foreground/90 font-medium" : "text-muted-foreground/70"}>
+            <span className={isCombo ? "text-foreground/90 font-medium" : "text-text-secondary"}>
               {line}
             </span>
           </li>
@@ -109,7 +109,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
               <p className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color }}>
                 Round {round.round} of {total}
               </p>
-              <p className="text-xs text-muted-foreground/70">{round.station}</p>
+              <p className="text-xs text-text-secondary">{round.station}</p>
             </div>
           </div>
 
@@ -121,7 +121,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
               className={`p-1.5 rounded-lg transition-all ${
                 reaction === "liked"
                   ? "bg-gym-green/20 text-gym-green scale-110"
-                  : "text-muted-foreground/70 hover:text-gym-green hover:bg-gym-green/10"
+                  : "text-text-secondary hover:text-gym-green hover:bg-gym-green/10"
               }`}
             >
               <ThumbsUp className="h-3.5 w-3.5" />
@@ -132,7 +132,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
               className={`p-1.5 rounded-lg transition-all ${
                 reaction === "disliked"
                   ? "bg-gym-red/20 text-gym-red scale-110"
-                  : "text-muted-foreground/70 hover:text-gym-red hover:bg-gym-red/10"
+                  : "text-text-secondary hover:text-gym-red hover:bg-gym-red/10"
               }`}
             >
               <ThumbsDown className="h-3.5 w-3.5" />
@@ -154,13 +154,13 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
               <span className="display-number text-xl font-bold">{formatTime(round.duration)}</span>
-              <span className="text-xs text-muted-foreground/70">work</span>
+              <span className="text-xs text-text-secondary">work</span>
             </div>
             {round.rest_duration > 0 && (
               <div className="flex items-center gap-2">
                 <div className="w-2.5 h-2.5 rounded-full bg-blue-500/60" />
                 <span className="display-number text-xl font-bold">{formatTime(round.rest_duration)}</span>
-                <span className="text-xs text-muted-foreground/70">rest</span>
+                <span className="text-xs text-text-secondary">rest</span>
               </div>
             )}
           </div>
@@ -169,7 +169,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
             <div className="px-3 py-2 rounded-lg bg-blue-500/5 border border-blue-500/10">
               <p className="text-xs">
                 <span className="text-blue-400/80 font-medium">Active rest: </span>
-                <span className="text-muted-foreground/60">{round.rest_exercise}</span>
+                <span className="text-text-secondary">{round.rest_exercise}</span>
               </p>
             </div>
           )}

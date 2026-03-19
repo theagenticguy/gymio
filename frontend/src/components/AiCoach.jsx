@@ -42,9 +42,9 @@ function ExerciseCard({ exercise, index }) {
         {/* Exercise name + meta */}
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-sm truncate">{exercise.exercise}</p>
-          <p className="text-[11px] text-muted-foreground/70 mt-0.5">
+          <p className="text-[11px] text-text-secondary mt-0.5">
             {exercise.muscle_group}
-            {exercise.equipment && <span className="text-muted-foreground/70"> · {exercise.equipment}</span>}
+            {exercise.equipment && <span className="text-text-secondary"> · {exercise.equipment}</span>}
             {exercise.superset_with && (
               <span className="text-purple-400/70"> SS: {exercise.superset_with}</span>
             )}
@@ -54,8 +54,8 @@ function ExerciseCard({ exercise, index }) {
         {/* Sets x Reps x Weight — compact pills */}
         <div className="flex items-center gap-2 shrink-0">
           <div className="display-number text-right">
-            <span className="text-sm font-bold">{exercise.sets}<span className="text-muted-foreground/60 mx-0.5">×</span>{exercise.reps}</span>
-            <p className="text-[11px] text-muted-foreground/70">
+            <span className="text-sm font-bold">{exercise.sets}<span className="text-text-secondary mx-0.5">×</span>{exercise.reps}</span>
+            <p className="text-[11px] text-text-secondary">
               {exercise.weight_lbs > 0 ? `${exercise.weight_lbs} lbs` : "BW"}
             </p>
           </div>
@@ -68,7 +68,7 @@ function ExerciseCard({ exercise, index }) {
             </div>
           )}
           <ChevronDown
-            className={`h-4 w-4 text-muted-foreground/70 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+            className={`h-4 w-4 text-text-secondary transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
           />
         </div>
       </button>
@@ -85,7 +85,7 @@ function ExerciseCard({ exercise, index }) {
             <div className="px-4 pb-4 pt-0 space-y-3 border-t border-white/[0.04]">
               {/* Detail chips */}
               <div className="flex flex-wrap gap-2 pt-3">
-                <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-white/[0.03] text-muted-foreground/60">
+                <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-white/[0.03] text-text-secondary">
                   <Clock className="h-3 w-3" /> {exercise.rest_seconds}s rest
                 </span>
                 {exercise.rpe_target && (
@@ -94,14 +94,14 @@ function ExerciseCard({ exercise, index }) {
                   </span>
                 )}
                 {exercise.weight_lbs > 0 && (
-                  <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-white/[0.03] text-muted-foreground/60">
+                  <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-white/[0.03] text-text-secondary">
                     <Dumbbell className="h-3 w-3" /> {exercise.weight_lbs} lbs
                   </span>
                 )}
               </div>
               {/* Notes — formatted as distinct coaching cues */}
               {exercise.notes && (
-                <p className="text-[13px] leading-relaxed text-muted-foreground/70 pl-1 border-l-2 border-white/[0.06] ml-0.5">
+                <p className="text-[13px] leading-relaxed text-text-secondary pl-1 border-l-2 border-white/[0.06] ml-0.5">
                   {exercise.notes}
                 </p>
               )}
@@ -127,10 +127,10 @@ function WorkoutDisplay({ workout }) {
         <div className="flex items-start justify-between gap-3">
           <div>
             <h3 className="text-xl font-bold leading-tight">{workout.title}</h3>
-            <p className="text-[13px] text-muted-foreground/60 mt-1.5 leading-relaxed">{workout.summary}</p>
+            <p className="text-[13px] text-text-secondary mt-1.5 leading-relaxed">{workout.summary}</p>
           </div>
           {workout.split && (
-            <span className="text-[10px] px-2.5 py-1 rounded-md bg-white/[0.04] font-bold uppercase tracking-wider text-muted-foreground/70 shrink-0">
+            <span className="text-[10px] px-2.5 py-1 rounded-md bg-white/[0.04] font-bold uppercase tracking-wider text-text-secondary shrink-0">
               {workout.split}
             </span>
           )}
@@ -150,19 +150,19 @@ function WorkoutDisplay({ workout }) {
               {m}
             </span>
           ))}
-          <span className="text-muted-foreground/20 mx-1">|</span>
+          <span className="text-text-tertiary mx-1">|</span>
           {workout.estimated_duration_min && (
-            <span className="flex items-center gap-1 text-[11px] text-muted-foreground/60">
+            <span className="flex items-center gap-1 text-[11px] text-text-secondary">
               <Clock className="h-3 w-3" /> {workout.estimated_duration_min}m
             </span>
           )}
           {workout.total_sets && (
-            <span className="flex items-center gap-1 text-[11px] text-muted-foreground/60">
+            <span className="flex items-center gap-1 text-[11px] text-text-secondary">
               <Dumbbell className="h-3 w-3" /> {workout.total_sets} sets
             </span>
           )}
           {workout.total_volume_lbs && (
-            <span className="flex items-center gap-1 text-[11px] text-muted-foreground/60">
+            <span className="flex items-center gap-1 text-[11px] text-text-secondary">
               <Flame className="h-3 w-3" /> {workout.total_volume_lbs.toLocaleString()} lbs
             </span>
           )}
@@ -173,7 +173,7 @@ function WorkoutDisplay({ workout }) {
       {workout.warmup && (
         <div className="px-4 py-3 rounded-xl bg-blue-500/5 border border-blue-500/10 text-[13px] leading-relaxed">
           <span className="text-blue-400/80 font-semibold">Warmup </span>
-          <span className="text-muted-foreground/60">{workout.warmup}</span>
+          <span className="text-text-secondary">{workout.warmup}</span>
         </div>
       )}
 
@@ -185,11 +185,11 @@ function WorkoutDisplay({ workout }) {
             <div key={i} className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[13px] px-3 py-2.5 rounded-xl bg-gym-green/[0.03] border border-gym-green/10">
               <span className="font-semibold text-foreground/80">{po.exercise}</span>
               {po.last_performance && (
-                <span className="text-muted-foreground/60">{po.last_performance}</span>
+                <span className="text-text-secondary">{po.last_performance}</span>
               )}
-              {po.last_performance && <span className="text-muted-foreground/20">→</span>}
+              {po.last_performance && <span className="text-text-tertiary">→</span>}
               <span className="text-gym-green font-bold">{po.today_target}</span>
-              <span className="text-[11px] text-muted-foreground/70 ml-auto">{po.strategy}</span>
+              <span className="text-[11px] text-text-secondary ml-auto">{po.strategy}</span>
             </div>
           ))}
         </div>
@@ -199,7 +199,7 @@ function WorkoutDisplay({ workout }) {
       {workout.deload_note && (
         <div className="px-4 py-3 rounded-xl bg-gym-yellow/5 border border-gym-yellow/10 text-[13px] leading-relaxed">
           <span className="text-gym-yellow/80 font-semibold">Deload </span>
-          <span className="text-muted-foreground/60">{workout.deload_note}</span>
+          <span className="text-text-secondary">{workout.deload_note}</span>
         </div>
       )}
 
@@ -352,7 +352,7 @@ export function AiCoach() {
               <Loader2 className="h-8 w-8 animate-spin text-purple-400" />
               <div className="text-center">
                 <p className="text-sm text-muted-foreground">Claude is thinking deeply...</p>
-                <p className="text-xs text-muted-foreground/60 mt-1">Analyzing your training history with extended reasoning</p>
+                <p className="text-xs text-text-secondary mt-1">Analyzing your training history with extended reasoning</p>
               </div>
             </motion.div>
           )}
@@ -375,7 +375,7 @@ export function AiCoach() {
               key="analysis"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="glass rounded-xl p-5 text-[13px] leading-relaxed whitespace-pre-wrap text-muted-foreground/70"
+              className="glass rounded-xl p-5 text-[13px] leading-relaxed whitespace-pre-wrap text-text-secondary"
             >
               {analysisText}
             </motion.div>
@@ -383,7 +383,7 @@ export function AiCoach() {
 
           {/* Empty state */}
           {!isLoading && !error && !response && !analysisText && (
-            <motion.p key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm text-muted-foreground/60 text-center py-12">
+            <motion.p key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm text-text-secondary text-center py-12">
               Ask the AI coach for a personalized workout or training analysis
             </motion.p>
           )}

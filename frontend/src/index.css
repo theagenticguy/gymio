@@ -13,7 +13,11 @@
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 80%;
+    --muted-foreground: 0 0% 63.9%;
+
+    /* Text hierarchy — fixed grays that pass WCAG AA against --background */
+    --text-secondary: 0 0% 55%;   /* ~7.5:1 — labels, descriptions */
+    --text-tertiary: 0 0% 45%;    /* ~4.6:1 — hints, metadata, icons */
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
