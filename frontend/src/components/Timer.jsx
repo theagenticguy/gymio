@@ -14,11 +14,23 @@ function formatTime(s) {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 }
 
+// Responsive sizes: scale down on narrow viewports, full size on desktop/TV
+function useTimerSize() {
+  // 300px circle on desktop, scales down to fit mobile with padding
+  const vw = typeof window !== "undefined" ? window.innerWidth : 1024;
+  const circleSize = Math.min(300, vw - 112); // 56px padding each side
+  const glowSize = Math.round(circleSize * 1.27);
+  const pulseSize = Math.round(circleSize * 1.05);
+  const strokeWidth = circleSize >= 280 ? 14 : 10;
+  return { circleSize, glowSize, pulseSize, strokeWidth };
+}
+
 export function Timer() {
   const timer = useStore((s) => s.timer);
   const { remaining, phase, round, totalRounds } = timer;
   const cfg = PHASE[phase] || PHASE.idle;
   const active = phase !== "idle";
+  const { circleSize, glowSize, pulseSize, strokeWidth } = useTimerSize();
 
   // Track the duration for each phase/round so the circle timer only resets on phase changes
   const phaseKey = `${phase}-${round}`;
@@ -45,14 +57,14 @@ export function Timer() {
   return (
     <div className="flex flex-col items-center justify-center gap-8 py-4">
       {/* Timer ring with ambient glow */}
-      <div className="relative flex items-center justify-center overflow-hidden">
+      <div className="relative flex items-center justify-center">
         {/* Outer radial glow — breathes when active */}
         {active && (
           <motion.div
             className="absolute rounded-full"
             style={{
-              width: 380,
-              height: 380,
+              width: glowSize,
+              height: glowSize,
               background: `radial-gradient(circle, ${cfg.color}12 0%, transparent 70%)`,
             }}
             animate={{ scale: [1, 1.06, 1], opacity: [0.5, 1, 0.5] }}
@@ -65,8 +77,8 @@ export function Timer() {
           <div
             className="absolute rounded-full animate-pulse-ring"
             style={{
-              width: 316,
-              height: 316,
+              width: pulseSize,
+              height: pulseSize,
               border: `2px solid ${cfg.color}30`,
             }}
           />
@@ -87,8 +99,8 @@ export function Timer() {
               initialRemainingTime={remaining}
               colors={cfg.color}
               trailColor="#18181b"
-              strokeWidth={14}
-              size={300}
+              strokeWidth={strokeWidth}
+              size={circleSize}
               strokeLinecap="round"
             >
               {({ remainingTime }) => (
