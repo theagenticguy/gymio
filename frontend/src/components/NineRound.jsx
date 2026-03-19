@@ -287,7 +287,7 @@ export function NineRound() {
   const { data: cachedNineRound } = useNineRoundLatest(userName);
 
   useEffect(() => {
-    if (cachedNineRound?.workout && !workout) {
+    if (cachedNineRound?.workout?.rounds && !workout) {
       setWorkout(cachedNineRound.workout);
       setActiveCard(0);
     }
@@ -332,6 +332,10 @@ export function NineRound() {
       return data;
     },
     onSuccess: (data) => {
+      if (data.error) {
+        setError(data.error);
+        return;
+      }
       setWorkout(data);
       setActiveCard(0);
       setReactions({});

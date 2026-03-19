@@ -17,16 +17,27 @@ export default defineConfig({
         orientation: "any",
         icons: [
           {
-            src: "/icons/icon-192.png",
+            src: "/logo192.png",
             sizes: "192x192",
             type: "image/png",
+            purpose: "any",
           },
           {
-            src: "/icons/icon-512.png",
+            src: "/logo512.png",
             sizes: "512x512",
             type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "/logo512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
           },
         ],
+        start_url: "/",
+        scope: "/",
+        id: "/",
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],

@@ -14,7 +14,9 @@ export function useWebSocket() {
   const addHrPoint = useStore((s) => s.addHrPoint);
   const addPr = useStore((s) => s.addPr);
 
-  const wsUrl = apiUrl.replace(/^http/, "ws") + "/ws";
+  const wsUrl = apiUrl.startsWith("http")
+    ? apiUrl.replace(/^http/, "ws") + "/ws"
+    : `${window.location.protocol === "https:" ? "wss:" : "ws:"}//${window.location.host}/ws`;
 
   const connect = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) return;

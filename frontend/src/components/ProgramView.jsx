@@ -105,7 +105,7 @@ function GenerateForm({ userName }) {
       {/* Goal Selector */}
       <div className="space-y-2">
         <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground/50">Goal</label>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {GOAL_OPTIONS.map((opt) => (
             <Button
               key={opt.value}
@@ -334,7 +334,7 @@ function ExerciseRow({ exercise, weekIndex, index }) {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <div className="text-right">
             <span className="text-sm font-bold">
               {exercise.sets}
@@ -347,7 +347,7 @@ function ExerciseRow({ exercise, weekIndex, index }) {
           </div>
           {exercise.rpe_target && (
             <div
-              className="px-2 py-0.5 rounded-md text-[11px] font-bold"
+              className="hidden sm:block px-2 py-0.5 rounded-md text-[11px] font-bold"
               style={{ backgroundColor: rpeColor + "15", color: rpeColor }}
             >
               RPE {exercise.rpe_target}
@@ -404,10 +404,10 @@ function DayCard({ day, weekIndex, cardIndex }) {
       className="glass rounded-2xl p-5 space-y-4"
     >
       {/* Day header */}
-      <div className="flex items-start justify-between gap-3">
-        <div>
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <div className="min-w-0">
           <h3 className="font-bold text-base">{day.day_of_week}</h3>
-          <p className="text-[13px] text-muted-foreground/60 mt-0.5">{day.focus}</p>
+          <p className="text-[13px] text-muted-foreground/60 mt-0.5 truncate">{day.focus}</p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
           {day.volume_sets && (
@@ -561,7 +561,7 @@ function ActiveProgramView({ data }) {
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-2">
             <h2 className="text-xl font-bold leading-tight">{program.title}</h2>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {program.split_type && (
                 <span className="text-[10px] px-2.5 py-1 rounded-md bg-white/[0.04] font-bold uppercase tracking-wider text-muted-foreground/50">
                   {program.split_type}

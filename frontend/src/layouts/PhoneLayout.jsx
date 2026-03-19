@@ -31,7 +31,7 @@ export function PhoneLayout() {
   const setActiveTab = useStore((s) => s.setActiveTab);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col noise-overlay">
+    <div className="h-dvh bg-background flex flex-col noise-overlay overflow-hidden">
       {/* Ambient glow */}
       <div className="ambient-glow" />
 
@@ -109,7 +109,7 @@ export function PhoneLayout() {
       </div>
 
       {/* Bottom tab bar */}
-      <nav className="relative z-10 flex border-t border-white/[0.04] bg-background/80 backdrop-blur-xl">
+      <nav className="relative z-10 flex border-t border-white/[0.04] bg-background/80 backdrop-blur-xl pb-[env(safe-area-inset-bottom)]">
         {TABS.map(({ id, icon: Icon, label }) => {
           const active = activeTab === id;
           return (
