@@ -19,8 +19,10 @@ function useTimerSize() {
   // 300px circle on desktop, scales down to fit mobile with padding
   const vw = typeof window !== "undefined" ? window.innerWidth : 1024;
   const circleSize = Math.min(300, vw - 112); // 56px padding each side
-  const glowSize = Math.round(circleSize * 1.27);
-  const pulseSize = Math.round(circleSize * 1.05);
+  const maxGlow = Math.floor((vw - 16) / 1.06); // stays within viewport at 1.06x breathe scale
+  const glowSize = Math.min(Math.round(circleSize * 1.27), maxGlow);
+  const maxPulse = Math.floor((vw - 16) / 1.5); // stays within viewport at 1.5x animation scale
+  const pulseSize = Math.min(Math.round(circleSize * 1.05), maxPulse);
   const strokeWidth = circleSize >= 280 ? 14 : 10;
   return { circleSize, glowSize, pulseSize, strokeWidth };
 }
