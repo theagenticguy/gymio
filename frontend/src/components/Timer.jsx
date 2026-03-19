@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { motion, AnimatePresence } from "motion/react";
 import { useStore } from "../store";
@@ -19,6 +19,13 @@ export function Timer() {
   const { remaining, phase, round, totalRounds } = timer;
   const cfg = PHASE[phase] || PHASE.idle;
   const active = phase !== "idle";
+
+  // Track the duration for each phase/round so the circle timer only resets on phase changes
+  const phaseKey = `${phase}-${round}`;
+  const durationRef = useRef({ key: phaseKey, duration: remaining || 1 });
+  if (durationRef.current.key !== phaseKey) {
+    durationRef.current = { key: phaseKey, duration: remaining || 1 };
+  }
 
   // Drive ambient background color from timer phase
   useMemo(() => {
@@ -74,9 +81,9 @@ export function Timer() {
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
           >
             <CountdownCircleTimer
-              key={`${phase}-${round}-${remaining}`}
+              key={phaseKey}
               isPlaying={active}
-              duration={remaining || 1}
+              duration={durationRef.current.duration}
               initialRemainingTime={remaining}
               colors={cfg.color}
               trailColor="#18181b"
@@ -84,7 +91,7 @@ export function Timer() {
               size={300}
               strokeLinecap="round"
             >
-              {() => (
+              {({ remainingTime }) => (
                 <div className="flex flex-col items-center gap-1">
                   {/* Phase label */}
                   <motion.span
@@ -102,7 +109,7 @@ export function Timer() {
                     className={`display-number text-[4.5rem] leading-none font-black ${cfg.neon}`}
                     style={{ color: active ? "#fafafa" : "#52525b" }}
                   >
-                    {formatTime(remaining)}
+                    {formatTime(active ? remainingTime : remaining)}
                   </span>
 
                   {/* Round */}
