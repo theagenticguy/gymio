@@ -4,16 +4,20 @@ import { Controls } from "../components/Controls";
 import { NowPlaying } from "../components/NowPlaying";
 import { UserSwitcher } from "../components/UserSwitcher";
 import { WorkoutSetup } from "../components/WorkoutSetup";
-import { WorkoutJournal } from "../components/WorkoutJournal";
-import { AiCoach } from "../components/AiCoach";
-import { NineRound } from "../components/NineRound";
-import { ProgramView } from "../components/ProgramView";
-import { SessionRecap } from "../components/SessionRecap";
 import { SessionStats } from "../components/SessionStats";
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useStore } from "../store";
-import { Timer as TimerIcon, Dumbbell, Brain, Music, Flame, CalendarDays, Trophy } from "lucide-react";
+import { Timer as TimerIcon, Dumbbell, Brain, Music, Flame, CalendarDays, Trophy, Loader2 } from "lucide-react";
+
+const WorkoutJournal = lazy(() => import("../components/WorkoutJournal").then(m => ({ default: m.WorkoutJournal })));
+const AiCoach = lazy(() => import("../components/AiCoach").then(m => ({ default: m.AiCoach })));
+const NineRound = lazy(() => import("../components/NineRound").then(m => ({ default: m.NineRound })));
+const ProgramView = lazy(() => import("../components/ProgramView").then(m => ({ default: m.ProgramView })));
+const SessionRecap = lazy(() => import("../components/SessionRecap").then(m => ({ default: m.SessionRecap })));
+function LazyFallback() {
+  return <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground/50" /></div>;
+}
 
 const TABS = [
   { id: "timer", icon: TimerIcon, label: "Timer" },
@@ -48,59 +52,61 @@ export function PhoneLayout() {
 
       {/* Main content */}
       <main className="relative z-10 flex-1 overflow-auto p-4">
-        <AnimatePresence mode="wait">
-          {activeTab === "timer" && (
-            <motion.div
-              key="timer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="flex flex-col items-center gap-4"
-            >
-              {showSetup ? (
-                <WorkoutSetup onClose={() => setShowSetup(false)} />
-              ) : (
-                <>
-                  <Timer />
-                  <div className="w-full">
-                    <HeartRate />
-                  </div>
-                  <SessionStats />
-                </>
-              )}
-            </motion.div>
-          )}
-          {activeTab === "journal" && (
-            <motion.div key="journal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-              <WorkoutJournal />
-            </motion.div>
-          )}
-          {activeTab === "9round" && (
-            <motion.div key="9round" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-              <NineRound />
-            </motion.div>
-          )}
-          {activeTab === "coach" && (
-            <motion.div key="coach" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-              <AiCoach />
-            </motion.div>
-          )}
-          {activeTab === "program" && (
-            <motion.div key="program" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-              <ProgramView />
-            </motion.div>
-          )}
-          {activeTab === "recap" && (
-            <motion.div key="recap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-              <SessionRecap />
-            </motion.div>
-          )}
-          {activeTab === "music" && (
-            <motion.div key="music" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-96">
-              <NowPlaying />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <Suspense fallback={<LazyFallback />}>
+          <AnimatePresence mode="wait">
+            {activeTab === "timer" && (
+              <motion.div
+                key="timer"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center gap-4"
+              >
+                {showSetup ? (
+                  <WorkoutSetup onClose={() => setShowSetup(false)} />
+                ) : (
+                  <>
+                    <Timer />
+                    <div className="w-full">
+                      <HeartRate />
+                    </div>
+                    <SessionStats />
+                  </>
+                )}
+              </motion.div>
+            )}
+            {activeTab === "journal" && (
+              <motion.div key="journal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+                <WorkoutJournal />
+              </motion.div>
+            )}
+            {activeTab === "9round" && (
+              <motion.div key="9round" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+                <NineRound />
+              </motion.div>
+            )}
+            {activeTab === "coach" && (
+              <motion.div key="coach" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+                <AiCoach />
+              </motion.div>
+            )}
+            {activeTab === "program" && (
+              <motion.div key="program" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+                <ProgramView />
+              </motion.div>
+            )}
+            {activeTab === "recap" && (
+              <motion.div key="recap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+                <SessionRecap />
+              </motion.div>
+            )}
+            {activeTab === "music" && (
+              <motion.div key="music" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-96">
+                <NowPlaying />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Suspense>
       </main>
 
       {/* Controls */}

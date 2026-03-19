@@ -116,6 +116,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
           {/* Thumbs */}
           <div className="flex gap-1">
             <button
+              aria-label="Like this round"
               onClick={(e) => { e.stopPropagation(); onReact?.(round, "liked"); }}
               className={`p-1.5 rounded-lg transition-all ${
                 reaction === "liked"
@@ -126,6 +127,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
               <ThumbsUp className="h-3.5 w-3.5" />
             </button>
             <button
+              aria-label="Dislike this round"
               onClick={(e) => { e.stopPropagation(); onReact?.(round, "disliked"); }}
               className={`p-1.5 rounded-lg transition-all ${
                 reaction === "disliked"
@@ -142,7 +144,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
         <h2 className="text-2xl font-bold mt-3 mb-3 leading-snug">{round.exercise}</h2>
 
         {/* Formatted notes */}
-        <div className="flex-1 overflow-auto pr-1 -mr-1">
+        <div className="flex-1 overflow-auto pr-1 -mr-1" tabIndex={0} role="region" aria-label="Round instructions">
           {formatNotes(round.notes, color)}
         </div>
 
@@ -232,6 +234,7 @@ function CardCarousel({ rounds, onReact, reactions }) {
         <Button
           variant="ghost"
           size="icon"
+          aria-label="Previous round"
           onClick={() => goTo(activeCard - 1)}
           disabled={activeCard === 0}
         >
@@ -239,12 +242,15 @@ function CardCarousel({ rounds, onReact, reactions }) {
         </Button>
 
         {/* Dots */}
-        <div className="flex gap-1.5">
+        <div className="flex gap-1.5" role="tablist" aria-label="Round navigation">
           {rounds.map((r, i) => {
             const color = STATION_COLORS[r.station] || "#666";
             return (
               <button
                 key={i}
+                role="tab"
+                aria-label={`Round ${i + 1}: ${r.station}`}
+                aria-selected={i === activeCard}
                 onClick={() => goTo(i)}
                 className="h-2.5 rounded-full transition-all duration-300"
                 style={{
@@ -259,6 +265,7 @@ function CardCarousel({ rounds, onReact, reactions }) {
         <Button
           variant="ghost"
           size="icon"
+          aria-label="Next round"
           onClick={() => goTo(activeCard + 1)}
           disabled={activeCard === rounds.length - 1}
         >
@@ -409,8 +416,9 @@ export function NineRound() {
 
         <div className="flex gap-4 items-end">
           <div>
-            <label className="text-xs text-muted-foreground block mb-1">Round Duration</label>
+            <label htmlFor="round-duration" className="text-xs text-muted-foreground block mb-1">Round Duration</label>
             <select
+              id="round-duration"
               value={config.roundDuration}
               onChange={(e) => setConfig({ ...config, roundDuration: Number(e.target.value) })}
               className="h-10 px-3 rounded-md border border-input bg-background text-sm"
@@ -423,8 +431,9 @@ export function NineRound() {
             </select>
           </div>
           <div>
-            <label className="text-xs text-muted-foreground block mb-1">Active Rest</label>
+            <label htmlFor="rest-duration" className="text-xs text-muted-foreground block mb-1">Active Rest</label>
             <select
+              id="rest-duration"
               value={config.restDuration}
               onChange={(e) => setConfig({ ...config, restDuration: Number(e.target.value) })}
               className="h-10 px-3 rounded-md border border-input bg-background text-sm"
@@ -467,8 +476,8 @@ export function NineRound() {
   return (
     <div className="flex flex-col h-full gap-4">
       {/* Top bar */}
-      <div className="flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between shrink-0 overflow-hidden">
+        <div className="flex items-center gap-2 min-w-0">
           <Flame className="h-5 w-5 text-gym-red" />
           <span className="text-sm font-medium">9-Round</span>
           <span className="text-xs text-muted-foreground">
@@ -480,7 +489,7 @@ export function NineRound() {
             </span>
           )}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 shrink-0">
           <Button
             variant="ghost"
             size="sm"

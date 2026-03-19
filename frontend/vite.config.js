@@ -46,6 +46,16 @@ export default defineConfig({
   ],
   build: {
     outDir: "build",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-motion": ["motion/react"],
+          "vendor-charts": ["recharts"],
+          "vendor-query": ["@tanstack/react-query"],
+          "vendor-zustand": ["zustand", "zustand/middleware"],
+        },
+      },
+    },
   },
   server: {
     port: 5173,

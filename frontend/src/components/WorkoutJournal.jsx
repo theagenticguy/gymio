@@ -28,7 +28,7 @@ function SetRow({ set, onRemove }) {
       )}
       <div className="flex-1" />
       {onRemove && (
-        <button onClick={onRemove} className="text-muted-foreground hover:text-destructive transition-colors">
+        <button aria-label="Remove set" onClick={onRemove} className="text-muted-foreground hover:text-destructive transition-colors">
           <Trash2 className="h-3.5 w-3.5" />
         </button>
       )}

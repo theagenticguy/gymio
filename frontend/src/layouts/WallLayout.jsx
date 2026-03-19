@@ -5,15 +5,20 @@ import { Controls } from "../components/Controls";
 import { NowPlaying } from "../components/NowPlaying";
 import { UserSwitcher } from "../components/UserSwitcher";
 import { WorkoutSetup } from "../components/WorkoutSetup";
-import { WorkoutJournal } from "../components/WorkoutJournal";
-import { AiCoach } from "../components/AiCoach";
-import { NineRound } from "../components/NineRound";
-import { ProgramView } from "../components/ProgramView";
-import { SessionRecap } from "../components/SessionRecap";
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useStore } from "../store";
-import { Dumbbell, Brain, Timer as TimerIcon, Flame, CalendarDays, Trophy } from "lucide-react";
+import { Dumbbell, Brain, Timer as TimerIcon, Flame, CalendarDays, Trophy, Loader2 } from "lucide-react";
+
+const WorkoutJournal = lazy(() => import("../components/WorkoutJournal").then(m => ({ default: m.WorkoutJournal })));
+const AiCoach = lazy(() => import("../components/AiCoach").then(m => ({ default: m.AiCoach })));
+const NineRound = lazy(() => import("../components/NineRound").then(m => ({ default: m.NineRound })));
+const ProgramView = lazy(() => import("../components/ProgramView").then(m => ({ default: m.ProgramView })));
+const SessionRecap = lazy(() => import("../components/SessionRecap").then(m => ({ default: m.SessionRecap })));
+
+function LazyFallback() {
+  return <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground/50" /></div>;
+}
 
 const TABS = [
   { id: "timer", label: "Timer", icon: TimerIcon },
@@ -99,6 +104,7 @@ export function WallLayout() {
 
         {/* Tab content */}
         <main className="flex-1 overflow-auto px-8">
+          <Suspense fallback={<LazyFallback />}>
           <AnimatePresence mode="wait">
             {activeTab === "timer" && (
               <motion.div
@@ -190,6 +196,7 @@ export function WallLayout() {
               </motion.div>
             )}
           </AnimatePresence>
+          </Suspense>
         </main>
 
         {/* Bottom controls */}

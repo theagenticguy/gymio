@@ -131,6 +131,7 @@ function GenerateForm({ userName }) {
             <Button
               variant="ghost"
               size="icon"
+              aria-label="Fewer days"
               className="h-8 w-8"
               disabled={days <= 2}
               onClick={() => setDays((d) => Math.max(2, d - 1))}
@@ -141,6 +142,7 @@ function GenerateForm({ userName }) {
             <Button
               variant="ghost"
               size="icon"
+              aria-label="More days"
               className="h-8 w-8"
               disabled={days >= 6}
               onClick={() => setDays((d) => Math.min(6, d + 1))}
@@ -155,6 +157,7 @@ function GenerateForm({ userName }) {
             <Button
               variant="ghost"
               size="icon"
+              aria-label="Fewer weeks"
               className="h-8 w-8"
               disabled={weeks <= 2}
               onClick={() => setWeeks((w) => Math.max(2, w - 1))}
@@ -165,6 +168,7 @@ function GenerateForm({ userName }) {
             <Button
               variant="ghost"
               size="icon"
+              aria-label="More weeks"
               className="h-8 w-8"
               disabled={weeks >= 8}
               onClick={() => setWeeks((w) => Math.min(8, w + 1))}
@@ -314,6 +318,7 @@ function ExerciseRow({ exercise, weekIndex, index }) {
       className="rounded-xl glass overflow-hidden"
     >
       <button
+        aria-label={`${exercise.exercise} — ${exercise.sets}x${exercise.reps}, click to ${expanded ? "collapse" : "expand"}`}
         onClick={() => setExpanded(!expanded)}
         className="w-full text-left p-4 flex items-center gap-4 hover:bg-white/[0.02] transition-colors"
       >
@@ -577,6 +582,7 @@ function ActiveProgramView({ data }) {
           <Button
             variant="ghost"
             size="sm"
+            aria-label="End program"
             onClick={handleDeactivate}
             disabled={deactivate.isPending}
             className="text-muted-foreground/40 hover:text-red-400 shrink-0"
