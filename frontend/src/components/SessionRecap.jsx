@@ -106,12 +106,12 @@ function StatCard({ icon: Icon, label, value, suffix, color, delay }) {
         <p className="display-number text-2xl font-black text-foreground/90">
           {value != null ? displayValue.toLocaleString() : "--"}
           {suffix && (
-            <span className="text-xs text-muted-foreground/50 ml-1">
+            <span className="text-xs text-muted-foreground/70 ml-1">
               {suffix}
             </span>
           )}
         </p>
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground/50 mt-0.5">
+        <p className="text-[10px] uppercase tracking-widest text-muted-foreground/70 mt-0.5">
           {label}
         </p>
       </div>
@@ -147,14 +147,14 @@ function PrCard({ pr, delay }) {
             <span className="display-number text-xl font-black text-yellow-400">
               {pr.new_e1rm}
             </span>
-            <span className="text-[11px] text-muted-foreground/50">e1RM</span>
+            <span className="text-[11px] text-muted-foreground/70">e1RM</span>
             {delta > 0 && (
               <span className="text-[11px] font-bold text-green-400">
                 +{delta} lbs
               </span>
             )}
           </div>
-          <p className="text-[11px] text-muted-foreground/40 mt-1">
+          <p className="text-[11px] text-muted-foreground/60 mt-1">
             {pr.weight} lbs x {pr.reps} reps
           </p>
         </div>
@@ -192,7 +192,7 @@ function ExerciseBreakdown({ exercises, delay }) {
                   <p className="text-[13px] font-semibold truncate">
                     {ex.name}
                   </p>
-                  <p className="text-[10px] text-muted-foreground/40">
+                  <p className="text-[10px] text-muted-foreground/60">
                     {ex.sets} sets &middot; {ex.best_set}
                   </p>
                 </div>
@@ -267,7 +267,7 @@ function MuscleDonut({ muscleGroups, totalVolume, delay }) {
                 ? `${(totalVolume / 1000).toFixed(1)}k`
                 : totalVolume}
             </span>
-            <span className="text-[9px] text-muted-foreground/40">lbs</span>
+            <span className="text-[9px] text-muted-foreground/60">lbs</span>
           </div>
         </div>
         {/* Legend */}
@@ -281,7 +281,7 @@ function MuscleDonut({ muscleGroups, totalVolume, delay }) {
               <span className="text-[11px] text-muted-foreground/60 truncate">
                 {entry.name}
               </span>
-              <span className="display-number text-[11px] text-muted-foreground/40 ml-auto shrink-0">
+              <span className="display-number text-[11px] text-muted-foreground/60 ml-auto shrink-0">
                 {entry.value.toLocaleString()}
               </span>
             </div>
@@ -354,7 +354,7 @@ function HrZoneBar({ hrHistory, delay }) {
               className="w-2 h-2 rounded-full"
               style={{ backgroundColor: z.color }}
             />
-            <span className="text-[10px] text-muted-foreground/50">
+            <span className="text-[10px] text-muted-foreground/70">
               Z{z.zone}
             </span>
             <span className="display-number text-[10px] text-muted-foreground/60 font-semibold">
@@ -410,7 +410,7 @@ export function SessionRecap() {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <Dumbbell className="h-10 w-10 text-muted-foreground/20 mb-4" />
-        <p className="text-sm text-muted-foreground/40">
+        <p className="text-sm text-muted-foreground/60">
           No workout logged today
         </p>
       </div>
@@ -431,7 +431,7 @@ export function SessionRecap() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold">Session Recap</h2>
-            <p className="text-[11px] text-muted-foreground/40 mt-0.5">
+            <p className="text-[11px] text-muted-foreground/60 mt-0.5">
               {session.date} &middot; {session.duration_min} min
             </p>
           </div>

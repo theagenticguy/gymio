@@ -74,7 +74,7 @@ export function WallLayout() {
                     className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                       active
                         ? "text-foreground"
-                        : "text-muted-foreground/50 hover:text-muted-foreground"
+                        : "text-muted-foreground/70 hover:text-muted-foreground"
                     }`}
                   >
                     <Icon className="h-3.5 w-3.5" />

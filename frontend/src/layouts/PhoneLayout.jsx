@@ -123,7 +123,7 @@ export function PhoneLayout() {
               key={id}
               onClick={() => setActiveTab(id)}
               className={`flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-medium transition-colors ${
-                active ? "text-foreground" : "text-muted-foreground/40"
+                active ? "text-foreground" : "text-muted-foreground/70"
               }`}
             >
               <Icon className="h-5 w-5" />

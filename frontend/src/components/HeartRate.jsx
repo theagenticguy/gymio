@@ -116,7 +116,7 @@ export function HeartRate({ compact = false }) {
             >
               Zone {zone}
             </span>
-            <span className="text-[10px] text-muted-foreground/50">{name}</span>
+            <span className="text-[10px] text-muted-foreground/70">{name}</span>
           </motion.div>
         )}
       </div>
@@ -183,9 +183,9 @@ export function HeartRate({ compact = false }) {
         {hrStatus.connected ? (
           <Bluetooth className="h-3 w-3 text-blue-400" />
         ) : (
-          <BluetoothOff className="h-3 w-3 text-muted-foreground/40" />
+          <BluetoothOff className="h-3 w-3 text-muted-foreground/60" />
         )}
-        <span className="text-[10px] text-muted-foreground/40">
+        <span className="text-[10px] text-muted-foreground/60">
           {hrStatus.connected ? "Connected" : "No HR monitor"}
         </span>
       </div>

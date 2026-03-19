@@ -32,7 +32,7 @@ export function NowPlaying() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full p-5 gap-5">
-        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground/50">
+        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground/70">
           Now Playing
         </span>
 
@@ -94,7 +94,7 @@ export function NowPlaying() {
 
             {/* Volume slider */}
             <div className="flex items-center gap-3 w-full mt-auto">
-              <Volume2 className="h-3.5 w-3.5 text-muted-foreground/40 shrink-0" />
+              <Volume2 className="h-3.5 w-3.5 text-muted-foreground/60 shrink-0" />
               <Slider
                 value={[volume]}
                 max={100}
@@ -110,7 +110,7 @@ export function NowPlaying() {
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center gap-3">
             <Music className="h-8 w-8 text-muted-foreground/15" />
-            <p className="text-xs text-muted-foreground/30">No music playing</p>
+            <p className="text-xs text-muted-foreground/70">No music playing</p>
           </div>
         )}
       </div>

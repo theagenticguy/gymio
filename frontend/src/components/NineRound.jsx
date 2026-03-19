@@ -109,7 +109,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
               <p className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color }}>
                 Round {round.round} of {total}
               </p>
-              <p className="text-xs text-muted-foreground/50">{round.station}</p>
+              <p className="text-xs text-muted-foreground/70">{round.station}</p>
             </div>
           </div>
 
@@ -121,7 +121,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
               className={`p-1.5 rounded-lg transition-all ${
                 reaction === "liked"
                   ? "bg-gym-green/20 text-gym-green scale-110"
-                  : "text-muted-foreground/30 hover:text-gym-green hover:bg-gym-green/10"
+                  : "text-muted-foreground/70 hover:text-gym-green hover:bg-gym-green/10"
               }`}
             >
               <ThumbsUp className="h-3.5 w-3.5" />
@@ -132,7 +132,7 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
               className={`p-1.5 rounded-lg transition-all ${
                 reaction === "disliked"
                   ? "bg-gym-red/20 text-gym-red scale-110"
-                  : "text-muted-foreground/30 hover:text-gym-red hover:bg-gym-red/10"
+                  : "text-muted-foreground/70 hover:text-gym-red hover:bg-gym-red/10"
               }`}
             >
               <ThumbsDown className="h-3.5 w-3.5" />
@@ -154,13 +154,13 @@ function RoundCard({ round, isActive, total, onReact, reaction }) {
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
               <span className="display-number text-xl font-bold">{formatTime(round.duration)}</span>
-              <span className="text-xs text-muted-foreground/50">work</span>
+              <span className="text-xs text-muted-foreground/70">work</span>
             </div>
             {round.rest_duration > 0 && (
               <div className="flex items-center gap-2">
                 <div className="w-2.5 h-2.5 rounded-full bg-blue-500/60" />
                 <span className="display-number text-xl font-bold">{formatTime(round.rest_duration)}</span>
-                <span className="text-xs text-muted-foreground/50">rest</span>
+                <span className="text-xs text-muted-foreground/70">rest</span>
               </div>
             )}
           </div>
