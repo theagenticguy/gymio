@@ -45,7 +45,7 @@ export function Timer() {
   return (
     <div className="flex flex-col items-center justify-center gap-8 py-4">
       {/* Timer ring with ambient glow */}
-      <div className="relative flex items-center justify-center">
+      <div className="relative flex items-center justify-center overflow-hidden">
         {/* Outer radial glow — breathes when active */}
         {active && (
           <motion.div
