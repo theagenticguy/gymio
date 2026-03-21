@@ -55,7 +55,7 @@ class SonosController:
                 "title": info.get("title", ""),
                 "artist": info.get("artist", ""),
                 "album": info.get("album", ""),
-                "album_art": info.get("album_art_uri", ""),
+                "album_art": info.get("album_art", ""),
                 "duration": info.get("duration", ""),
                 "position": info.get("position", ""),
             }
