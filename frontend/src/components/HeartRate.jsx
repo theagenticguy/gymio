@@ -1,6 +1,6 @@
 import { useStore } from "../store";
 import { AreaChart, Area, YAxis, ResponsiveContainer } from "recharts";
-import { Heart, Activity, Zap, Bluetooth, BluetoothOff } from "lucide-react";
+import { Heart, Activity, Bluetooth, BluetoothOff } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const ZONE_COLORS = ["#6b7280", "#3b82f6", "#22c55e", "#eab308", "#f97316", "#ef4444"];
@@ -13,10 +13,10 @@ function RecoveryGauge({ score, large }) {
   const pct = Math.min(100, Math.max(0, score));
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
-        <span className={`${large ? "text-base" : "text-[10px]"} uppercase tracking-widest text-foreground`}>Recovery</span>
-        <span className={`display-number ${large ? "text-lg" : "text-xs"} font-bold`} style={{ color }}>{label}</span>
+        <span className={`${large ? "text-xl" : "text-[10px]"} uppercase tracking-widest text-foreground`}>Recovery</span>
+        <span className={`display-number ${large ? "text-3xl" : "text-xs"} font-bold`} style={{ color }}>{label}</span>
       </div>
       <div className={`${large ? "h-3" : "h-1.5"} rounded-full bg-white/5 overflow-hidden`}>
         <motion.div
@@ -44,7 +44,6 @@ export function HeartRate({ compact = false, large = false }) {
 
   const chartData = hrHistory.map((p, i) => ({ idx: i, bpm: p.bpm }));
 
-  // Compact mode: just BPM + zone (for sidebar or inline use)
   if (compact) {
     return (
       <div className="flex items-center gap-3">
@@ -67,14 +66,12 @@ export function HeartRate({ compact = false, large = false }) {
     );
   }
 
-  // Full HR + HRV dashboard
   return (
     <div className={`glass rounded-2xl ${large ? "p-8 space-y-6" : "p-5 space-y-4"}`}>
-      {/* Header row: BPM + Zone */}
-      <div className="flex items-center justify-between">
-        <div className={`flex items-center ${large ? "gap-6" : "gap-4"}`}>
-          {/* Heartbeat icon */}
-          <div className="relative">
+      {/* BPM + Zone */}
+      <div className="flex items-end justify-between">
+        <div className={`flex items-end ${large ? "gap-5" : "gap-3"}`}>
+          <div className="relative self-center">
             <motion.div
               className="absolute inset-0 rounded-full"
               style={{ backgroundColor: color }}
@@ -82,46 +79,44 @@ export function HeartRate({ compact = false, large = false }) {
               transition={{ duration: parseFloat(beatDuration) || 1, repeat: Infinity }}
             />
             <Heart
-              className={`${large ? "h-10 w-10" : "h-6 w-6"} relative heartbeat-dynamic`}
+              className={`${large ? "h-12 w-12" : "h-6 w-6"} relative heartbeat-dynamic`}
               style={{ color, fill: color, "--beat-duration": beatDuration }}
             />
           </div>
 
-          {/* BPM number */}
           <AnimatePresence mode="wait">
             <motion.span
               key={bpm}
               initial={{ y: -8, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className={`display-number ${large ? "text-8xl" : "text-5xl"} font-black`}
+              className={`display-number ${large ? "text-8xl" : "text-5xl"} font-black leading-none`}
               style={{ color }}
             >
               {bpm || "--"}
             </motion.span>
           </AnimatePresence>
-          <span className={`${large ? "text-2xl" : "text-sm"} text-foreground self-end pb-1`}>bpm</span>
+          <span className={`${large ? "text-3xl" : "text-sm"} text-foreground pb-1`}>bpm</span>
         </div>
 
-        {/* Zone badge */}
         {zone > 0 && (
           <motion.div
             key={zone}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="flex flex-col items-end gap-0.5"
+            className="flex flex-col items-end gap-1"
           >
             <span
-              className={`${large ? "text-xl px-5 py-2" : "text-xs px-3 py-1"} font-bold rounded-full`}
+              className={`${large ? "text-2xl px-6 py-2" : "text-xs px-3 py-1"} font-bold rounded-full`}
               style={{ backgroundColor: color + "20", color }}
             >
               Zone {zone}
             </span>
-            <span className={`${large ? "text-base" : "text-[10px]"} text-foreground`}>{name}</span>
+            <span className={`${large ? "text-xl" : "text-[10px]"} text-foreground`}>{name}</span>
           </motion.div>
         )}
       </div>
 
-      {/* Zone bar — horizontal gradient with marker */}
+      {/* Zone bar */}
       <div className="relative">
         <div className={`zone-gradient ${large ? "h-3" : "h-2"} rounded-full opacity-40`} />
         {bpm > 0 && (
@@ -134,7 +129,7 @@ export function HeartRate({ compact = false, large = false }) {
         )}
       </div>
 
-      {/* Sparkline chart */}
+      {/* Sparkline */}
       {chartData.length > 5 && (
         <div className={`${large ? "h-[120px]" : "h-[80px]"} -mx-2`}>
           <ResponsiveContainer width="100%" height="100%">
@@ -146,46 +141,35 @@ export function HeartRate({ compact = false, large = false }) {
                 </linearGradient>
               </defs>
               <YAxis domain={[50, 200]} hide />
-              <Area
-                type="monotone"
-                dataKey="bpm"
-                stroke={color}
-                strokeWidth={large ? 3 : 2}
-                fill="url(#hrFill)"
-                dot={false}
-                isAnimationActive={false}
-              />
+              <Area type="monotone" dataKey="bpm" stroke={color} strokeWidth={large ? 3 : 2} fill="url(#hrFill)" dot={false} isAnimationActive={false} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
       )}
 
-      {/* HRV metrics row */}
+      {/* HRV row */}
       {(hrv.rmssd != null || hrv.recoveryScore != null) && (
-        <div className="grid grid-cols-2 gap-4 pt-1">
-          {/* RMSSD */}
-          <div className="flex flex-col gap-0.5">
-            <span className={`${large ? "text-base" : "text-[10px]"} uppercase tracking-widest text-foreground flex items-center gap-1`}>
-              <Activity className={large ? "h-5 w-5" : "h-3 w-3"} /> HRV (RMSSD)
+        <div className={`grid grid-cols-2 ${large ? "gap-8" : "gap-4"} pt-1`}>
+          <div className="flex flex-col gap-1">
+            <span className={`${large ? "text-xl" : "text-[10px]"} uppercase tracking-widest text-foreground flex items-center gap-2`}>
+              <Activity className={large ? "h-6 w-6" : "h-3 w-3"} /> HRV (RMSSD)
             </span>
-            <span className={`display-number ${large ? "text-4xl" : "text-xl"} font-bold text-foreground`}>
+            <span className={`display-number ${large ? "text-5xl" : "text-xl"} font-bold text-foreground`}>
               {hrv.rmssd != null ? `${hrv.rmssd}ms` : "--"}
             </span>
           </div>
-
-          {/* Recovery score */}
           <RecoveryGauge score={hrv.recoveryScore} large={large} />
         </div>
       )}
 
-      {/* Connection status */}
-      <div className="flex items-center gap-2 pt-1">
+      {/* Connection */}
+      <div className={`flex items-center gap-2 pt-1`}>
         {hrStatus.connected ? (
-          <Bluetooth className={`${large ? "h-5 w-5" : "h-3 w-3"} text-blue-400`} />
+          <Bluetooth className={`${large ? "h-6 w-6" : "h-3 w-3"} text-blue-400`} />
         ) : (
-          <BluetoothOff className={`${large ? "h-5 w-5" : "h-3 w-3"} text-foreground`} />
+          <BluetoothOff className={`${large ? "h-6 w-6" : "h-3 w-3"} text-foreground`} />
         )}
-        <span className={`${large ? "text-base" : "text-[10px]"} text-foreground`}>
+        <span className={`${large ? "text-xl" : "text-[10px]"} text-foreground`}>
           {hrStatus.connected ? "Connected" : "No HR monitor"}
         </span>
       </div>
@@ -193,5 +177,4 @@ export function HeartRate({ compact = false, large = false }) {
   );
 }
 
-// Keep the old name as an alias for backward compat in imports
 export const HeartRateChart = HeartRate;
