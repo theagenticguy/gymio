@@ -45,7 +45,7 @@ trainer = Trainer(scheduler, broadcast=manager.broadcast_sync)
 _button = None
 if is_pi:
     try:
-        _button = Button(lights=trainer.lights)
+        _button = Button(lights=trainer.lights, broadcast=manager.broadcast_sync)
     except Exception as e:
         print(f"GPIO button init failed (pin 21): {e}")
 
@@ -106,6 +106,15 @@ async def websocket_endpoint(websocket: WebSocket):
         track = sonos.get_now_playing()
         if track.get("title"):
             await websocket.send_json({"type": "now_playing", **track})
+    # Button rest (if active)
+    if _button is not None and _button.rest_active:
+        await websocket.send_json({
+            "type": "button_rest",
+            "active": True,
+            "remaining": _button.get_remaining(),
+            "duration": _button._rest_duration,
+            "press": _button._press_count,
+        })
     # HR
     if hr_service.connected:
         status = hr_service.get_status()

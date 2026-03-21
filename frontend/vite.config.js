@@ -9,6 +9,9 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
+      devOptions: {
+        enabled: false,
+      },
       manifest: {
         name: "GYMIO",
         short_name: "GYMIO",
@@ -61,5 +64,10 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    host: true,
+    watch: {
+      usePolling: false,
+      interval: 500,
+    },
   },
 });

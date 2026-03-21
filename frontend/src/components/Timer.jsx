@@ -29,18 +29,30 @@ function useTimerSize() {
 
 export function Timer() {
   const timer = useStore((s) => s.timer);
+  const buttonRest = useStore((s) => s.buttonRest);
   const { remaining, duration, phase, round, totalRounds } = timer;
-  const cfg = PHASE[phase] || PHASE.idle;
-  const active = phase !== "idle";
   const { circleSize, glowSize, pulseSize, strokeWidth } = useTimerSize();
+
+  // Button rest takes over when HIIT timer is idle
+  const isHiitActive = phase !== "idle";
+  const showButtonRest = !isHiitActive && buttonRest.active;
+
+  const displayPhase = showButtonRest ? "rest" : phase;
+  const displayRemaining = showButtonRest ? buttonRest.remaining : remaining;
+  const displayDuration = showButtonRest ? buttonRest.duration : duration;
+
+  const cfg = PHASE[displayPhase] || PHASE.idle;
+  const active = displayPhase !== "idle";
 
   // Capture duration + initialRemaining once per phase/round so CountdownCircleTimer
   // doesn't reset on every WS tick (remaining changes at 1Hz)
-  const phaseKey = `${phase}-${round}`;
-  const phaseDuration = duration || remaining || 1;
-  const phaseRef = useRef({ key: phaseKey, duration: phaseDuration, initial: remaining });
+  const phaseKey = showButtonRest
+    ? `button-rest-${buttonRest.press}`
+    : `${phase}-${round}`;
+  const phaseDuration = displayDuration || displayRemaining || 1;
+  const phaseRef = useRef({ key: phaseKey, duration: phaseDuration, initial: displayRemaining });
   if (phaseRef.current.key !== phaseKey) {
-    phaseRef.current = { key: phaseKey, duration: phaseDuration, initial: remaining };
+    phaseRef.current = { key: phaseKey, duration: phaseDuration, initial: displayRemaining };
   }
 
   // Drive ambient background color from timer phase
@@ -51,12 +63,12 @@ export function Timer() {
       warning: [234, 179, 8],
       idle: [60, 60, 70],
     };
-    const [r, g, b] = rgb[phase] || rgb.idle;
+    const [r, g, b] = rgb[displayPhase] || rgb.idle;
     const el = document.documentElement;
     el.style.setProperty("--ambient-r", r);
     el.style.setProperty("--ambient-g", g);
     el.style.setProperty("--ambient-b", b);
-  }, [phase]);
+  }, [displayPhase]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 py-4">
@@ -90,7 +102,7 @@ export function Timer() {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={phase}
+            key={displayPhase}
             initial={{ scale: 0.92, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.92, opacity: 0 }}
@@ -128,8 +140,8 @@ export function Timer() {
                     {formatTime(active ? remainingTime : remaining)}
                   </span>
 
-                  {/* Round */}
-                  {active && (
+                  {/* Round (HIIT only) */}
+                  {active && !showButtonRest && (
                     <span className="display-number text-sm text-foreground mt-1.5">
                       Round {round} / {totalRounds}
                     </span>
@@ -141,8 +153,8 @@ export function Timer() {
         </AnimatePresence>
       </div>
 
-      {/* Round progress dots */}
-      {active && totalRounds > 0 && (
+      {/* Round progress dots (HIIT only) */}
+      {active && !showButtonRest && totalRounds > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

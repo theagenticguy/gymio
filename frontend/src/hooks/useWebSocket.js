@@ -8,6 +8,7 @@ export function useWebSocket() {
   const setTimer = useStore((s) => s.setTimer);
   const setLights = useStore((s) => s.setLights);
   const setNowPlaying = useStore((s) => s.setNowPlaying);
+  const setButtonRest = useStore((s) => s.setButtonRest);
   const setHr = useStore((s) => s.setHr);
   const setHrv = useStore((s) => s.setHrv);
   const setHrStatus = useStore((s) => s.setHrStatus);
@@ -39,6 +40,14 @@ export function useWebSocket() {
           break;
         case "lights":
           setLights({ color: msg.color, mode: msg.mode });
+          break;
+        case "button_rest":
+          setButtonRest({
+            active: msg.active,
+            remaining: msg.remaining,
+            duration: msg.duration,
+            press: msg.press || 0,
+          });
           break;
         case "now_playing":
           setNowPlaying({
@@ -95,7 +104,7 @@ export function useWebSocket() {
     ws.onerror = () => {
       ws.close();
     };
-  }, [wsUrl, setTimer, setLights, setNowPlaying, setHr, setHrv, setHrStatus, addHrPoint, addPr, setActiveTab]);
+  }, [wsUrl, setTimer, setLights, setButtonRest, setNowPlaying, setHr, setHrv, setHrStatus, addHrPoint, addPr, setActiveTab]);
 
   useEffect(() => {
     connect();
