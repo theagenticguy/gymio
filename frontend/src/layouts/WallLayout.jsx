@@ -42,7 +42,7 @@ export function WallLayout() {
 
       {/* ── RIGHT: Now Playing sidebar ────────────────────────── */}
       <aside className={`relative z-10 border-l overflow-hidden ${sideGlow} transition-all duration-700`}>
-        <div className="h-full" style={{ transform: "scale(1.1)", transformOrigin: "top right" }}>
+        <div className="h-full">
           <NowPlaying />
         </div>
       </aside>
