@@ -19,8 +19,8 @@ export function WallLayout() {
 
   return (
     <div
-      className="h-screen w-screen grid grid-cols-[4fr_3.5fr_300px] bg-background overflow-hidden noise-overlay"
-      style={{ cursor: "none", zoom: 2.5 }}
+      className="h-screen w-screen grid grid-cols-[4fr_3.5fr_300px] bg-background overflow-hidden noise-overlay wall-view"
+      style={{ cursor: "none" }}
     >
       {/* Ambient glow layer */}
       <div className="ambient-glow" />

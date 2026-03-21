@@ -14,16 +14,16 @@ function formatTime(s) {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 }
 
-// Responsive sizes: scale down on narrow viewports, full size on desktop/TV
+// Responsive sizes: small on mobile, big on TV wall
 function useTimerSize() {
-  // 300px circle on desktop, scales down to fit mobile with padding
   const vw = typeof window !== "undefined" ? window.innerWidth : 1024;
-  const circleSize = Math.min(300, vw - 112); // 56px padding each side
-  const maxGlow = Math.floor((vw - 16) / 1.06); // stays within viewport at 1.06x breathe scale
+  const isWall = vw >= 1024;
+  const circleSize = isWall ? 420 : Math.min(300, vw - 112);
+  const maxGlow = Math.floor((vw - 16) / 1.06);
   const glowSize = Math.min(Math.round(circleSize * 1.27), maxGlow);
-  const maxPulse = Math.floor((vw - 16) / 1.5); // stays within viewport at 1.5x animation scale
+  const maxPulse = Math.floor((vw - 16) / 1.5);
   const pulseSize = Math.min(Math.round(circleSize * 1.05), maxPulse);
-  const strokeWidth = circleSize >= 280 ? 14 : 10;
+  const strokeWidth = isWall ? 18 : circleSize >= 280 ? 14 : 10;
   return { circleSize, glowSize, pulseSize, strokeWidth };
 }
 

@@ -228,3 +228,107 @@
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
 }
+
+/* ── Wall TV view: scale up everything for readability ────────── */
+.wall-view {
+  font-size: 1.5rem;
+}
+
+/* Timer */
+.wall-view .display-number {
+  letter-spacing: -0.02em;
+}
+
+/* BPM number */
+.wall-view .glass .display-number.text-5xl {
+  font-size: 6rem;
+}
+
+/* Stat values */
+.wall-view .glass .display-number.text-lg {
+  font-size: 2.5rem;
+}
+
+/* HRV value */
+.wall-view .glass .display-number.text-xl {
+  font-size: 2.5rem;
+}
+
+/* Small labels (10px, xs, sm) */
+.wall-view .text-\[10px\] {
+  font-size: 1rem;
+}
+.wall-view .text-\[11px\] {
+  font-size: 1.2rem;
+}
+.wall-view .text-xs {
+  font-size: 1.1rem;
+}
+.wall-view .text-sm {
+  font-size: 1.3rem;
+}
+
+/* Timer time display */
+.wall-view .text-\[4\.5rem\] {
+  font-size: 8rem;
+}
+
+/* Heart rate sparkline taller */
+.wall-view .h-\[80px\] {
+  height: 140px;
+}
+
+/* Icons bigger */
+.wall-view .glass .h-6.w-6 {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.wall-view .glass .h-4.w-4 {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.wall-view .glass .h-3.w-3 {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Zone bar thicker */
+.wall-view .zone-gradient {
+  height: 0.5rem;
+}
+
+/* Zone marker bigger */
+.wall-view .zone-gradient + div .h-4.w-4 {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Round dots bigger */
+.wall-view .h-2\.5 {
+  height: 0.75rem;
+}
+
+/* Glass panels more padding */
+.wall-view .glass {
+  padding: 2rem;
+}
+
+/* Now Playing sidebar text */
+.wall-view aside .text-sm {
+  font-size: 1.5rem;
+}
+.wall-view aside .text-xs {
+  font-size: 1.2rem;
+}
+.wall-view aside .h-12.w-12 {
+  width: 4rem;
+  height: 4rem;
+}
+.wall-view aside .h-5.w-5 {
+  width: 2rem;
+  height: 2rem;
+}
+.wall-view aside .h-8.w-8 {
+  width: 3rem;
+  height: 3rem;
+}
