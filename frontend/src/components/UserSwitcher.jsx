@@ -16,7 +16,7 @@ export function UserSwitcher() {
         <button
           key={u.value}
           onClick={() => setUser(u)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm transition-colors ${
+          className={`flex items-center gap-1.5 px-3 py-2.5 rounded-full text-sm transition-colors ${
             user.value === u.value
               ? "bg-primary text-primary-foreground"
               : "bg-secondary text-muted-foreground hover:text-foreground"
