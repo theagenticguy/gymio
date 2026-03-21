@@ -90,13 +90,7 @@ export function PhoneLayout() {
                 {showSetup ? (
                   <WorkoutSetup onClose={() => setShowSetup(false)} />
                 ) : (
-                  <>
-                    <Timer />
-                    <div className="w-full">
-                      <HeartRate />
-                    </div>
-                    <SessionStats />
-                  </>
+                  <Timer />
                 )}
               </motion.div>
             )}

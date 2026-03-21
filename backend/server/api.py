@@ -84,6 +84,14 @@ async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
     # Store the event loop reference for sync broadcasts
     manager._loop = asyncio.get_event_loop()
+
+    # Send current now-playing state to newly connected client
+    sonos = get_sonos()
+    if sonos and sonos.available:
+        track = sonos.get_now_playing()
+        if track.get("title"):
+            await websocket.send_json({"type": "now_playing", **track})
+
     try:
         while True:
             data = await websocket.receive_text()
