@@ -85,12 +85,32 @@ async def websocket_endpoint(websocket: WebSocket):
     # Store the event loop reference for sync broadcasts
     manager._loop = asyncio.get_event_loop()
 
-    # Send current now-playing state to newly connected client
+    # Send current state to newly connected client
+    # Timer + lights
+    await websocket.send_json({
+        "type": "timer",
+        "remaining": trainer._current_remaining,
+        "phase": trainer._current_phase,
+        "round": trainer._current_round,
+        "total_rounds": trainer._total_rounds,
+    })
+    await websocket.send_json({
+        "type": "lights",
+        "color": trainer._current_color,
+        "mode": "solid",
+    })
+    # Now playing
     sonos = get_sonos()
     if sonos and sonos.available:
         track = sonos.get_now_playing()
         if track.get("title"):
             await websocket.send_json({"type": "now_playing", **track})
+    # HR
+    if hr_service.connected:
+        status = hr_service.get_status()
+        await websocket.send_json({"type": "hr_status", "connected": True, "address": status.get("address")})
+        if status.get("last_bpm", 0) > 0:
+            await websocket.send_json({"type": "hr", "bpm": status["last_bpm"], "zone": 0, "zone_name": "", "zone_color": "#6b7280", "zone_pct": 0})
 
     try:
         while True:

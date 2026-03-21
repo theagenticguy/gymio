@@ -21,6 +21,8 @@ class Trainer:
         self._current_phase = "idle"
         self._current_round = 0
         self._total_rounds = 0
+        self._current_remaining = 0
+        self._current_color = "off"
 
     def _setup_light_functions(self):
         if is_pi:
@@ -44,6 +46,8 @@ class Trainer:
     def _broadcast_state(self, phase: str, seconds: int, round_num: int, color: str, mode: str = "solid"):
         self._current_phase = phase
         self._current_round = round_num
+        self._current_remaining = seconds
+        self._current_color = color
         self.broadcast({
             "type": "timer",
             "remaining": seconds,

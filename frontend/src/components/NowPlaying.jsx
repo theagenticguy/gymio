@@ -6,7 +6,7 @@ import { useStore } from "../store";
 import { useSonosControl } from "../hooks/useApi";
 import { useState } from "react";
 
-export function NowPlaying() {
+export function NowPlaying({ controls = true }) {
   const nowPlaying = useStore((s) => s.nowPlaying);
   const { title, artist, album, albumArt } = nowPlaying;
   const sonos = useSonosControl();
@@ -65,49 +65,53 @@ export function NowPlaying() {
             </div>
 
             {/* Playback controls */}
-            <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label={isPlaying ? "Pause" : "Play"}
-                className="h-12 w-12 rounded-full hover:bg-white/10"
-                onClick={() => {
-                  if (isPlaying) sonos.pause.mutate();
-                  else sonos.play.mutate();
-                  setIsPlaying(!isPlaying);
-                }}
-              >
-                {isPlaying ? (
-                  <Pause className="h-5 w-5" />
-                ) : (
-                  <Play className="h-5 w-5 ml-0.5" />
-                )}
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label="Next track"
-                className="h-10 w-10 rounded-full hover:bg-white/10"
-                onClick={() => sonos.next.mutate()}
-              >
-                <SkipForward className="h-4 w-4" />
-              </Button>
-            </div>
+            {controls && (
+              <>
+                <div className="flex items-center gap-1">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label={isPlaying ? "Pause" : "Play"}
+                    className="h-12 w-12 rounded-full hover:bg-white/10"
+                    onClick={() => {
+                      if (isPlaying) sonos.pause.mutate();
+                      else sonos.play.mutate();
+                      setIsPlaying(!isPlaying);
+                    }}
+                  >
+                    {isPlaying ? (
+                      <Pause className="h-5 w-5" />
+                    ) : (
+                      <Play className="h-5 w-5 ml-0.5" />
+                    )}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Next track"
+                    className="h-10 w-10 rounded-full hover:bg-white/10"
+                    onClick={() => sonos.next.mutate()}
+                  >
+                    <SkipForward className="h-4 w-4" />
+                  </Button>
+                </div>
 
-            {/* Volume slider */}
-            <div className="flex items-center gap-3 w-full mt-auto">
-              <Volume2 className="h-3.5 w-3.5 text-foreground shrink-0" />
-              <Slider
-                value={[volume]}
-                max={100}
-                step={1}
-                onValueChange={(v) => {
-                  setVolume(v[0]);
-                  sonos.volume.mutate(v[0]);
-                }}
-                className="flex-1"
-              />
-            </div>
+                {/* Volume slider */}
+                <div className="flex items-center gap-3 w-full mt-auto">
+                  <Volume2 className="h-3.5 w-3.5 text-foreground shrink-0" />
+                  <Slider
+                    value={[volume]}
+                    max={100}
+                    step={1}
+                    onValueChange={(v) => {
+                      setVolume(v[0]);
+                      sonos.volume.mutate(v[0]);
+                    }}
+                    className="flex-1"
+                  />
+                </div>
+              </>
+            )}
           </motion.div>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center gap-3">

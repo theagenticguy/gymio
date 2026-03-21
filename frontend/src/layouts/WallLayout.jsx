@@ -42,7 +42,7 @@ export function WallLayout() {
 
       {/* ── RIGHT: Now Playing ──────────────────────────────────── */}
       <aside className={`relative z-10 w-[340px] shrink-0 border-l ${sideGlow} transition-all duration-700`}>
-        <NowPlaying />
+        <NowPlaying controls={false} />
       </aside>
     </div>
   );
