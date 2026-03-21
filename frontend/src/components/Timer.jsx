@@ -18,12 +18,12 @@ function formatTime(s) {
 function useTimerSize() {
   const vw = typeof window !== "undefined" ? window.innerWidth : 1024;
   const isWall = vw >= 1024;
-  const circleSize = isWall ? 360 : Math.min(300, vw - 112);
+  const circleSize = isWall ? 480 : Math.min(300, vw - 112);
   const maxGlow = Math.floor((vw - 16) / 1.06);
   const glowSize = Math.min(Math.round(circleSize * 1.27), maxGlow);
   const maxPulse = Math.floor((vw - 16) / 1.5);
   const pulseSize = Math.min(Math.round(circleSize * 1.05), maxPulse);
-  const strokeWidth = isWall ? 18 : circleSize >= 280 ? 14 : 10;
+  const strokeWidth = isWall ? 22 : circleSize >= 280 ? 14 : 10;
   return { circleSize, glowSize, pulseSize, strokeWidth };
 }
 
