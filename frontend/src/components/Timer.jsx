@@ -29,7 +29,7 @@ function useTimerSize() {
 
 export function Timer() {
   const timer = useStore((s) => s.timer);
-  const { remaining, phase, round, totalRounds } = timer;
+  const { remaining, duration, phase, round, totalRounds } = timer;
   const cfg = PHASE[phase] || PHASE.idle;
   const active = phase !== "idle";
   const { circleSize, glowSize, pulseSize, strokeWidth } = useTimerSize();
@@ -37,9 +37,10 @@ export function Timer() {
   // Capture duration + initialRemaining once per phase/round so CountdownCircleTimer
   // doesn't reset on every WS tick (remaining changes at 1Hz)
   const phaseKey = `${phase}-${round}`;
-  const phaseRef = useRef({ key: phaseKey, duration: remaining || 1, initial: remaining });
+  const phaseDuration = duration || remaining || 1;
+  const phaseRef = useRef({ key: phaseKey, duration: phaseDuration, initial: remaining });
   if (phaseRef.current.key !== phaseKey) {
-    phaseRef.current = { key: phaseKey, duration: remaining || 1, initial: remaining };
+    phaseRef.current = { key: phaseKey, duration: phaseDuration, initial: remaining };
   }
 
   // Drive ambient background color from timer phase

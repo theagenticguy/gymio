@@ -1,4 +1,5 @@
 import platform
+import time
 
 is_pi = platform.system() == "Linux" and (platform.machine().startswith("aarch64") or platform.machine().startswith("arm"))
 if is_pi:
@@ -23,6 +24,8 @@ class Trainer:
         self._total_rounds = 0
         self._current_remaining = 0
         self._current_color = "off"
+        self._phase_start_time = 0.0
+        self._phase_duration = 0
 
     def _setup_light_functions(self):
         if is_pi:
@@ -48,9 +51,12 @@ class Trainer:
         self._current_round = round_num
         self._current_remaining = seconds
         self._current_color = color
+        self._phase_start_time = time.monotonic()
+        self._phase_duration = seconds
         self.broadcast({
             "type": "timer",
             "remaining": seconds,
+            "duration": seconds,
             "phase": phase,
             "round": round_num,
             "total_rounds": self._total_rounds,
@@ -60,6 +66,13 @@ class Trainer:
             "color": color,
             "mode": mode,
         })
+
+    def get_remaining(self) -> int:
+        """Compute actual remaining seconds based on elapsed time since phase start."""
+        if self._current_phase == "idle" or self._phase_duration == 0:
+            return 0
+        elapsed = time.monotonic() - self._phase_start_time
+        return max(0, int(self._phase_duration - elapsed))
 
     def post_schedule(self, HIIT: Workout):
         self.HIIT = HIIT
@@ -160,9 +173,12 @@ class Trainer:
             self.all_off()
             self.scheduler.remove_all_jobs()
             self.job = None
+            self._phase_duration = 0
+            self._phase_start_time = 0.0
             self.broadcast({
                 "type": "timer",
                 "remaining": 0,
+                "duration": 0,
                 "phase": "idle",
                 "round": self._total_rounds,
                 "total_rounds": self._total_rounds,
@@ -174,9 +190,12 @@ class Trainer:
         self.scheduler.remove_all_jobs()
         self.job = None
         self._current_phase = "idle"
+        self._phase_duration = 0
+        self._phase_start_time = 0.0
         self.broadcast({
             "type": "timer",
             "remaining": 0,
+            "duration": 0,
             "phase": "idle",
             "round": 0,
             "total_rounds": 0,

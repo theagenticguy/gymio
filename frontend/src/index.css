@@ -1,61 +1,102 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 6%;
-    --card-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
+/* ── Class-based dark mode (GYMIO is always dark) ──────────── */
+@custom-variant dark (&:where(.dark, .dark *));
 
-    /* Text hierarchy — fixed grays that pass WCAG AA against --background */
-    --text-secondary: 0 0% 55%;   /* ~7.5:1 — labels, descriptions */
-    --text-tertiary: 0 0% 45%;    /* ~4.6:1 — hints, metadata, icons */
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --radius: 0.5rem;
+/* ── Theme tokens ──────────────────────────────────────────── */
+@theme {
+  --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
 
-    /* Ambient phase colors (set dynamically by JS) */
-    --ambient-r: 34;
-    --ambient-g: 197;
-    --ambient-b: 94;
-  }
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
 
-  * {
-    @apply border-border;
-  }
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
 
-  html, body {
-    overflow-x: hidden;
-  }
+  --color-text-secondary: hsl(var(--text-secondary));
+  --color-text-tertiary: hsl(var(--text-tertiary));
 
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
+  --color-gym-green: #22c55e;
+  --color-gym-yellow: #eab308;
+  --color-gym-red: #ef4444;
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Container query breakpoint for TV layout columns */
+  --container-wall: 500px;
+}
+
+/* ── CSS custom properties (unchanged) ─────────────────────── */
+:root {
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 6%;
+  --card-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 9%;
+  --secondary: 0 0% 14.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 14.9%;
+  --muted-foreground: 0 0% 63.9%;
+
+  /* Text hierarchy — fixed grays that pass WCAG AA against --background */
+  --text-secondary: 0 0% 55%;   /* ~7.5:1 — labels, descriptions */
+  --text-tertiary: 0 0% 45%;    /* ~4.6:1 — hints, metadata, icons */
+  --accent: 0 0% 14.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 14.9%;
+  --input: 0 0% 14.9%;
+  --ring: 0 0% 83.1%;
+  --radius: 0.5rem;
+
+  /* Ambient phase colors (set dynamically by JS) */
+  --ambient-r: 34;
+  --ambient-g: 197;
+  --ambient-b: 94;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* ── Monospace display numbers ────────────────────────────────── */
-.display-number {
+@utility display-number {
   font-family: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
 
 /* ── Ambient background glow ─────────────────────────────────── */
-.ambient-glow {
+@utility ambient-glow {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -75,14 +116,14 @@
 }
 
 /* ── Glass morphism panels ───────────────────────────────────── */
-.glass {
+@utility glass {
   background: rgba(255, 255, 255, 0.025);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.glass-strong {
+@utility glass-strong {
   background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
@@ -90,21 +131,21 @@
 }
 
 /* ── Neon text glow ──────────────────────────────────────────── */
-.neon-green {
+@utility neon-green {
   text-shadow:
     0 0 10px rgba(34, 197, 94, 0.6),
     0 0 30px rgba(34, 197, 94, 0.3),
     0 0 60px rgba(34, 197, 94, 0.1);
 }
 
-.neon-yellow {
+@utility neon-yellow {
   text-shadow:
     0 0 10px rgba(234, 179, 8, 0.6),
     0 0 30px rgba(234, 179, 8, 0.3),
     0 0 60px rgba(234, 179, 8, 0.1);
 }
 
-.neon-red {
+@utility neon-red {
   text-shadow:
     0 0 10px rgba(239, 68, 68, 0.6),
     0 0 30px rgba(239, 68, 68, 0.3),
@@ -112,19 +153,19 @@
 }
 
 /* ── Box glow effects ────────────────────────────────────────── */
-.glow-green {
+@utility glow-green {
   box-shadow:
     0 0 20px rgba(34, 197, 94, 0.3),
     0 0 60px rgba(34, 197, 94, 0.1);
 }
 
-.glow-yellow {
+@utility glow-yellow {
   box-shadow:
     0 0 20px rgba(234, 179, 8, 0.3),
     0 0 60px rgba(234, 179, 8, 0.1);
 }
 
-.glow-red {
+@utility glow-red {
   box-shadow:
     0 0 20px rgba(239, 68, 68, 0.3),
     0 0 60px rgba(239, 68, 68, 0.1);
@@ -139,12 +180,12 @@
   56% { transform: scale(1); }
 }
 
-.animate-heartbeat {
+@utility animate-heartbeat {
   animation: heartbeat 1s ease-in-out infinite;
 }
 
 /* Dynamic BPM-based heartbeat speed (set via JS style) */
-.heartbeat-dynamic {
+@utility heartbeat-dynamic {
   animation: heartbeat var(--beat-duration, 1s) ease-in-out infinite;
 }
 
@@ -154,7 +195,7 @@
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-.animate-pulse-ring {
+@utility animate-pulse-ring {
   animation: pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
@@ -165,7 +206,7 @@
 }
 
 /* ── Zone bar gradient ───────────────────────────────────────── */
-.zone-gradient {
+@utility zone-gradient {
   background: linear-gradient(
     90deg,
     #6b7280 0%,
@@ -219,13 +260,14 @@
 }
 
 /* ── Noise texture overlay (subtle) ──────────────────────────── */
-.noise-overlay::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  opacity: 0.015;
-  z-index: 999;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+@utility noise-overlay {
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    opacity: 0.015;
+    z-index: 999;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  }
 }
-

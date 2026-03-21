@@ -86,10 +86,11 @@ async def websocket_endpoint(websocket: WebSocket):
     manager._loop = asyncio.get_event_loop()
 
     # Send current state to newly connected client
-    # Timer + lights
+    # Timer + lights (use get_remaining() for accurate mid-phase time)
     await websocket.send_json({
         "type": "timer",
-        "remaining": trainer._current_remaining,
+        "remaining": trainer.get_remaining(),
+        "duration": trainer._phase_duration,
         "phase": trainer._current_phase,
         "round": trainer._current_round,
         "total_rounds": trainer._total_rounds,

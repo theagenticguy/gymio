@@ -31,6 +31,7 @@ export function useWebSocket() {
         case "timer":
           setTimer({
             remaining: msg.remaining,
+            duration: msg.duration || msg.remaining,
             phase: msg.phase,
             round: msg.round,
             totalRounds: msg.total_rounds,

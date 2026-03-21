@@ -31,7 +31,7 @@ export const useStore = create(
       setNineRoundActiveCard: (idx) => set({ nineRoundActiveCard: idx }),
 
       // Timer state (from WebSocket)
-      timer: { remaining: 0, phase: "idle", round: 0, totalRounds: 0 },
+      timer: { remaining: 0, duration: 0, phase: "idle", round: 0, totalRounds: 0 },
       setTimer: (timer) => set({ timer }),
 
       // Lights state (from WebSocket)

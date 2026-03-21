@@ -1,27 +1,27 @@
 import { Dumbbell, Flame, Clock, Zap } from "lucide-react";
 import { useWorkoutStats } from "../hooks/useApi";
 
-function Stat({ icon: Icon, label, value, unit, color, large }) {
+function Stat({ icon: Icon, label, value, unit, color }) {
   return (
-    <div className={`flex items-center ${large ? "gap-5" : "gap-3"}`}>
+    <div className="flex items-center gap-3 @lg:gap-5">
       <div
-        className={`${large ? "p-4" : "p-2"} rounded-lg`}
+        className="p-2 @lg:p-4 rounded-lg"
         style={{ backgroundColor: color + "10" }}
       >
-        <Icon className={large ? "h-10 w-10" : "h-4 w-4"} style={{ color }} />
+        <Icon className="h-4 w-4 @lg:h-10 @lg:w-10" style={{ color }} />
       </div>
       <div>
-        <p className={`${large ? "text-xl" : "text-[10px]"} uppercase tracking-widest text-foreground`}>{label}</p>
-        <p className={`display-number ${large ? "text-5xl" : "text-lg"} font-bold text-foreground`}>
+        <p className="text-[10px] @lg:text-xl uppercase tracking-widest text-foreground">{label}</p>
+        <p className="display-number text-lg @lg:text-5xl font-bold text-foreground">
           {value}
-          {unit && <span className={`${large ? "text-2xl" : "text-xs"} text-foreground ml-1`}>{unit}</span>}
+          {unit && <span className="text-xs @lg:text-2xl text-foreground ml-1">{unit}</span>}
         </p>
       </div>
     </div>
   );
 }
 
-export function SessionStats({ large = false }) {
+export function SessionStats() {
   const { data } = useWorkoutStats();
 
   const totalSets = data?.total_sets ?? "--";
@@ -32,17 +32,16 @@ export function SessionStats({ large = false }) {
     : null;
 
   return (
-    <div className={`glass rounded-xl ${large ? "p-8" : "p-4"} grid grid-cols-2 ${large ? "gap-10" : "gap-4"}`}>
-      <Stat icon={Dumbbell} label="Sets (7d)" value={totalSets} color="#22c55e" large={large} />
-      <Stat icon={Flame} label="Volume (7d)" value={totalVolume} unit="lbs" color="#f97316" large={large} />
-      <Stat icon={Clock} label="Exercises" value={exercises} color="#3b82f6" large={large} />
+    <div className="glass rounded-xl p-4 @lg:p-8 grid grid-cols-2 gap-4 @lg:gap-10">
+      <Stat icon={Dumbbell} label="Sets (7d)" value={totalSets} color="#22c55e" />
+      <Stat icon={Flame} label="Volume (7d)" value={totalVolume} unit="lbs" color="#f97316" />
+      <Stat icon={Clock} label="Exercises" value={exercises} color="#3b82f6" />
       <Stat
         icon={Zap}
         label={topLift ? `${topLift[0]} e1RM` : "Est 1RM"}
         value={topLift ? topLift[1] : "--"}
         unit={topLift ? "lbs" : ""}
         color="#eab308"
-        large={large}
       />
     </div>
   );

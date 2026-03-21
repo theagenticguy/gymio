@@ -31,9 +31,9 @@ export function WallLayout() {
       </div>
 
       {/* ── CENTER: HeartRate + SessionStats ─────────────────────── */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center gap-8 px-8">
-        <HeartRate large />
-        <SessionStats large />
+      <div className="@container relative z-10 flex-1 flex flex-col justify-center gap-8 px-8">
+        <HeartRate />
+        <SessionStats />
       </div>
 
       {/* ── RIGHT: Now Playing ──────────────────────────────────── */}
