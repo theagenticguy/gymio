@@ -18,7 +18,7 @@ function formatTime(s) {
 function useTimerSize() {
   const vw = typeof window !== "undefined" ? window.innerWidth : 1024;
   const isWall = vw >= 1024;
-  const circleSize = isWall ? 420 : Math.min(300, vw - 112);
+  const circleSize = isWall ? 360 : Math.min(300, vw - 112);
   const maxGlow = Math.floor((vw - 16) / 1.06);
   const glowSize = Math.min(Math.round(circleSize * 1.27), maxGlow);
   const maxPulse = Math.floor((vw - 16) / 1.5);
