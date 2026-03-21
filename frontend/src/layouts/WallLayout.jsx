@@ -19,7 +19,7 @@ export function WallLayout() {
 
   return (
     <div
-      className="h-screen w-screen flex bg-background overflow-hidden noise-overlay"
+      className="h-screen w-screen flex bg-background overflow-hidden noise-overlay wall-view"
       style={{ cursor: "none" }}
     >
       {/* Ambient glow layer */}
@@ -31,13 +31,9 @@ export function WallLayout() {
       </div>
 
       {/* ── CENTER: HeartRate + SessionStats ─────────────────────── */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-6 px-6">
-        <div className="w-full max-w-[28rem]">
-          <HeartRate />
-        </div>
-        <div className="w-full max-w-[28rem]">
-          <SessionStats />
-        </div>
+      <div className="relative z-10 flex-1 flex flex-col justify-center gap-8 px-8">
+        <HeartRate />
+        <SessionStats />
       </div>
 
       {/* ── RIGHT: Now Playing ──────────────────────────────────── */}
