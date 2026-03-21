@@ -229,11 +229,3 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
 }
 
-/* ── Wall TV: bump base font size so all em/rem text scales up ── */
-.wall-view .glass {
-  font-size: 1.4rem;
-}
-.wall-view .glass .display-number {
-  font-size: 2em;
-}
-
