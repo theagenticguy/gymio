@@ -33,7 +33,7 @@ export function WallLayout() {
       </div>
 
       {/* ── CENTER: HeartRate + SessionStats stacked ──────────── */}
-      <div className="relative z-10 flex items-center justify-center h-full px-4 overflow-hidden">
+      <div className="relative z-10 flex items-center justify-center h-full px-4 pr-8 overflow-hidden">
         <div className="flex flex-col gap-6 w-full max-w-lg" style={{ transform: "scale(1.4)", transformOrigin: "center" }}>
           <HeartRate />
           <SessionStats />
@@ -42,7 +42,7 @@ export function WallLayout() {
 
       {/* ── RIGHT: Now Playing sidebar ────────────────────────── */}
       <aside className={`relative z-10 border-l overflow-hidden ${sideGlow} transition-all duration-700`}>
-        <div className="h-full" style={{ transform: "scale(1.15)", transformOrigin: "top center" }}>
+        <div className="h-full" style={{ transform: "scale(1.1)", transformOrigin: "top right" }}>
           <NowPlaying />
         </div>
       </aside>
