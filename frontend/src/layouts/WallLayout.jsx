@@ -19,26 +19,32 @@ export function WallLayout() {
 
   return (
     <div
-      className="h-screen w-screen grid grid-cols-[4fr_3.5fr_300px] bg-background overflow-hidden noise-overlay wall-view"
+      className="h-screen w-screen grid grid-cols-[1fr_1fr_340px] bg-background overflow-hidden noise-overlay"
       style={{ cursor: "none" }}
     >
       {/* Ambient glow layer */}
       <div className="ambient-glow" />
 
       {/* ── LEFT: Timer (large, centered) ─────────────────────── */}
-      <div className="relative z-10 flex items-center justify-center h-full px-8">
-        <Timer />
+      <div className="relative z-10 flex items-center justify-center h-full">
+        <div style={{ transform: "scale(1.6)", transformOrigin: "center" }}>
+          <Timer />
+        </div>
       </div>
 
       {/* ── CENTER: HeartRate + SessionStats stacked ──────────── */}
-      <div className="relative z-10 flex flex-col justify-center h-full gap-6 px-6 overflow-auto">
-        <HeartRate />
-        <SessionStats />
+      <div className="relative z-10 flex items-center justify-center h-full px-4">
+        <div className="flex flex-col gap-6 w-full max-w-lg" style={{ transform: "scale(1.7)", transformOrigin: "center" }}>
+          <HeartRate />
+          <SessionStats />
+        </div>
       </div>
 
       {/* ── RIGHT: Now Playing sidebar ────────────────────────── */}
       <aside className={`relative z-10 border-l ${sideGlow} transition-all duration-700`}>
-        <NowPlaying />
+        <div className="h-full" style={{ transform: "scale(1.5)", transformOrigin: "top center" }}>
+          <NowPlaying />
+        </div>
       </aside>
     </div>
   );

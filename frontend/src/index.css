@@ -229,36 +229,3 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
 }
 
-/* ── Wall TV view: scale up for readability from across room ──── */
-
-/* Timer text inside circle */
-.wall-view .text-\[4\.5rem\] {
-  font-size: 6rem;
-}
-.wall-view .text-\[11px\] {
-  font-size: 0.9rem;
-}
-
-/* Labels & small text */
-.wall-view .text-\[10px\] {
-  font-size: 0.85rem;
-}
-.wall-view .text-xs {
-  font-size: 0.9rem;
-}
-.wall-view .text-sm {
-  font-size: 1.1rem;
-}
-
-/* BPM */
-.wall-view .text-5xl {
-  font-size: 5rem;
-}
-
-/* Stat values */
-.wall-view .text-lg {
-  font-size: 1.8rem;
-}
-.wall-view .text-xl {
-  font-size: 1.8rem;
-}
