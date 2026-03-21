@@ -32,7 +32,7 @@ export function NowPlaying() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full p-5 gap-5">
-        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-secondary">
+        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-foreground">
           Now Playing
         </span>
 
@@ -53,7 +53,7 @@ export function NowPlaying() {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <Music className="h-12 w-12 text-text-tertiary" />
+                  <Music className="h-12 w-12 text-foreground" />
                 </div>
               )}
             </div>
@@ -61,7 +61,7 @@ export function NowPlaying() {
             {/* Track info */}
             <div className="text-center w-full space-y-0.5">
               <p className="font-bold text-sm truncate">{title}</p>
-              <p className="text-xs text-text-secondary truncate">{artist}</p>
+              <p className="text-xs text-foreground truncate">{artist}</p>
             </div>
 
             {/* Playback controls */}
@@ -69,6 +69,7 @@ export function NowPlaying() {
               <Button
                 variant="ghost"
                 size="icon"
+                aria-label={isPlaying ? "Pause" : "Play"}
                 className="h-12 w-12 rounded-full hover:bg-white/10"
                 onClick={() => {
                   if (isPlaying) sonos.pause.mutate();
@@ -85,6 +86,7 @@ export function NowPlaying() {
               <Button
                 variant="ghost"
                 size="icon"
+                aria-label="Next track"
                 className="h-10 w-10 rounded-full hover:bg-white/10"
                 onClick={() => sonos.next.mutate()}
               >
@@ -94,7 +96,7 @@ export function NowPlaying() {
 
             {/* Volume slider */}
             <div className="flex items-center gap-3 w-full mt-auto">
-              <Volume2 className="h-3.5 w-3.5 text-text-secondary shrink-0" />
+              <Volume2 className="h-3.5 w-3.5 text-foreground shrink-0" />
               <Slider
                 value={[volume]}
                 max={100}
@@ -109,8 +111,8 @@ export function NowPlaying() {
           </motion.div>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center gap-3">
-            <Music className="h-8 w-8 text-text-tertiary" />
-            <p className="text-xs text-text-secondary">No music playing</p>
+            <Music className="h-8 w-8 text-foreground" />
+            <p className="text-xs text-foreground">No music playing</p>
           </div>
         )}
       </div>

@@ -15,7 +15,7 @@ function RecoveryGauge({ score }) {
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between">
-        <span className="text-[10px] uppercase tracking-widest text-text-secondary">Recovery</span>
+        <span className="text-[10px] uppercase tracking-widest text-foreground">Recovery</span>
         <span className="display-number text-xs font-bold" style={{ color }}>{label}</span>
       </div>
       <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
@@ -99,7 +99,7 @@ export function HeartRate({ compact = false }) {
               {bpm || "--"}
             </motion.span>
           </AnimatePresence>
-          <span className="text-sm text-text-secondary self-end pb-1">bpm</span>
+          <span className="text-sm text-foreground self-end pb-1">bpm</span>
         </div>
 
         {/* Zone badge */}
@@ -116,7 +116,7 @@ export function HeartRate({ compact = false }) {
             >
               Zone {zone}
             </span>
-            <span className="text-[10px] text-text-secondary">{name}</span>
+            <span className="text-[10px] text-foreground">{name}</span>
           </motion.div>
         )}
       </div>
@@ -165,10 +165,10 @@ export function HeartRate({ compact = false }) {
         <div className="grid grid-cols-2 gap-4 pt-1">
           {/* RMSSD */}
           <div className="flex flex-col gap-0.5">
-            <span className="text-[10px] uppercase tracking-widest text-text-secondary flex items-center gap-1">
+            <span className="text-[10px] uppercase tracking-widest text-foreground flex items-center gap-1">
               <Activity className="h-3 w-3" /> HRV (RMSSD)
             </span>
-            <span className="display-number text-xl font-bold text-foreground/90">
+            <span className="display-number text-xl font-bold text-foreground">
               {hrv.rmssd != null ? `${hrv.rmssd}ms` : "--"}
             </span>
           </div>
@@ -183,9 +183,9 @@ export function HeartRate({ compact = false }) {
         {hrStatus.connected ? (
           <Bluetooth className="h-3 w-3 text-blue-400" />
         ) : (
-          <BluetoothOff className="h-3 w-3 text-text-secondary" />
+          <BluetoothOff className="h-3 w-3 text-foreground" />
         )}
-        <span className="text-[10px] text-text-secondary">
+        <span className="text-[10px] text-foreground">
           {hrStatus.connected ? "Connected" : "No HR monitor"}
         </span>
       </div>

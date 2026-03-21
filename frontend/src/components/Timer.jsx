@@ -34,11 +34,12 @@ export function Timer() {
   const active = phase !== "idle";
   const { circleSize, glowSize, pulseSize, strokeWidth } = useTimerSize();
 
-  // Track the duration for each phase/round so the circle timer only resets on phase changes
+  // Capture duration + initialRemaining once per phase/round so CountdownCircleTimer
+  // doesn't reset on every WS tick (remaining changes at 1Hz)
   const phaseKey = `${phase}-${round}`;
-  const durationRef = useRef({ key: phaseKey, duration: remaining || 1 });
-  if (durationRef.current.key !== phaseKey) {
-    durationRef.current = { key: phaseKey, duration: remaining || 1 };
+  const phaseRef = useRef({ key: phaseKey, duration: remaining || 1, initial: remaining });
+  if (phaseRef.current.key !== phaseKey) {
+    phaseRef.current = { key: phaseKey, duration: remaining || 1, initial: remaining };
   }
 
   // Drive ambient background color from timer phase
@@ -97,8 +98,8 @@ export function Timer() {
             <CountdownCircleTimer
               key={phaseKey}
               isPlaying={active}
-              duration={durationRef.current.duration}
-              initialRemainingTime={remaining}
+              duration={phaseRef.current.duration}
+              initialRemainingTime={phaseRef.current.initial}
               colors={cfg.color}
               trailColor="#18181b"
               strokeWidth={strokeWidth}
@@ -128,7 +129,7 @@ export function Timer() {
 
                   {/* Round */}
                   {active && (
-                    <span className="display-number text-sm text-text-secondary mt-1.5">
+                    <span className="display-number text-sm text-foreground mt-1.5">
                       Round {round} / {totalRounds}
                     </span>
                   )}

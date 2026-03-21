@@ -3,6 +3,8 @@ from soco.snapshot import Snapshot
 import threading
 import time
 
+SONOS_SPEAKER_NAME = "Gym Garage"
+
 
 class SonosController:
     def __init__(self):
@@ -11,13 +13,32 @@ class SonosController:
         self._last_track = {}
 
     def discover(self):
-        """Find a Sonos speaker on the network. Returns True if found."""
+        """Find the Sonos speaker named SONOS_SPEAKER_NAME on the network.
+        Falls back to any_soco() if the named speaker isn't found.
+        Returns True if a speaker was found."""
         try:
+            speakers = soco.discover(timeout=5)
+            if speakers:
+                for speaker in speakers:
+                    if speaker.player_name.lower() == SONOS_SPEAKER_NAME.lower():
+                        self.speaker = speaker
+                        if not self.speaker.is_coordinator:
+                            self.speaker = self.speaker.group.coordinator
+                        print(f"Found Sonos: {self.speaker.player_name} at {self.speaker.ip_address}")
+                        return True
+                # Named speaker not found, list what we did find
+                names = [s.player_name for s in speakers]
+                print(f"Sonos speaker '{SONOS_SPEAKER_NAME}' not found. Available: {names}")
+
+            # Fallback to any speaker
             self.speaker = soco.discovery.any_soco()
             if self.speaker and not self.speaker.is_coordinator:
                 self.speaker = self.speaker.group.coordinator
+            if self.speaker:
+                print(f"Fallback Sonos: {self.speaker.player_name} at {self.speaker.ip_address}")
             return self.speaker is not None
-        except Exception:
+        except Exception as e:
+            print(f"Sonos discovery error: {e}")
             return False
 
     @property

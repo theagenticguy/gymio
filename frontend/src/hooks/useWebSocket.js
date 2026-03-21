@@ -13,6 +13,7 @@ export function useWebSocket() {
   const setHrStatus = useStore((s) => s.setHrStatus);
   const addHrPoint = useStore((s) => s.addHrPoint);
   const addPr = useStore((s) => s.addPr);
+  const setActiveTab = useStore((s) => s.setActiveTab);
 
   const wsUrl = apiUrl.startsWith("http")
     ? apiUrl.replace(/^http/, "ws") + "/ws"
@@ -80,6 +81,9 @@ export function useWebSocket() {
             time: Date.now(),
           });
           break;
+        case "set_tab":
+          setActiveTab(msg.tab);
+          break;
       }
     };
 
@@ -90,7 +94,7 @@ export function useWebSocket() {
     ws.onerror = () => {
       ws.close();
     };
-  }, [wsUrl, setTimer, setLights, setNowPlaying, setHr, setHrv, setHrStatus, addHrPoint, addPr]);
+  }, [wsUrl, setTimer, setLights, setNowPlaying, setHr, setHrv, setHrStatus, addHrPoint, addPr, setActiveTab]);
 
   useEffect(() => {
     connect();

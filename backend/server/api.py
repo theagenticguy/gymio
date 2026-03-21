@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 import platform
 
@@ -85,9 +86,13 @@ async def websocket_endpoint(websocket: WebSocket):
     manager._loop = asyncio.get_event_loop()
     try:
         while True:
-            # Keep connection alive, receive any client messages
             data = await websocket.receive_text()
-            # Client can send commands via WS too (future)
+            try:
+                msg = json.loads(data)
+                if msg.get("type") == "set_tab":
+                    await manager.broadcast({"type": "set_tab", "tab": msg["tab"]})
+            except (json.JSONDecodeError, KeyError):
+                pass
     except WebSocketDisconnect:
         manager.disconnect(websocket)
 
