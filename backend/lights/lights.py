@@ -41,3 +41,8 @@ class Lights:
 
     def red_off(self):
         self.red.off()
+
+    def close(self):
+        self.green.close()
+        self.yellow.close()
+        self.red.close()

@@ -24,19 +24,22 @@ class Trainer:
 
     def _setup_light_functions(self):
         if is_pi:
-            self.lights = Lights()
-            self.red = self.lights.red_on
-            self.yellow = self.lights.yellow_on
-            self.green = self.lights.green_on
-            self.all_off = self.lights.all_off
-            self.yellow_blink = self.lights.yellow_blink
-        else:
-            self.lights = None
-            self.red = lambda: print("red")
-            self.yellow = lambda: print("yellow")
-            self.green = lambda: print("green")
-            self.all_off = lambda: print("all off")
-            self.yellow_blink = lambda x: print("yellow blink")
+            try:
+                self.lights = Lights()
+                self.red = self.lights.red_on
+                self.yellow = self.lights.yellow_on
+                self.green = self.lights.green_on
+                self.all_off = self.lights.all_off
+                self.yellow_blink = self.lights.yellow_blink
+                return
+            except Exception as e:
+                print(f"GPIO lights init failed (pins 5/6/13): {e}")
+        self.lights = None
+        self.red = lambda: print("red")
+        self.yellow = lambda: print("yellow")
+        self.green = lambda: print("green")
+        self.all_off = lambda: print("all off")
+        self.yellow_blink = lambda x: print("yellow blink")
 
     def _broadcast_state(self, phase: str, seconds: int, round_num: int, color: str, mode: str = "solid"):
         self._current_phase = phase

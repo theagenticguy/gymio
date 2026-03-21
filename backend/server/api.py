@@ -41,8 +41,12 @@ app.add_middleware(
 scheduler = BackgroundScheduler()
 trainer = Trainer(scheduler, broadcast=manager.broadcast_sync)
 
+_button = None
 if is_pi:
-    Button(lights=trainer.lights)
+    try:
+        _button = Button(lights=trainer.lights)
+    except Exception as e:
+        print(f"GPIO button init failed (pin 21): {e}")
 
 # Sonos controller (lazy init)
 sonos_controller = None
@@ -105,6 +109,14 @@ async def poll_sonos():
 async def startup_event():
     manager._loop = asyncio.get_event_loop()
     asyncio.create_task(poll_sonos())
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    if _button is not None:
+        _button.close()
+    if trainer.lights is not None:
+        trainer.lights.close()
 
 
 # --- Workout control ---
