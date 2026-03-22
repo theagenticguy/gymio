@@ -112,7 +112,7 @@ class HeartRateService:
 
     # Default addresses (override via connect())
     DEFAULT_ADDR_MACOS = "B9EA5233-37EF-4DD6-87A8-2A875E821C46"
-    DEFAULT_ADDR_LINUX = "FD:41:A1:D0:A4:8A"
+    DEFAULT_ADDR_LINUX = "A0:9E:1A:88:A5:81"
 
     def __init__(self, broadcast_fn, max_hr: int = 190):
         self.broadcast = broadcast_fn
