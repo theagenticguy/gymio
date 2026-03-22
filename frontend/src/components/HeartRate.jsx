@@ -2,6 +2,7 @@ import { useStore } from "../store";
 import { AreaChart, Area, YAxis, ResponsiveContainer } from "recharts";
 import { Heart, Activity, Bluetooth, BluetoothOff } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useHrConnect } from "../hooks/useApi";
 
 const ZONE_COLORS = ["#6b7280", "#3b82f6", "#22c55e", "#eab308", "#f97316", "#ef4444"];
 const ZONE_NAMES = ["Recovery", "Warm Up", "Fat Burn", "Cardio", "Hard", "Peak"];
@@ -44,7 +45,22 @@ export function HeartRate({ compact = false }) {
 
   const chartData = hrHistory.map((p, i) => ({ idx: i, bpm: p.bpm }));
 
+  const hrConnect = useHrConnect();
+
   if (compact) {
+    if (!hrStatus.connected && !bpm) {
+      return (
+        <button
+          onClick={() => hrConnect.mutate({ max_hr: 190 })}
+          disabled={hrConnect.isPending}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+          aria-label="Connect heart rate monitor"
+        >
+          <BluetoothOff className="h-3.5 w-3.5" />
+          {hrConnect.isPending ? "Connecting..." : "HR"}
+        </button>
+      );
+    }
     return (
       <div className="flex items-center gap-3">
         <Heart

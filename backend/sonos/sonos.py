@@ -3,7 +3,7 @@ from soco.snapshot import Snapshot
 import threading
 import time
 
-SONOS_SPEAKER_NAME = "Gym Garage"
+SONOS_SPEAKER_NAME = "Garage Gym"
 
 
 class SonosController:
