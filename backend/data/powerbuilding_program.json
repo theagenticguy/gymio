@@ -1,0 +1,1383 @@
+{
+  "title": "8-Week Powerbuilding Program",
+  "split_type": "Power + Hypertrophy (Upper/Lower)",
+  "source": "excel_import",
+  "rationale": "Weekend-anchored, recovery-aware powerbuilding. Fri/Sat are strength-emphasis days; Sun/Mon hypertrophy; Tue is a lower-stress pump / weak-point day. Progressive overload uses double progression: hit the top of the rep range across sets, then add weight next time.",
+  "weekly_template": [
+    {
+      "day_of_week": "Friday",
+      "day_abbr": "Fri",
+      "focus": "Upper Power",
+      "target_muscles": [
+        "Chest",
+        "Triceps",
+        "Lats",
+        "Biceps",
+        "Shoulders",
+        "Mid-back",
+        "Upper chest"
+      ],
+      "volume_sets": 25,
+      "estimated_duration_min": 76,
+      "exercises": [
+        {
+          "slot": "A1",
+          "exercise": "Bench Press (barbell)",
+          "planned_exercise": "Bench Press (barbell)",
+          "swap_options": [
+            "Close-Grip Bench",
+            "Incline Bench",
+            "Spoto Press"
+          ],
+          "muscle_group": "Chest/Triceps",
+          "pattern": "Horizontal push",
+          "equipment": "Bench+Barbell",
+          "sets": 5,
+          "reps": "3\u20135",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 180,
+          "notes": "Add weight when you hit top reps across sets."
+        },
+        {
+          "slot": "A2",
+          "exercise": "Pull-up / Chin-up (weighted)",
+          "planned_exercise": "Pull-up / Chin-up (weighted)",
+          "swap_options": [
+            "Lat Pulldown",
+            "Band-assisted Pull-up",
+            "Neutral-grip Pull-up"
+          ],
+          "muscle_group": "Lats/Biceps",
+          "pattern": "Vertical pull",
+          "equipment": "Pull-up Station",
+          "sets": 4,
+          "reps": "4\u20136",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 150,
+          "notes": "Use pulldown if needed."
+        },
+        {
+          "slot": "B1",
+          "exercise": "Overhead Press (barbell)",
+          "planned_exercise": "Overhead Press (barbell)",
+          "swap_options": [
+            "Seated DB Press",
+            "Landmine Press",
+            "Push Press"
+          ],
+          "muscle_group": "Shoulders/Triceps",
+          "pattern": "Vertical push",
+          "equipment": "Barbell",
+          "sets": 3,
+          "reps": "5\u20136",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 150,
+          "notes": ""
+        },
+        {
+          "slot": "B2",
+          "exercise": "T-Bar Row / Landmine Row",
+          "planned_exercise": "T-Bar Row / Landmine Row",
+          "swap_options": [
+            "Chest-supported DB Row",
+            "Cable Row",
+            "Barbell Row"
+          ],
+          "muscle_group": "Mid-back/Lats",
+          "pattern": "Horizontal pull",
+          "equipment": "Landmine/T-bar",
+          "sets": 3,
+          "reps": "6\u20138",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 150,
+          "notes": ""
+        },
+        {
+          "slot": "C1",
+          "exercise": "Incline Bench Press (barbell)",
+          "planned_exercise": "Incline Bench Press (barbell)",
+          "swap_options": [
+            "Incline DB Press",
+            "Landmine Press",
+            "Weighted Dips"
+          ],
+          "muscle_group": "Upper chest/Shoulders",
+          "pattern": "Horizontal push",
+          "equipment": "Bench+Barbell",
+          "sets": 3,
+          "reps": "6\u20138",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 120,
+          "notes": ""
+        },
+        {
+          "slot": "C2",
+          "exercise": "Cable Row (double pulley)",
+          "planned_exercise": "Cable Row (double pulley)",
+          "swap_options": [
+            "Landmine Row",
+            "One-arm DB Row",
+            "Seal Row"
+          ],
+          "muscle_group": "Mid-back",
+          "pattern": "Horizontal pull",
+          "equipment": "Pulley",
+          "sets": 3,
+          "reps": "6\u201310",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 120,
+          "notes": ""
+        },
+        {
+          "slot": "D1",
+          "exercise": "EZ Bar Curl",
+          "planned_exercise": "EZ Bar Curl",
+          "swap_options": [
+            "DB Curl",
+            "Hammer Curl",
+            "Cable Curl"
+          ],
+          "muscle_group": "Biceps",
+          "pattern": "Elbow flexion",
+          "equipment": "EZ Bar",
+          "sets": 2,
+          "reps": "8\u201312",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 90,
+          "notes": ""
+        },
+        {
+          "slot": "D2",
+          "exercise": "Rope Pressdown",
+          "planned_exercise": "Rope Pressdown",
+          "swap_options": [
+            "Overhead Cable Extension",
+            "Skull Crushers",
+            "Band Pressdown"
+          ],
+          "muscle_group": "Triceps",
+          "pattern": "Elbow extension",
+          "equipment": "Pulley+Rope",
+          "sets": 2,
+          "reps": "8\u201312",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 90,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "day_of_week": "Saturday",
+      "day_abbr": "Sat",
+      "focus": "Lower Power",
+      "target_muscles": [
+        "Quads",
+        "Glutes",
+        "Hamstrings",
+        "Back",
+        "Calves",
+        "Abs"
+      ],
+      "volume_sets": 23,
+      "estimated_duration_min": 71,
+      "exercises": [
+        {
+          "slot": "A1",
+          "exercise": "Barbell Back Squat",
+          "planned_exercise": "Barbell Back Squat",
+          "swap_options": [
+            "Pause Squat",
+            "Box Squat",
+            "Chain Squat"
+          ],
+          "muscle_group": "Quads/Glutes",
+          "pattern": "Squat",
+          "equipment": "Rack+Barbell",
+          "sets": 5,
+          "reps": "3\u20135",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 180,
+          "notes": ""
+        },
+        {
+          "slot": "A2",
+          "exercise": "Trap Bar Deadlift",
+          "planned_exercise": "Trap Bar Deadlift",
+          "swap_options": [
+            "Conventional Deadlift",
+            "Deficit Trap Deadlift",
+            "RDL"
+          ],
+          "muscle_group": "Glutes/Hamstrings/Back",
+          "pattern": "Hinge",
+          "equipment": "Trap Bar",
+          "sets": 3,
+          "reps": "3\u20135",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 210,
+          "notes": "Alternate with conventional deadlift by block."
+        },
+        {
+          "slot": "B1",
+          "exercise": "Hack Squat (plate-loaded)",
+          "planned_exercise": "Hack Squat (plate-loaded)",
+          "swap_options": [
+            "Leg Press (quad bias)",
+            "Front Squat",
+            "Split Squat"
+          ],
+          "muscle_group": "Quads/Glutes",
+          "pattern": "Squat",
+          "equipment": "Hack/Leg Press",
+          "sets": 3,
+          "reps": "5\u20138",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 150,
+          "notes": ""
+        },
+        {
+          "slot": "B2",
+          "exercise": "Romanian Deadlift (barbell)",
+          "planned_exercise": "Romanian Deadlift (barbell)",
+          "swap_options": [
+            "DB RDL",
+            "Good Morning",
+            "Hip Thrust"
+          ],
+          "muscle_group": "Hamstrings/Glutes",
+          "pattern": "Hinge",
+          "equipment": "Barbell",
+          "sets": 2,
+          "reps": "6\u20138",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 150,
+          "notes": "Keep volume reasonable on power day."
+        },
+        {
+          "slot": "C1",
+          "exercise": "Lying Leg Curl",
+          "planned_exercise": "Lying Leg Curl",
+          "swap_options": [
+            "Band Leg Curl",
+            "Nordic (assisted)",
+            "Cable Leg Curl"
+          ],
+          "muscle_group": "Hamstrings",
+          "pattern": "Knee flexion",
+          "equipment": "Leg Curl Bench",
+          "sets": 3,
+          "reps": "8\u201312",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 120,
+          "notes": ""
+        },
+        {
+          "slot": "C2",
+          "exercise": "Calf Raise (DB)",
+          "planned_exercise": "Calf Raise (DB)",
+          "swap_options": [
+            "Standing Calf Raise (machine setup)",
+            "Single-leg Calf Raise",
+            "Seated Calf Raise (DB on knees)"
+          ],
+          "muscle_group": "Calves",
+          "pattern": "Isolation",
+          "equipment": "DBs/Step",
+          "sets": 4,
+          "reps": "8\u201315",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 90,
+          "notes": ""
+        },
+        {
+          "slot": "D1",
+          "exercise": "Cable Crunch",
+          "planned_exercise": "Cable Crunch",
+          "swap_options": [
+            "Exercise Ball Crunch",
+            "Hanging Knee Raise",
+            "Pallof Press"
+          ],
+          "muscle_group": "Abs",
+          "pattern": "Core",
+          "equipment": "Pulley",
+          "sets": 3,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 90,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "day_of_week": "Sunday",
+      "day_abbr": "Sun",
+      "focus": "Upper Hypertrophy / Pump",
+      "target_muscles": [
+        "Upper chest",
+        "Shoulders",
+        "Lats",
+        "Upper back",
+        "Triceps",
+        "Chest",
+        "Side delts",
+        "Rear delts",
+        "Biceps",
+        "Triceps long head"
+      ],
+      "volume_sets": 30,
+      "estimated_duration_min": 64,
+      "exercises": [
+        {
+          "slot": "A1",
+          "exercise": "Incline Bench Press (barbell)",
+          "planned_exercise": "Incline Bench Press (barbell)",
+          "swap_options": [
+            "Incline DB Press",
+            "Landmine Press",
+            "Weighted Dips"
+          ],
+          "muscle_group": "Upper chest/Shoulders",
+          "pattern": "Horizontal push",
+          "equipment": "Bench+Barbell",
+          "sets": 4,
+          "reps": "8\u201312",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 120,
+          "notes": "DB incline press is a great swap."
+        },
+        {
+          "slot": "A2",
+          "exercise": "Lat Pulldown (pulley)",
+          "planned_exercise": "Lat Pulldown (pulley)",
+          "swap_options": [
+            "Pull-up",
+            "Straight-arm Pulldown",
+            "Half-kneeling Pulldown"
+          ],
+          "muscle_group": "Lats",
+          "pattern": "Vertical pull",
+          "equipment": "Pulley+Handle",
+          "sets": 4,
+          "reps": "8\u201312",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 120,
+          "notes": ""
+        },
+        {
+          "slot": "B1",
+          "exercise": "Chest-supported DB Row",
+          "planned_exercise": "Chest-supported DB Row",
+          "swap_options": [
+            "Landmine Row",
+            "Cable Row",
+            "One-arm DB Row"
+          ],
+          "muscle_group": "Upper back",
+          "pattern": "Horizontal pull",
+          "equipment": "DBs+Bench",
+          "sets": 3,
+          "reps": "10\u201312",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 90,
+          "notes": ""
+        },
+        {
+          "slot": "B2",
+          "exercise": "Seated DB Press",
+          "planned_exercise": "Seated DB Press",
+          "swap_options": [
+            "Overhead Press (barbell)",
+            "Landmine Press",
+            "Arnold Press"
+          ],
+          "muscle_group": "Shoulders/Triceps",
+          "pattern": "Vertical push",
+          "equipment": "DBs+Bench",
+          "sets": 3,
+          "reps": "8\u201312",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 90,
+          "notes": "Swap to landmine press if shoulders prefer."
+        },
+        {
+          "slot": "C1",
+          "exercise": "Cable Fly",
+          "planned_exercise": "Cable Fly",
+          "swap_options": [
+            "DB Fly (light)",
+            "Band Fly",
+            "Push-up (band)"
+          ],
+          "muscle_group": "Chest",
+          "pattern": "Isolation",
+          "equipment": "Double pulley",
+          "sets": 3,
+          "reps": "12\u201315",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 75,
+          "notes": ""
+        },
+        {
+          "slot": "C2",
+          "exercise": "DB Lateral Raise",
+          "planned_exercise": "DB Lateral Raise",
+          "swap_options": [
+            "Cable Lateral Raise",
+            "Lean-away Lateral Raise",
+            "Band Lateral Raise"
+          ],
+          "muscle_group": "Side delts",
+          "pattern": "Isolation",
+          "equipment": "DBs",
+          "sets": 4,
+          "reps": "12\u201320",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 60,
+          "notes": ""
+        },
+        {
+          "slot": "D1",
+          "exercise": "Face Pull (cable)",
+          "planned_exercise": "Face Pull (cable)",
+          "swap_options": [
+            "Rear Delt Fly",
+            "Band Pull-apart",
+            "High Row (light)"
+          ],
+          "muscle_group": "Rear delts/Upper back",
+          "pattern": "Isolation",
+          "equipment": "Pulley+Rope",
+          "sets": 3,
+          "reps": "12\u201320",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 60,
+          "notes": ""
+        },
+        {
+          "slot": "D2",
+          "exercise": "EZ Bar Curl",
+          "planned_exercise": "EZ Bar Curl",
+          "swap_options": [
+            "DB Curl",
+            "Hammer Curl",
+            "Cable Curl"
+          ],
+          "muscle_group": "Biceps",
+          "pattern": "Elbow flexion",
+          "equipment": "EZ Bar",
+          "sets": 3,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 60,
+          "notes": ""
+        },
+        {
+          "slot": "D3",
+          "exercise": "Overhead Cable Triceps Extension",
+          "planned_exercise": "Overhead Cable Triceps Extension",
+          "swap_options": [
+            "DB Overhead Extension",
+            "Rolling DB Extension",
+            "Band Overhead Extension"
+          ],
+          "muscle_group": "Triceps long head",
+          "pattern": "Elbow extension",
+          "equipment": "Pulley",
+          "sets": 3,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 60,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "day_of_week": "Monday",
+      "day_abbr": "Mon",
+      "focus": "Lower Hypertrophy",
+      "target_muscles": [
+        "Quads",
+        "Glutes",
+        "Hamstrings",
+        "Calves",
+        "Anti-rotation"
+      ],
+      "volume_sets": 24,
+      "estimated_duration_min": 60,
+      "exercises": [
+        {
+          "slot": "A1",
+          "exercise": "Hack Squat (plate-loaded)",
+          "planned_exercise": "Hack Squat (plate-loaded)",
+          "swap_options": [
+            "Leg Press (quad bias)",
+            "Front Squat",
+            "Split Squat"
+          ],
+          "muscle_group": "Quads/Glutes",
+          "pattern": "Squat",
+          "equipment": "Hack/Leg Press",
+          "sets": 4,
+          "reps": "8\u201312",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 150,
+          "notes": "Or leg press (quad bias)."
+        },
+        {
+          "slot": "A2",
+          "exercise": "Romanian Deadlift (barbell)",
+          "planned_exercise": "Romanian Deadlift (barbell)",
+          "swap_options": [
+            "DB RDL",
+            "Good Morning",
+            "Hip Thrust"
+          ],
+          "muscle_group": "Hamstrings/Glutes",
+          "pattern": "Hinge",
+          "equipment": "Barbell",
+          "sets": 3,
+          "reps": "8\u201310",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 150,
+          "notes": ""
+        },
+        {
+          "slot": "B1",
+          "exercise": "Bulgarian Split Squat (DB)",
+          "planned_exercise": "Bulgarian Split Squat (DB)",
+          "swap_options": [
+            "Reverse Lunge",
+            "Step-up",
+            "Front-foot elevated split squat"
+          ],
+          "muscle_group": "Quads/Glutes",
+          "pattern": "Unilateral",
+          "equipment": "DBs+Bench",
+          "sets": 3,
+          "reps": "8\u201312",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 120,
+          "notes": ""
+        },
+        {
+          "slot": "B2",
+          "exercise": "Leg Press (plate-loaded)",
+          "planned_exercise": "Leg Press (plate-loaded)",
+          "swap_options": [
+            "Hack Squat",
+            "Bulgarian Split Squat",
+            "Landmine Squat"
+          ],
+          "muscle_group": "Quads/Glutes",
+          "pattern": "Squat",
+          "equipment": "Hack/Leg Press",
+          "sets": 3,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 120,
+          "notes": "Feet placement changes emphasis."
+        },
+        {
+          "slot": "C1",
+          "exercise": "Lying Leg Curl",
+          "planned_exercise": "Lying Leg Curl",
+          "swap_options": [
+            "Band Leg Curl",
+            "Nordic (assisted)",
+            "Cable Leg Curl"
+          ],
+          "muscle_group": "Hamstrings",
+          "pattern": "Knee flexion",
+          "equipment": "Leg Curl Bench",
+          "sets": 4,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 90,
+          "notes": "Use controlled eccentrics."
+        },
+        {
+          "slot": "C2",
+          "exercise": "Calf Raise (DB)",
+          "planned_exercise": "Calf Raise (DB)",
+          "swap_options": [
+            "Standing Calf Raise (machine setup)",
+            "Single-leg Calf Raise",
+            "Seated Calf Raise (DB on knees)"
+          ],
+          "muscle_group": "Calves",
+          "pattern": "Isolation",
+          "equipment": "DBs/Step",
+          "sets": 4,
+          "reps": "12\u201320",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 60,
+          "notes": ""
+        },
+        {
+          "slot": "D1",
+          "exercise": "Pallof Press (cable/band)",
+          "planned_exercise": "Pallof Press (cable/band)",
+          "swap_options": [
+            "Dead Bug",
+            "Side Plank",
+            "Cable Chop"
+          ],
+          "muscle_group": "Anti-rotation",
+          "pattern": "Core",
+          "equipment": "Band/Pulley",
+          "sets": 3,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 60,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "day_of_week": "Tuesday",
+      "day_abbr": "Tue",
+      "focus": "Delts + Arms + Back Pump (flex)",
+      "target_muscles": [
+        "Lats",
+        "Mid-back",
+        "Side delts",
+        "Rear delts",
+        "Upper back",
+        "Biceps",
+        "Triceps",
+        "Triceps long head",
+        "Brachialis"
+      ],
+      "volume_sets": 23,
+      "estimated_duration_min": 43,
+      "exercises": [
+        {
+          "slot": "A1",
+          "exercise": "Lat Pulldown (pulley)",
+          "planned_exercise": "Lat Pulldown (pulley)",
+          "swap_options": [
+            "Pull-up",
+            "Straight-arm Pulldown",
+            "Half-kneeling Pulldown"
+          ],
+          "muscle_group": "Lats",
+          "pattern": "Vertical pull",
+          "equipment": "Pulley+Handle",
+          "sets": 3,
+          "reps": "8\u201312",
+          "rpe_target": "6\u20138",
+          "rest_seconds": 90,
+          "notes": "Keep this day lower-stress."
+        },
+        {
+          "slot": "A2",
+          "exercise": "Cable Row (double pulley)",
+          "planned_exercise": "Cable Row (double pulley)",
+          "swap_options": [
+            "Landmine Row",
+            "One-arm DB Row",
+            "Seal Row"
+          ],
+          "muscle_group": "Mid-back",
+          "pattern": "Horizontal pull",
+          "equipment": "Pulley",
+          "sets": 3,
+          "reps": "10\u201315",
+          "rpe_target": "6\u20138",
+          "rest_seconds": 90,
+          "notes": ""
+        },
+        {
+          "slot": "B1",
+          "exercise": "DB Lateral Raise",
+          "planned_exercise": "DB Lateral Raise",
+          "swap_options": [
+            "Cable Lateral Raise",
+            "Lean-away Lateral Raise",
+            "Band Lateral Raise"
+          ],
+          "muscle_group": "Side delts",
+          "pattern": "Isolation",
+          "equipment": "DBs",
+          "sets": 4,
+          "reps": "15\u201320",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 60,
+          "notes": ""
+        },
+        {
+          "slot": "B2",
+          "exercise": "Face Pull (cable)",
+          "planned_exercise": "Face Pull (cable)",
+          "swap_options": [
+            "Rear Delt Fly",
+            "Band Pull-apart",
+            "High Row (light)"
+          ],
+          "muscle_group": "Rear delts/Upper back",
+          "pattern": "Isolation",
+          "equipment": "Pulley+Rope",
+          "sets": 3,
+          "reps": "15\u201320",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 60,
+          "notes": ""
+        },
+        {
+          "slot": "C1",
+          "exercise": "EZ Bar Curl",
+          "planned_exercise": "EZ Bar Curl",
+          "swap_options": [
+            "DB Curl",
+            "Hammer Curl",
+            "Cable Curl"
+          ],
+          "muscle_group": "Biceps",
+          "pattern": "Elbow flexion",
+          "equipment": "EZ Bar",
+          "sets": 3,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 60,
+          "notes": ""
+        },
+        {
+          "slot": "C2",
+          "exercise": "Rope Pressdown",
+          "planned_exercise": "Rope Pressdown",
+          "swap_options": [
+            "Overhead Cable Extension",
+            "Skull Crushers",
+            "Band Pressdown"
+          ],
+          "muscle_group": "Triceps",
+          "pattern": "Elbow extension",
+          "equipment": "Pulley+Rope",
+          "sets": 3,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20139",
+          "rest_seconds": 60,
+          "notes": ""
+        },
+        {
+          "slot": "D1",
+          "exercise": "Overhead Cable Triceps Extension",
+          "planned_exercise": "Overhead Cable Triceps Extension",
+          "swap_options": [
+            "DB Overhead Extension",
+            "Rolling DB Extension",
+            "Band Overhead Extension"
+          ],
+          "muscle_group": "Triceps long head",
+          "pattern": "Elbow extension",
+          "equipment": "Pulley",
+          "sets": 2,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 60,
+          "notes": ""
+        },
+        {
+          "slot": "D2",
+          "exercise": "Hammer Curl (DB)",
+          "planned_exercise": "Hammer Curl (DB)",
+          "swap_options": [
+            "EZ Bar Curl",
+            "Cable Curl",
+            "Reverse Curl (EZ)"
+          ],
+          "muscle_group": "Brachialis/Biceps",
+          "pattern": "Elbow flexion",
+          "equipment": "DBs",
+          "sets": 2,
+          "reps": "10\u201315",
+          "rpe_target": "7\u20138",
+          "rest_seconds": 60,
+          "notes": ""
+        }
+      ]
+    }
+  ],
+  "load_percentages": {
+    "strength": [
+      0.75,
+      0.775,
+      0.8,
+      0.65,
+      0.8,
+      0.825,
+      0.85,
+      0.8
+    ],
+    "hypertrophy": [
+      0.65,
+      0.675,
+      0.7,
+      0.55,
+      0.7,
+      0.725,
+      0.75,
+      0.7
+    ]
+  },
+  "per_week_overrides": null,
+  "exercise_library": [
+    {
+      "name": "Barbell Back Squat",
+      "category": "Main",
+      "pattern": "Squat",
+      "primary_muscles": "Quads/Glutes",
+      "equipment": "Rack+Barbell",
+      "swap_options": [
+        "Pause Squat",
+        "Box Squat",
+        "Chain Squat"
+      ],
+      "notes": "Choose high-bar or low-bar."
+    },
+    {
+      "name": "Front Squat (from rack)",
+      "category": "Main",
+      "pattern": "Squat",
+      "primary_muscles": "Quads/Upper back",
+      "equipment": "Rack+Barbell",
+      "swap_options": [
+        "Goblet Squat",
+        "Hack Squat",
+        "Landmine Squat"
+      ],
+      "notes": "If wrist mobility limited, use straps."
+    },
+    {
+      "name": "Hack Squat (plate-loaded)",
+      "category": "Main",
+      "pattern": "Squat",
+      "primary_muscles": "Quads/Glutes",
+      "equipment": "Hack/Leg Press",
+      "swap_options": [
+        "Leg Press (quad bias)",
+        "Front Squat",
+        "Split Squat"
+      ],
+      "notes": "Great hypertrophy without as much spinal load."
+    },
+    {
+      "name": "Leg Press (plate-loaded)",
+      "category": "Main",
+      "pattern": "Squat",
+      "primary_muscles": "Quads/Glutes",
+      "equipment": "Hack/Leg Press",
+      "swap_options": [
+        "Hack Squat",
+        "Bulgarian Split Squat",
+        "Landmine Squat"
+      ],
+      "notes": "Adjust foot placement for quad vs glute emphasis."
+    },
+    {
+      "name": "Trap Bar Deadlift",
+      "category": "Main",
+      "pattern": "Hinge",
+      "primary_muscles": "Glutes/Hamstrings/Back",
+      "equipment": "Trap Bar",
+      "swap_options": [
+        "Conventional Deadlift",
+        "Deficit Trap Deadlift",
+        "RDL"
+      ],
+      "notes": "Use high handles if needed for recovery."
+    },
+    {
+      "name": "Conventional Deadlift",
+      "category": "Main",
+      "pattern": "Hinge",
+      "primary_muscles": "Posterior chain",
+      "equipment": "Barbell",
+      "swap_options": [
+        "Trap Bar Deadlift",
+        "Block Pull",
+        "Banded Deadlift"
+      ],
+      "notes": "Rotate variants by block."
+    },
+    {
+      "name": "Romanian Deadlift (barbell)",
+      "category": "Accessory",
+      "pattern": "Hinge",
+      "primary_muscles": "Hamstrings/Glutes",
+      "equipment": "Barbell",
+      "swap_options": [
+        "DB RDL",
+        "Good Morning",
+        "Hip Thrust"
+      ],
+      "notes": "Keep slight knee bend, hinge back."
+    },
+    {
+      "name": "Hip Thrust (barbell)",
+      "category": "Accessory",
+      "pattern": "Hinge",
+      "primary_muscles": "Glutes",
+      "equipment": "Bench+Barbell",
+      "swap_options": [
+        "Glute Bridge",
+        "Cable Pull-through",
+        "Banded Hip Thrust"
+      ],
+      "notes": "Pause at top."
+    },
+    {
+      "name": "Lying Leg Curl",
+      "category": "Accessory",
+      "pattern": "Knee flexion",
+      "primary_muscles": "Hamstrings",
+      "equipment": "Leg Curl Bench",
+      "swap_options": [
+        "Band Leg Curl",
+        "Nordic (assisted)",
+        "Cable Leg Curl"
+      ],
+      "notes": "Control eccentrics; squeeze hard."
+    },
+    {
+      "name": "Bench Press (barbell)",
+      "category": "Main",
+      "pattern": "Horizontal push",
+      "primary_muscles": "Chest/Triceps",
+      "equipment": "Bench+Barbell",
+      "swap_options": [
+        "Close-Grip Bench",
+        "Incline Bench",
+        "Spoto Press"
+      ],
+      "notes": "Use chains/bands occasionally."
+    },
+    {
+      "name": "Incline Bench Press (barbell)",
+      "category": "Main",
+      "pattern": "Horizontal push",
+      "primary_muscles": "Upper chest/Shoulders",
+      "equipment": "Bench+Barbell",
+      "swap_options": [
+        "Incline DB Press",
+        "Landmine Press",
+        "Weighted Dips"
+      ],
+      "notes": "Slight incline (15\u201330\u00b0)."
+    },
+    {
+      "name": "Overhead Press (barbell)",
+      "category": "Main",
+      "pattern": "Vertical push",
+      "primary_muscles": "Shoulders/Triceps",
+      "equipment": "Barbell",
+      "swap_options": [
+        "Seated DB Press",
+        "Landmine Press",
+        "Push Press"
+      ],
+      "notes": "Keep ribs down; no excessive lean."
+    },
+    {
+      "name": "Weighted Dip",
+      "category": "Accessory",
+      "pattern": "Vertical push",
+      "primary_muscles": "Chest/Triceps",
+      "equipment": "Dip Station",
+      "swap_options": [
+        "Close-Grip Bench",
+        "Decline Push-up (band)",
+        "Cable Press"
+      ],
+      "notes": "Great swap for pressing variety."
+    },
+    {
+      "name": "Pull-up / Chin-up (weighted)",
+      "category": "Main",
+      "pattern": "Vertical pull",
+      "primary_muscles": "Lats/Biceps",
+      "equipment": "Pull-up Station",
+      "swap_options": [
+        "Lat Pulldown",
+        "Band-assisted Pull-up",
+        "Neutral-grip Pull-up"
+      ],
+      "notes": "Use different grips over blocks."
+    },
+    {
+      "name": "Lat Pulldown (pulley)",
+      "category": "Accessory",
+      "pattern": "Vertical pull",
+      "primary_muscles": "Lats",
+      "equipment": "Pulley+Handle",
+      "swap_options": [
+        "Pull-up",
+        "Straight-arm Pulldown",
+        "Half-kneeling Pulldown"
+      ],
+      "notes": "Keep torso stable."
+    },
+    {
+      "name": "T-Bar Row / Landmine Row",
+      "category": "Main",
+      "pattern": "Horizontal pull",
+      "primary_muscles": "Mid-back/Lats",
+      "equipment": "Landmine/T-bar",
+      "swap_options": [
+        "Chest-supported DB Row",
+        "Cable Row",
+        "Barbell Row"
+      ],
+      "notes": "Adjust torso angle for emphasis."
+    },
+    {
+      "name": "Cable Row (double pulley)",
+      "category": "Accessory",
+      "pattern": "Horizontal pull",
+      "primary_muscles": "Mid-back",
+      "equipment": "Pulley",
+      "swap_options": [
+        "Landmine Row",
+        "One-arm DB Row",
+        "Seal Row"
+      ],
+      "notes": "Use different handles for variety."
+    },
+    {
+      "name": "Chest-supported DB Row",
+      "category": "Accessory",
+      "pattern": "Horizontal pull",
+      "primary_muscles": "Upper back",
+      "equipment": "DBs+Bench",
+      "swap_options": [
+        "Landmine Row",
+        "Cable Row",
+        "One-arm DB Row"
+      ],
+      "notes": "Minimizes low-back fatigue."
+    },
+    {
+      "name": "DB Lateral Raise",
+      "category": "Accessory",
+      "pattern": "Isolation",
+      "primary_muscles": "Side delts",
+      "equipment": "DBs",
+      "swap_options": [
+        "Cable Lateral Raise",
+        "Lean-away Lateral Raise",
+        "Band Lateral Raise"
+      ],
+      "notes": "Keep constant tension."
+    },
+    {
+      "name": "Face Pull (cable)",
+      "category": "Accessory",
+      "pattern": "Isolation",
+      "primary_muscles": "Rear delts/Upper back",
+      "equipment": "Pulley+Rope",
+      "swap_options": [
+        "Rear Delt Fly",
+        "Band Pull-apart",
+        "High Row (light)"
+      ],
+      "notes": "Pull to forehead, elbows high."
+    },
+    {
+      "name": "EZ Bar Curl",
+      "category": "Accessory",
+      "pattern": "Elbow flexion",
+      "primary_muscles": "Biceps",
+      "equipment": "EZ Bar",
+      "swap_options": [
+        "DB Curl",
+        "Hammer Curl",
+        "Cable Curl"
+      ],
+      "notes": "Control tempo; full ROM."
+    },
+    {
+      "name": "Rope Pressdown",
+      "category": "Accessory",
+      "pattern": "Elbow extension",
+      "primary_muscles": "Triceps",
+      "equipment": "Pulley+Rope",
+      "swap_options": [
+        "Overhead Cable Extension",
+        "Skull Crushers",
+        "Band Pressdown"
+      ],
+      "notes": "Spread rope at bottom."
+    },
+    {
+      "name": "Overhead Cable Triceps Extension",
+      "category": "Accessory",
+      "pattern": "Elbow extension",
+      "primary_muscles": "Triceps long head",
+      "equipment": "Pulley",
+      "swap_options": [
+        "DB Overhead Extension",
+        "Rolling DB Extension",
+        "Band Overhead Extension"
+      ],
+      "notes": "Keep elbows tucked."
+    },
+    {
+      "name": "Bulgarian Split Squat (DB)",
+      "category": "Accessory",
+      "pattern": "Unilateral",
+      "primary_muscles": "Quads/Glutes",
+      "equipment": "DBs+Bench",
+      "swap_options": [
+        "Reverse Lunge",
+        "Step-up",
+        "Front-foot elevated split squat"
+      ],
+      "notes": "Great travel-friendly option."
+    },
+    {
+      "name": "Landmine Press",
+      "category": "Accessory",
+      "pattern": "Angled push",
+      "primary_muscles": "Shoulders/Upper chest",
+      "equipment": "Landmine",
+      "swap_options": [
+        "Incline DB Press",
+        "Overhead Press",
+        "Cable Press"
+      ],
+      "notes": "Very shoulder-friendly."
+    },
+    {
+      "name": "Cable Fly",
+      "category": "Accessory",
+      "pattern": "Isolation",
+      "primary_muscles": "Chest",
+      "equipment": "Double pulley",
+      "swap_options": [
+        "DB Fly (light)",
+        "Band Fly",
+        "Push-up (band)"
+      ],
+      "notes": "Keep slight elbow bend."
+    },
+    {
+      "name": "Calf Raise (DB)",
+      "category": "Accessory",
+      "pattern": "Isolation",
+      "primary_muscles": "Calves",
+      "equipment": "DBs/Step",
+      "swap_options": [
+        "Standing Calf Raise (machine setup)",
+        "Single-leg Calf Raise",
+        "Seated Calf Raise (DB on knees)"
+      ],
+      "notes": "Use pauses and stretch."
+    },
+    {
+      "name": "Cable Crunch",
+      "category": "Accessory",
+      "pattern": "Core",
+      "primary_muscles": "Abs",
+      "equipment": "Pulley",
+      "swap_options": [
+        "Exercise Ball Crunch",
+        "Hanging Knee Raise",
+        "Pallof Press"
+      ],
+      "notes": "Brace hard; exhale down."
+    },
+    {
+      "name": "Pallof Press (cable/band)",
+      "category": "Accessory",
+      "pattern": "Core",
+      "primary_muscles": "Anti-rotation",
+      "equipment": "Band/Pulley",
+      "swap_options": [
+        "Dead Bug",
+        "Side Plank",
+        "Cable Chop"
+      ],
+      "notes": "Great on travel weeks."
+    },
+    {
+      "name": "Seated DB Press",
+      "category": "Accessory",
+      "pattern": "Vertical push",
+      "primary_muscles": "Shoulders/Triceps",
+      "equipment": "DBs+Bench",
+      "swap_options": [
+        "Overhead Press (barbell)",
+        "Landmine Press",
+        "Arnold Press"
+      ],
+      "notes": "Keep torso stable."
+    },
+    {
+      "name": "Hammer Curl (DB)",
+      "category": "Accessory",
+      "pattern": "Elbow flexion",
+      "primary_muscles": "Brachialis/Biceps",
+      "equipment": "DBs",
+      "swap_options": [
+        "EZ Bar Curl",
+        "Cable Curl",
+        "Reverse Curl (EZ)"
+      ],
+      "notes": "Great for elbow health."
+    },
+    {
+      "name": "Spoto Press",
+      "category": "Accessory",
+      "pattern": "Horizontal push",
+      "primary_muscles": "Chest/Triceps",
+      "equipment": "Bench+Barbell",
+      "swap_options": [
+        "Paused Bench",
+        "Close-Grip Bench",
+        "Bench + Chains"
+      ],
+      "notes": "Pause 1\" off chest."
+    },
+    {
+      "name": "Close-Grip Bench",
+      "category": "Accessory",
+      "pattern": "Horizontal push",
+      "primary_muscles": "Triceps/Chest",
+      "equipment": "Bench+Barbell",
+      "swap_options": [
+        "Weighted Dip",
+        "Floor Press",
+        "JM Press"
+      ],
+      "notes": "Keep elbows tucked."
+    },
+    {
+      "name": "Pause Squat",
+      "category": "Accessory",
+      "pattern": "Squat",
+      "primary_muscles": "Quads/Glutes",
+      "equipment": "Rack+Barbell",
+      "swap_options": [
+        "Box Squat",
+        "Front Squat (from rack)",
+        "Chain Squat"
+      ],
+      "notes": "Pause 1\u20132s in the hole."
+    },
+    {
+      "name": "Box Squat",
+      "category": "Accessory",
+      "pattern": "Squat",
+      "primary_muscles": "Glutes/Posterior chain",
+      "equipment": "Rack+Box",
+      "swap_options": [
+        "Pause Squat",
+        "Barbell Back Squat",
+        "Hack Squat (plate-loaded)"
+      ],
+      "notes": "Use consistent box height."
+    },
+    {
+      "name": "Chain Squat",
+      "category": "Accessory",
+      "pattern": "Squat",
+      "primary_muscles": "Quads/Glutes",
+      "equipment": "Rack+Chains",
+      "swap_options": [
+        "Barbell Back Squat",
+        "Pause Squat",
+        "Box Squat"
+      ],
+      "notes": "Accommodated resistance option."
+    },
+    {
+      "name": "Block Pull",
+      "category": "Accessory",
+      "pattern": "Hinge",
+      "primary_muscles": "Posterior chain",
+      "equipment": "Barbell+Blocks",
+      "swap_options": [
+        "Conventional Deadlift",
+        "Trap Bar Deadlift",
+        "Banded Deadlift"
+      ],
+      "notes": "Reduce ROM for overload."
+    },
+    {
+      "name": "Banded Deadlift",
+      "category": "Accessory",
+      "pattern": "Hinge",
+      "primary_muscles": "Posterior chain",
+      "equipment": "Barbell+Bands",
+      "swap_options": [
+        "Conventional Deadlift",
+        "Trap Bar Deadlift",
+        "Block Pull"
+      ],
+      "notes": "Accommodated resistance option."
+    },
+    {
+      "name": "Band Leg Curl",
+      "category": "Accessory",
+      "pattern": "Knee flexion",
+      "primary_muscles": "Hamstrings",
+      "equipment": "Bands",
+      "swap_options": [
+        "Lying Leg Curl",
+        "Cable Leg Curl",
+        "Nordic (assisted)"
+      ],
+      "notes": "Travel-friendly."
+    },
+    {
+      "name": "Cable Leg Curl",
+      "category": "Accessory",
+      "pattern": "Knee flexion",
+      "primary_muscles": "Hamstrings",
+      "equipment": "Pulley+Ankle strap",
+      "swap_options": [
+        "Lying Leg Curl",
+        "Band Leg Curl",
+        "Nordic (assisted)"
+      ],
+      "notes": "If you have ankle straps."
+    },
+    {
+      "name": "Good Morning",
+      "category": "Accessory",
+      "pattern": "Hinge",
+      "primary_muscles": "Posterior chain",
+      "equipment": "Barbell",
+      "swap_options": [
+        "RDL",
+        "Hip Thrust",
+        "Back Extension (band)"
+      ],
+      "notes": "Start light, strict form."
+    }
+  ],
+  "weeks": 8,
+  "days_per_week": 5,
+  "deload_week": 4,
+  "deload_strategy": "65% strength / 55% hypertrophy loads \u2014 reduced intensity, same movement patterns, maintain frequency.",
+  "design_notes": "Fri/Sat are strength-emphasis; Sun/Mon hypertrophy; Tue lower-stress pump. Equipment: Rack + bench + dual pulley, 2 oly bars, trap bar, landmine, adjustable DBs, leg press/hack, leg curl, bands, chains.",
+  "progression_rules": [
+    {
+      "category": "Double Progression",
+      "rule": "Hit the top of the rep range across all working sets, then add weight next session."
+    },
+    {
+      "category": "Exercise Swaps",
+      "rule": "Use the swap options to keep variety without losing the progression thread. Swaps share the same movement pattern."
+    },
+    {
+      "category": "Deload (Week 4)",
+      "rule": "Reduce intensity to 65% (strength) / 55% (hypertrophy). Maintain frequency and movements. Focus on technique and recovery."
+    },
+    {
+      "category": "Load Calculation",
+      "rule": "Training load = percentage \u00d7 estimated 1RM. If no 1RM, use (5RM / 0.87) as estimate."
+    }
+  ]
+}

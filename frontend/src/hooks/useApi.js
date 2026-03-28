@@ -228,6 +228,33 @@ export function useDeactivateProgram() {
   });
 }
 
+export function useImportProgram() {
+  return useMutation({
+    mutationFn: (params) =>
+      api("/programs/import", { method: "POST", body: JSON.stringify(params) }),
+  });
+}
+
+export function useUpdateProgramInputs() {
+  return useMutation({
+    mutationFn: ({ programId, inputs }) =>
+      api(`/programs/${programId}/inputs`, {
+        method: "PATCH",
+        body: JSON.stringify({ inputs }),
+      }),
+  });
+}
+
+export function useSwapExercise() {
+  return useMutation({
+    mutationFn: ({ programId, dayAbbr, slot, newExercise }) =>
+      api(
+        `/programs/${programId}/swap?day_abbr=${encodeURIComponent(dayAbbr)}&slot=${encodeURIComponent(slot)}&new_exercise=${encodeURIComponent(newExercise)}`,
+        { method: "PATCH" }
+      ),
+  });
+}
+
 // Heart Rate
 export function useHrStatus() {
   return useQuery({

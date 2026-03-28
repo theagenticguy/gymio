@@ -34,12 +34,12 @@ function LazyFallback() {
 const PRIMARY_TABS = [
   { id: "timer", icon: TimerIcon, label: "Timer" },
   { id: "journal", icon: Dumbbell, label: "Journal" },
-  { id: "coach", icon: Brain, label: "Coach" },
+  { id: "program", icon: CalendarDays, label: "Program" },
 ];
 
 const MORE_TABS = [
+  { id: "coach", icon: Brain, label: "Coach", color: "text-purple-400" },
   { id: "9round", icon: Flame, label: "9-Round", color: "text-red-400" },
-  { id: "program", icon: CalendarDays, label: "Program", color: "text-purple-400" },
   { id: "recap", icon: Trophy, label: "Recap", color: "text-yellow-400" },
   { id: "music", icon: Music, label: "Music", color: "text-blue-400" },
 ];

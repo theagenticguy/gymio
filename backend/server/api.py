@@ -5,7 +5,7 @@ import platform
 
 from my_types import Workout
 from trainer import Trainer
-from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from apscheduler.schedulers.background import BackgroundScheduler
 from database.models import ButtonRestDuration, Base
@@ -995,6 +995,59 @@ class ProgramRequest(BaseModel):
     notes: str = ""
 
 
+class ProgramImportRequest(BaseModel):
+    user: str = "laith"
+    payload: dict | None = None
+
+
+@app.get("/programs/templates/powerbuilding")
+async def get_powerbuilding_template():
+    """Return the pre-converted powerbuilding program JSON."""
+    data_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "powerbuilding_program.json")
+    if not os.path.exists(data_path):
+        raise HTTPException(status_code=404, detail="Powerbuilding template not found")
+    with open(data_path) as f:
+        return json.load(f)
+
+
+@app.post("/programs/import")
+async def import_program(req: ProgramImportRequest, db: Session = Depends(get_db)):
+    """Import an external program (e.g. from Excel) as the active program."""
+    payload = req.payload
+
+    # If no payload provided, load the default powerbuilding template
+    if not payload:
+        data_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "powerbuilding_program.json")
+        if not os.path.exists(data_path):
+            raise HTTPException(status_code=404, detail="Default powerbuilding template not found")
+        with open(data_path) as f:
+            payload = json.load(f)
+
+    if not payload.get("weekly_template"):
+        raise HTTPException(status_code=422, detail="Payload must contain weekly_template")
+
+    # Deactivate existing active programs for this user
+    db.query(Program).filter(
+        Program.user == req.user,
+        Program.active == True,
+    ).update({"active": False})
+
+    program = Program(
+        user=req.user,
+        goal=payload.get("split_type", "powerbuilding"),
+        days_per_week=payload.get("days_per_week", len(payload["weekly_template"])),
+        weeks=payload.get("weeks", 8),
+        payload=payload,
+        active=True,
+        notes=payload.get("design_notes"),
+        created_at=datetime.now(timezone.utc),
+    )
+    db.add(program)
+    db.commit()
+    db.refresh(program)
+    return {"program": payload, "id": program.id}
+
+
 @app.post("/programs/generate")
 async def generate_program(req: ProgramRequest, db: Session = Depends(get_db)):
     """Generate a new multi-week training program via AI."""
@@ -1026,7 +1079,7 @@ async def generate_program(req: ProgramRequest, db: Session = Depends(get_db)):
         db.refresh(program)
         return {"program": result, "id": program.id}
 
-    return {"error": str(result)}
+    raise HTTPException(status_code=500, detail=str(result))
 
 
 @app.get("/programs/active")
@@ -1130,5 +1183,44 @@ async def program_compliance(program_id: int, db: Session = Depends(get_db)):
 @app.delete("/programs/{program_id}")
 async def deactivate_program(program_id: int, db: Session = Depends(get_db)):
     db.query(Program).filter(Program.id == program_id).update({"active": False})
+    db.commit()
+    return {"succeeded": True}
+
+
+class OneRMUpdate(BaseModel):
+    inputs: dict  # e.g. {"Back Squat": {"estimated_1rm": 315}, "Bench Press": {"estimated_1rm": 225}}
+
+
+@app.patch("/programs/{program_id}/inputs")
+async def update_program_inputs(program_id: int, req: OneRMUpdate, db: Session = Depends(get_db)):
+    """Update 1RM inputs stored in the program payload."""
+    program = db.query(Program).filter(Program.id == program_id).first()
+    if not program:
+        raise HTTPException(status_code=404, detail="Program not found")
+
+    payload = dict(program.payload)
+    payload["user_inputs"] = req.inputs
+    db.query(Program).filter(Program.id == program_id).update({"payload": payload})
+    db.commit()
+    return {"succeeded": True, "inputs": req.inputs}
+
+
+@app.patch("/programs/{program_id}/swap")
+async def swap_program_exercise(program_id: int, day_abbr: str, slot: str, new_exercise: str, db: Session = Depends(get_db)):
+    """Swap an exercise in the program template."""
+    program = db.query(Program).filter(Program.id == program_id).first()
+    if not program:
+        raise HTTPException(status_code=404, detail="Program not found")
+
+    payload = dict(program.payload)
+    for day in payload.get("weekly_template", []):
+        if day.get("day_abbr") == day_abbr:
+            for ex in day.get("exercises", []):
+                if ex.get("slot") == slot:
+                    ex["exercise"] = new_exercise
+                    break
+            break
+
+    db.query(Program).filter(Program.id == program_id).update({"payload": payload})
     db.commit()
     return {"succeeded": True}

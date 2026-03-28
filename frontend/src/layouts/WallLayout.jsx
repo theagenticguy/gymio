@@ -2,6 +2,7 @@ import { Timer } from "../components/Timer";
 import { HeartRate } from "../components/HeartRate";
 import { SessionStats } from "../components/SessionStats";
 import { NowPlaying } from "../components/NowPlaying";
+import { TodayWorkout } from "../components/TodayWorkout";
 import { useStore } from "../store";
 
 export function WallLayout() {
@@ -38,9 +39,14 @@ export function WallLayout() {
         </div>
       </div>
 
-      {/* ── RIGHT: Now Playing ──────────────────────────────────── */}
-      <aside className={`relative z-10 w-[340px] shrink-0 border-l ${sideGlow} transition-all duration-700`}>
-        <NowPlaying controls={false} />
+      {/* ── RIGHT: Today's Workout + Now Playing ──────────────── */}
+      <aside className={`relative z-10 w-[380px] shrink-0 border-l ${sideGlow} transition-all duration-700 flex flex-col`}>
+        <div className="flex-1 overflow-hidden">
+          <TodayWorkout />
+        </div>
+        <div className="shrink-0 border-t border-white/[0.04]">
+          <NowPlaying controls={false} />
+        </div>
       </aside>
     </div>
   );
