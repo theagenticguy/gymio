@@ -31,7 +31,7 @@ export const useStore = create(
       setNineRoundActiveCard: (idx) => set({ nineRoundActiveCard: idx }),
 
       // Timer state (from WebSocket)
-      timer: { remaining: 0, duration: 0, phase: "idle", round: 0, totalRounds: 0 },
+      timer: { remaining: 0, duration: 0, phaseEndTime: 0, phase: "idle", round: 0, totalRounds: 0 },
       setTimer: (timer) => set({ timer }),
 
       // Lights state (from WebSocket)
@@ -43,7 +43,7 @@ export const useStore = create(
       setNowPlaying: (nowPlaying) => set({ nowPlaying }),
 
       // Button mode (freeform training via GPIO button)
-      buttonMode: { active: false, state: "idle", set: 0, remaining: 0, duration: 0 },
+      buttonMode: { active: false, state: "idle", set: 0, remaining: 0, duration: 0, phaseEndTime: 0 },
       setButtonMode: (buttonMode) => set({ buttonMode }),
 
       // HR (from WebSocket — expanded with zone + HRV)

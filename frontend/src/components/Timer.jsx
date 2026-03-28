@@ -14,6 +14,12 @@ function formatTime(s) {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 }
 
+/** Compute accurate remaining from an absolute end timestamp (ms). */
+function remainingFromEndTime(endTimeMs) {
+  if (!endTimeMs) return 0;
+  return Math.max(0, Math.ceil((endTimeMs - Date.now()) / 1000));
+}
+
 // Responsive sizes: small on mobile, big on TV wall
 function useTimerSize() {
   const vw = typeof window !== "undefined" ? window.innerWidth : 1024;
@@ -30,7 +36,7 @@ function useTimerSize() {
 export function Timer() {
   const timer = useStore((s) => s.timer);
   const buttonMode = useStore((s) => s.buttonMode);
-  const { remaining, duration, phase, round, totalRounds } = timer;
+  const { remaining, duration, phaseEndTime, phase, round, totalRounds } = timer;
   const { circleSize, glowSize, pulseSize, strokeWidth } = useTimerSize();
 
   // Priority: HIIT timer > Button mode > Idle
@@ -39,17 +45,24 @@ export function Timer() {
   const isButtonTraining = isButtonMode && buttonMode.state === "training";
   const isButtonResting = isButtonMode && buttonMode.state === "resting";
 
+  // Compute accurate remaining from absolute end timestamps (survives tab switch / reconnect)
+  const hiitRemaining = phaseEndTime ? remainingFromEndTime(phaseEndTime) : remaining;
+  const buttonRemaining = buttonMode.phaseEndTime
+    ? remainingFromEndTime(buttonMode.phaseEndTime)
+    : buttonMode.remaining;
+
   let displayPhase, displayRemaining, displayDuration, phaseKey;
   if (isHiitActive) {
     displayPhase = phase;
-    displayRemaining = remaining;
+    displayRemaining = hiitRemaining;
     displayDuration = duration;
-    phaseKey = `${phase}-${round}`;
+    // Include phaseEndTime in key so reconnect mid-phase forces remount with accurate remaining
+    phaseKey = `${phase}-${round}-${phaseEndTime || ""}`;
   } else if (isButtonResting) {
     displayPhase = "rest";
-    displayRemaining = buttonMode.remaining;
+    displayRemaining = buttonRemaining;
     displayDuration = buttonMode.duration;
-    phaseKey = `button-rest-${buttonMode.set}`;
+    phaseKey = `button-rest-${buttonMode.set}-${buttonMode.phaseEndTime || ""}`;
   } else if (isButtonTraining) {
     displayPhase = "train";
     displayRemaining = 0;
@@ -244,6 +257,22 @@ export function Timer() {
               </motion.div>
             );
           })}
+        </motion.div>
+      )}
+
+      {/* Freeform session label (visible on both phone and TV wall) */}
+      {isButtonMode && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center gap-1"
+        >
+          <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-foreground/40">
+            Freeform Session
+          </span>
+          <span className="text-sm font-medium text-foreground/70">
+            {buttonMode.set} {buttonMode.set === 1 ? "set" : "sets"} — {buttonMode.state === "resting" ? "Resting" : "Training"}
+          </span>
         </motion.div>
       )}
     </div>

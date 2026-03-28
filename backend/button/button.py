@@ -22,6 +22,7 @@ class Button:
         self._lock = threading.Lock()
         self._rest_start_time = 0.0
         self._rest_duration = 0
+        self._phase_end_time = 0.0
 
         # Session state
         self._session_active = False
@@ -57,6 +58,7 @@ class Button:
                 "set": self._current_set,
                 "remaining": remaining,
                 "duration": self._rest_duration if self._state == "resting" else 0,
+                "phase_end_time": self._phase_end_time,
             }
 
     def _handle_press(self):
@@ -86,6 +88,7 @@ class Button:
                 self._state = "training"
                 self._rest_start_time = 0.0
                 self._rest_duration = 0
+                self._phase_end_time = 0.0
                 self.lights.all_off()
                 self.lights.green_on()
                 self._broadcast_state()
@@ -101,6 +104,7 @@ class Button:
 
         self._rest_start_time = time.monotonic()
         self._rest_duration = duration
+        self._phase_end_time = time.time() + duration
         self._broadcast_state()
 
         def _rest_done():
@@ -110,6 +114,7 @@ class Button:
                 self._state = "training"
                 self._rest_start_time = 0.0
                 self._rest_duration = 0
+                self._phase_end_time = 0.0
                 self.lights.all_off()
                 self.lights.green_on()
                 self._broadcast_state()
@@ -128,6 +133,7 @@ class Button:
             self._state = "idle"
             self._rest_start_time = 0.0
             self._rest_duration = 0
+            self._phase_end_time = 0.0
             self.lights.all_off()
             self._broadcast_state()
 
@@ -141,6 +147,7 @@ class Button:
             "set": self._current_set,
             "remaining": remaining,
             "duration": self._rest_duration if self._state == "resting" else 0,
+            "phase_end_time": self._phase_end_time,
         })
         color = "green" if self._state == "training" else "red" if self._state == "resting" else "off"
         self.broadcast({"type": "lights", "color": color, "mode": "solid"})

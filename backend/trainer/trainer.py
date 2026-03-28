@@ -26,6 +26,7 @@ class Trainer:
         self._current_color = "off"
         self._phase_start_time = 0.0
         self._phase_duration = 0
+        self._phase_end_time = 0.0
 
     def _setup_light_functions(self):
         if is_pi:
@@ -53,10 +54,12 @@ class Trainer:
         self._current_color = color
         self._phase_start_time = time.monotonic()
         self._phase_duration = seconds
+        self._phase_end_time = time.time() + seconds
         self.broadcast({
             "type": "timer",
             "remaining": seconds,
             "duration": seconds,
+            "phase_end_time": self._phase_end_time,
             "phase": phase,
             "round": round_num,
             "total_rounds": self._total_rounds,
@@ -175,10 +178,12 @@ class Trainer:
             self.job = None
             self._phase_duration = 0
             self._phase_start_time = 0.0
+            self._phase_end_time = 0.0
             self.broadcast({
                 "type": "timer",
                 "remaining": 0,
                 "duration": 0,
+                "phase_end_time": 0,
                 "phase": "idle",
                 "round": self._total_rounds,
                 "total_rounds": self._total_rounds,
@@ -192,10 +197,12 @@ class Trainer:
         self._current_phase = "idle"
         self._phase_duration = 0
         self._phase_start_time = 0.0
+        self._phase_end_time = 0.0
         self.broadcast({
             "type": "timer",
             "remaining": 0,
             "duration": 0,
+            "phase_end_time": 0,
             "phase": "idle",
             "round": 0,
             "total_rounds": 0,

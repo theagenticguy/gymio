@@ -91,6 +91,7 @@ async def websocket_endpoint(websocket: WebSocket):
         "type": "timer",
         "remaining": trainer.get_remaining(),
         "duration": trainer._phase_duration,
+        "phase_end_time": trainer._phase_end_time,
         "phase": trainer._current_phase,
         "round": trainer._current_round,
         "total_rounds": trainer._total_rounds,
@@ -106,9 +107,14 @@ async def websocket_endpoint(websocket: WebSocket):
         track = sonos.get_now_playing()
         if track.get("title"):
             await websocket.send_json({"type": "now_playing", **track})
-    # Button mode (freeform training)
-    if _button is not None and _button.session_active:
+    # Button mode (always send — ensures stale state is cleared on reconnect)
+    if _button is not None:
         await websocket.send_json(_button.get_status())
+    else:
+        await websocket.send_json({
+            "type": "button_mode", "active": False, "state": "idle",
+            "set": 0, "remaining": 0, "duration": 0, "phase_end_time": 0,
+        })
     # HR
     if hr_service.connected:
         status = hr_service.get_status()

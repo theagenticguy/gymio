@@ -33,6 +33,7 @@ export function useWebSocket() {
           setTimer({
             remaining: msg.remaining,
             duration: msg.duration || msg.remaining,
+            phaseEndTime: msg.phase_end_time ? msg.phase_end_time * 1000 : 0,
             phase: msg.phase,
             round: msg.round,
             totalRounds: msg.total_rounds,
@@ -48,6 +49,7 @@ export function useWebSocket() {
             set: msg.set || 0,
             remaining: msg.remaining || 0,
             duration: msg.duration || 0,
+            phaseEndTime: msg.phase_end_time ? msg.phase_end_time * 1000 : 0,
           });
           break;
         case "now_playing":
