@@ -1,8 +1,42 @@
-import { Play, Square, Pause, RotateCcw, Settings } from "lucide-react";
+import { Play, Square, Pause, RotateCcw, Settings, Minus, Plus, Timer as TimerIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { useStore } from "../store";
-import { useStartWorkout, useStopWorkout, usePauseWorkout, useResumeWorkout, useButtonStop } from "../hooks/useApi";
+import { useStartWorkout, useStopWorkout, usePauseWorkout, useResumeWorkout, useButtonStop, useButtonDuration, useSetButtonDuration } from "../hooks/useApi";
 import { motion } from "motion/react";
+import { useQueryClient } from "@tanstack/react-query";
+
+function RestDurationPicker() {
+  const { data } = useButtonDuration();
+  const setDuration = useSetButtonDuration();
+  const queryClient = useQueryClient();
+  const current = data?.duration || 60;
+
+  const adjust = (delta) => {
+    const next = Math.max(30, Math.min(300, current + delta));
+    setDuration.mutate(next, {
+      onSuccess: () => queryClient.invalidateQueries({ queryKey: ["buttonDuration"] }),
+    });
+  };
+
+  return (
+    <div className="flex items-center gap-1.5">
+      <TimerIcon className="h-3.5 w-3.5 text-text-tertiary" />
+      <button
+        onClick={() => adjust(-15)}
+        className="h-7 w-7 flex items-center justify-center rounded-md bg-white/5 hover:bg-white/10 text-text-secondary"
+      >
+        <Minus className="h-3.5 w-3.5" />
+      </button>
+      <span className="text-sm font-mono text-text-secondary w-8 text-center">{current}s</span>
+      <button
+        onClick={() => adjust(15)}
+        className="h-7 w-7 flex items-center justify-center rounded-md bg-white/5 hover:bg-white/10 text-text-secondary"
+      >
+        <Plus className="h-3.5 w-3.5" />
+      </button>
+    </div>
+  );
+}
 
 export function Controls({ onSetup }) {
   const workout = useStore((s) => s.workout);
@@ -23,11 +57,9 @@ export function Controls({ onSetup }) {
       className="flex items-center gap-3"
     >
       {isButtonMode ? (
-        /* Button mode active — show stop + set info */
+        /* Button mode active — rest duration picker + stop */
         <>
-          <span className="text-sm text-text-secondary font-medium px-2">
-            Set {buttonMode.set} — {buttonMode.state === "resting" ? "Resting" : "Training"}
-          </span>
+          <RestDurationPicker />
           <Button
             variant="stop"
             size="lg"
@@ -35,7 +67,7 @@ export function Controls({ onSetup }) {
             className="glow-red"
           >
             <Square className="h-5 w-5 mr-2" />
-            End Session
+            End
           </Button>
         </>
       ) : !isActive ? (
