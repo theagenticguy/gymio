@@ -29,26 +29,43 @@ function useTimerSize() {
 
 export function Timer() {
   const timer = useStore((s) => s.timer);
-  const buttonRest = useStore((s) => s.buttonRest);
+  const buttonMode = useStore((s) => s.buttonMode);
   const { remaining, duration, phase, round, totalRounds } = timer;
   const { circleSize, glowSize, pulseSize, strokeWidth } = useTimerSize();
 
-  // Button rest takes over when HIIT timer is idle
+  // Priority: HIIT timer > Button mode > Idle
   const isHiitActive = phase !== "idle";
-  const showButtonRest = !isHiitActive && buttonRest.active;
+  const isButtonMode = !isHiitActive && buttonMode.active;
+  const isButtonTraining = isButtonMode && buttonMode.state === "training";
+  const isButtonResting = isButtonMode && buttonMode.state === "resting";
 
-  const displayPhase = showButtonRest ? "rest" : phase;
-  const displayRemaining = showButtonRest ? buttonRest.remaining : remaining;
-  const displayDuration = showButtonRest ? buttonRest.duration : duration;
+  let displayPhase, displayRemaining, displayDuration, phaseKey;
+  if (isHiitActive) {
+    displayPhase = phase;
+    displayRemaining = remaining;
+    displayDuration = duration;
+    phaseKey = `${phase}-${round}`;
+  } else if (isButtonResting) {
+    displayPhase = "rest";
+    displayRemaining = buttonMode.remaining;
+    displayDuration = buttonMode.duration;
+    phaseKey = `button-rest-${buttonMode.set}`;
+  } else if (isButtonTraining) {
+    displayPhase = "train";
+    displayRemaining = 0;
+    displayDuration = 0;
+    phaseKey = `button-train-${buttonMode.set}`;
+  } else {
+    displayPhase = "idle";
+    displayRemaining = 0;
+    displayDuration = 0;
+    phaseKey = "idle";
+  }
 
   const cfg = PHASE[displayPhase] || PHASE.idle;
   const active = displayPhase !== "idle";
 
-  // Capture duration + initialRemaining once per phase/round so CountdownCircleTimer
-  // doesn't reset on every WS tick (remaining changes at 1Hz)
-  const phaseKey = showButtonRest
-    ? `button-rest-${buttonRest.press}`
-    : `${phase}-${round}`;
+  // Stabilize CountdownCircleTimer per phase
   const phaseDuration = displayDuration || displayRemaining || 1;
   const phaseRef = useRef({ key: phaseKey, duration: phaseDuration, initial: displayRemaining });
   if (phaseRef.current.key !== phaseKey) {
@@ -108,53 +125,100 @@ export function Timer() {
             exit={{ scale: 0.92, opacity: 0 }}
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
           >
-            <CountdownCircleTimer
-              key={phaseKey}
-              isPlaying={active}
-              duration={phaseRef.current.duration}
-              initialRemainingTime={phaseRef.current.initial}
-              colors={cfg.color}
-              trailColor="#18181b"
-              strokeWidth={strokeWidth}
-              size={circleSize}
-              strokeLinecap="round"
-            >
-              {({ remainingTime }) => (
-                <div className="flex flex-col items-center gap-1">
-                  {/* Phase label */}
+            {isButtonTraining ? (
+              /* Button training: static green ring with SET number */
+              <div className="relative flex items-center justify-center">
+                <svg width={circleSize} height={circleSize} viewBox={`0 0 ${circleSize} ${circleSize}`}>
+                  <circle
+                    cx={circleSize / 2}
+                    cy={circleSize / 2}
+                    r={(circleSize - strokeWidth) / 2}
+                    fill="none"
+                    stroke="#18181b"
+                    strokeWidth={strokeWidth}
+                  />
+                  <circle
+                    cx={circleSize / 2}
+                    cy={circleSize / 2}
+                    r={(circleSize - strokeWidth) / 2}
+                    fill="none"
+                    stroke={cfg.color}
+                    strokeWidth={strokeWidth}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
                   <motion.span
-                    key={cfg.label}
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-[11px] font-bold uppercase tracking-[0.3em]"
                     style={{ color: cfg.color }}
                   >
-                    {cfg.label}
+                    TRAIN
                   </motion.span>
-
-                  {/* Big time */}
                   <span
                     className={`display-number text-[4.5rem] leading-none font-black ${cfg.neon}`}
-                    style={{ color: active ? "#fafafa" : "#52525b" }}
+                    style={{ color: "#fafafa" }}
                   >
-                    {formatTime(active ? remainingTime : remaining)}
+                    SET {buttonMode.set}
                   </span>
-
-                  {/* Round (HIIT only) */}
-                  {active && !showButtonRest && (
-                    <span className="display-number text-sm text-foreground mt-1.5">
-                      Round {round} / {totalRounds}
-                    </span>
-                  )}
                 </div>
-              )}
-            </CountdownCircleTimer>
+              </div>
+            ) : (
+              /* HIIT timer or button rest: countdown circle */
+              <CountdownCircleTimer
+                key={phaseKey}
+                isPlaying={active}
+                duration={phaseRef.current.duration}
+                initialRemainingTime={phaseRef.current.initial}
+                colors={cfg.color}
+                trailColor="#18181b"
+                strokeWidth={strokeWidth}
+                size={circleSize}
+                strokeLinecap="round"
+              >
+                {({ remainingTime }) => (
+                  <div className="flex flex-col items-center gap-1">
+                    {/* Phase label */}
+                    <motion.span
+                      key={cfg.label}
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-[11px] font-bold uppercase tracking-[0.3em]"
+                      style={{ color: cfg.color }}
+                    >
+                      {cfg.label}
+                    </motion.span>
+
+                    {/* Big time */}
+                    <span
+                      className={`display-number text-[4.5rem] leading-none font-black ${cfg.neon}`}
+                      style={{ color: active ? "#fafafa" : "#52525b" }}
+                    >
+                      {formatTime(active ? remainingTime : remaining)}
+                    </span>
+
+                    {/* Round (HIIT) or Set (button rest) */}
+                    {isHiitActive && active && (
+                      <span className="display-number text-sm text-foreground mt-1.5">
+                        Round {round} / {totalRounds}
+                      </span>
+                    )}
+                    {isButtonResting && (
+                      <span className="display-number text-sm text-foreground mt-1.5">
+                        Set {buttonMode.set}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </CountdownCircleTimer>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
 
       {/* Round progress dots (HIIT only) */}
-      {active && !showButtonRest && totalRounds > 0 && (
+      {isHiitActive && active && totalRounds > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

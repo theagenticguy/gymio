@@ -42,9 +42,9 @@ export const useStore = create(
       nowPlaying: { title: "", artist: "", album: "", albumArt: "", duration: "", position: "" },
       setNowPlaying: (nowPlaying) => set({ nowPlaying }),
 
-      // Button rest (from WebSocket — physical GPIO button)
-      buttonRest: { active: false, remaining: 0, duration: 0, press: 0 },
-      setButtonRest: (buttonRest) => set({ buttonRest }),
+      // Button mode (freeform training via GPIO button)
+      buttonMode: { active: false, state: "idle", set: 0, remaining: 0, duration: 0 },
+      setButtonMode: (buttonMode) => set({ buttonMode }),
 
       // HR (from WebSocket — expanded with zone + HRV)
       hr: { bpm: 0, zone: 0, zoneName: "", zoneColor: "#6b7280", zonePct: 0 },

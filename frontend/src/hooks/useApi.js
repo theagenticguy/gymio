@@ -60,6 +60,12 @@ export function useSetButtonDuration() {
   });
 }
 
+export function useButtonStop() {
+  return useMutation({
+    mutationFn: () => api("/button/stop", { method: "POST" }),
+  });
+}
+
 // Sonos
 export function useSonosNowPlaying() {
   return useQuery({

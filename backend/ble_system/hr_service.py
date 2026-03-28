@@ -200,6 +200,15 @@ class HeartRateService:
                     while client.is_connected and not self._stop_event.is_set():
                         await asyncio.sleep(1)
 
+                    # Graceful BLE disconnect (strap removed, out of range)
+                    if not self._stop_event.is_set():
+                        self.connected = False
+                        self.last_bpm = 0
+                        self.hrv.reset()
+                        await self.broadcast(
+                            {"type": "hr_status", "connected": False, "error": "Device disconnected"}
+                        )
+
             except asyncio.CancelledError:
                 break
             except Exception as e:

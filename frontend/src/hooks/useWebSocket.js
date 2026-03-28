@@ -8,7 +8,7 @@ export function useWebSocket() {
   const setTimer = useStore((s) => s.setTimer);
   const setLights = useStore((s) => s.setLights);
   const setNowPlaying = useStore((s) => s.setNowPlaying);
-  const setButtonRest = useStore((s) => s.setButtonRest);
+  const setButtonMode = useStore((s) => s.setButtonMode);
   const setHr = useStore((s) => s.setHr);
   const setHrv = useStore((s) => s.setHrv);
   const setHrStatus = useStore((s) => s.setHrStatus);
@@ -41,12 +41,13 @@ export function useWebSocket() {
         case "lights":
           setLights({ color: msg.color, mode: msg.mode });
           break;
-        case "button_rest":
-          setButtonRest({
+        case "button_mode":
+          setButtonMode({
             active: msg.active,
-            remaining: msg.remaining,
-            duration: msg.duration,
-            press: msg.press || 0,
+            state: msg.state || "idle",
+            set: msg.set || 0,
+            remaining: msg.remaining || 0,
+            duration: msg.duration || 0,
           });
           break;
         case "now_playing":
@@ -82,6 +83,10 @@ export function useWebSocket() {
             address: msg.address || null,
             error: msg.error || null,
           });
+          if (!msg.connected) {
+            setHr({ bpm: 0, zone: 0, zoneName: "", zoneColor: "#6b7280", zonePct: 0 });
+            setHrv({ rmssd: null, sdnn: null, recoveryScore: null });
+          }
           break;
         case "pr":
           addPr({
@@ -104,7 +109,7 @@ export function useWebSocket() {
     ws.onerror = () => {
       ws.close();
     };
-  }, [wsUrl, setTimer, setLights, setButtonRest, setNowPlaying, setHr, setHrv, setHrStatus, addHrPoint, addPr, setActiveTab]);
+  }, [wsUrl, setTimer, setLights, setButtonMode, setNowPlaying, setHr, setHrv, setHrStatus, addHrPoint, addPr, setActiveTab]);
 
   useEffect(() => {
     connect();

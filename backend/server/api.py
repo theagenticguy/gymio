@@ -106,15 +106,9 @@ async def websocket_endpoint(websocket: WebSocket):
         track = sonos.get_now_playing()
         if track.get("title"):
             await websocket.send_json({"type": "now_playing", **track})
-    # Button rest (if active)
-    if _button is not None and _button.rest_active:
-        await websocket.send_json({
-            "type": "button_rest",
-            "active": True,
-            "remaining": _button.get_remaining(),
-            "duration": _button._rest_duration,
-            "press": _button._press_count,
-        })
+    # Button mode (freeform training)
+    if _button is not None and _button.session_active:
+        await websocket.send_json(_button.get_status())
     # HR
     if hr_service.connected:
         status = hr_service.get_status()
@@ -166,6 +160,9 @@ async def shutdown_event():
 
 @app.post("/start")
 async def start(workout: Workout):
+    # Stop button mode if active (HIIT takes priority)
+    if _button is not None and _button.session_active:
+        _button.stop_session()
     trainer.post_schedule(workout)
     return {"succeeded": True}
 
@@ -302,6 +299,8 @@ async def nine_round_react(reaction: RoundReactionRequest, db: Session = Depends
 @app.post("/nine-round/start")
 async def nine_round_start(req: NineRoundRequest):
     """Start a 9-round workout on the trainer/lights."""
+    if _button is not None and _button.session_active:
+        _button.stop_session()
     manager.broadcast_sync({"type": "nine_round_start"})
     hiit = Workout(rounds=9, train=req.round_duration, rest=req.rest_duration)
     trainer.post_schedule(hiit)
@@ -350,6 +349,23 @@ async def get_button_duration(db: Session = Depends(get_db)):
     if button_rest_duration:
         return {"duration": button_rest_duration.duration}
     return {"duration": 60}
+
+
+@app.post("/button/stop")
+async def button_stop():
+    """Stop the freeform button training session."""
+    if _button is not None:
+        _button.stop_session()
+        return {"succeeded": True}
+    return {"succeeded": False, "error": "Button not available"}
+
+
+@app.get("/button/status")
+async def button_status():
+    """Get current button mode status."""
+    if _button is not None:
+        return _button.get_status()
+    return {"active": False, "state": "idle", "set": 0, "remaining": 0, "duration": 0}
 
 
 # --- Sonos control ---
