@@ -195,6 +195,10 @@ class Trainer:
         self.scheduler.remove_all_jobs()
         self.job = None
         self._current_phase = "idle"
+        self._current_round = 0
+        self._total_rounds = 0
+        self._current_remaining = 0
+        self._current_color = "off"
         self._phase_duration = 0
         self._phase_start_time = 0.0
         self._phase_end_time = 0.0
