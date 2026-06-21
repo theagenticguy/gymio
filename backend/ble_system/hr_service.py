@@ -179,10 +179,14 @@ class HeartRateService:
             )
             return
 
+        backoff = 5  # seconds; grows exponentially while the device is absent
+        last_logged_error = None  # suppress identical repeat errors in the journal
         while not self._stop_event.is_set():
             try:
                 async with BleakClient(address, timeout=15.0) as client:
                     self.connected = True
+                    backoff = 5  # reset once we reconnect
+                    last_logged_error = None
                     await self.broadcast(
                         {"type": "hr_status", "connected": True, "address": address}
                     )
@@ -212,13 +216,18 @@ class HeartRateService:
             except asyncio.CancelledError:
                 break
             except Exception as e:
-                print(f"BLE error: {e}")
+                # Log only when the error changes — otherwise a missing strap
+                # spams the journal with one identical line every retry.
+                if str(e) != last_logged_error:
+                    print(f"BLE error: {e} (retrying with backoff, suppressing repeats)")
+                    last_logged_error = str(e)
                 self.connected = False
                 await self.broadcast(
                     {"type": "hr_status", "connected": False, "error": str(e)}
                 )
                 if not self._stop_event.is_set():
-                    await asyncio.sleep(5)
+                    await asyncio.sleep(backoff)
+                    backoff = min(backoff * 2, 300)  # cap at 5 min
 
     async def _handle_hr_data(self, data: bytearray):
         now = datetime.now(timezone.utc).timestamp()
